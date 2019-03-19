@@ -18,6 +18,9 @@ class VisitMiddleware
      */
     public function handle($request, Closure $next)
     {
+
+        //Da inserire controllo su ruolo admin e su utente loggato, se è proprietario non devo procedere
+
         //Salvo id appartamento passato in route
         $apartment_id = $request->route()->parameters();
         $request['apartment_id'] = $apartment_id['id'];
