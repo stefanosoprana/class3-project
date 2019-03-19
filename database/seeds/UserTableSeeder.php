@@ -12,13 +12,22 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        $new_user = new User;
 
-        $new_user->name = 'Chiara';
-        $new_user->lastname = 'Passaro';
-        $new_user->email = 'email@email.it';
-        $new_user->password =  Hash::make('123456');
+        $users = [
+            [
+                'name' => 'Super',
+                'lastname' => 'Admin',
+                'email' => 'example@example.it',
+                'password' => Hash::make('123456')
+            ],
+            [
+                'name' => 'Owner',
+                'lastname' => 'User',
+                'email' => 'example2@example.it',
+                'password' => Hash::make('123456')
+            ],
+        ];
 
-        $new_user->save();
+        User::insert($users);
     }
 }
