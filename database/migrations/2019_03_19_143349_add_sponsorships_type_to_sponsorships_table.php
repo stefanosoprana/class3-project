@@ -15,7 +15,7 @@ class AddSponsorshipsTypeToSponsorshipsTable extends Migration
     {
         Schema::table('sponsorships', function (Blueprint $table) {
           $table->unsignedInteger('sponsorships_type_id')->after('id');
-          $table->foreign('sponsorships_type_id')->references('id')->on('sponsorships_type');
+          $table->foreign('sponsorships_type_id')->references('id')->on('sponsorships_type')->onDelete('cascade');
         });
     }
 
