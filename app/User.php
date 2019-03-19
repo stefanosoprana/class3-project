@@ -6,8 +6,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
-
-
+use App\Message;
+use App\Apartment;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -40,4 +40,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function messages(){
+      return $this->hasMany('App\Message');
+    }
+
+    public function apartments(){
+      return $this->hasMany('App\Apartment');
+    }
 }
