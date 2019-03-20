@@ -58,7 +58,7 @@ class ApartmentController extends Controller
                 'error'=>'Appartamento non esistente',
                 'result'=> ''
             ]);
-            
+
         }
     }
 }
