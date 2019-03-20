@@ -20,6 +20,8 @@ Route::get('/', function () {
 //tutti gli appartamenti con ricerca per guest
 Route::get('/apartments', 'ApartmentController@index');
 Route::get('/apartment/{id}', 'ApartmentController@show')->middleware('visit');
+
+
 //tutte le altre rotte appartamenti
 Route::middleware('auth')->group(function () {
     Route::get('/apartments/{user}', 'ApartmentController@userIndex')->name('apartments.user.index');

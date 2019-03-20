@@ -57,7 +57,7 @@ class VisitMiddleware
         $now = Carbon::now();
 
         //chiamo DB cercando per IP
-        $visit = Visit::where('ip',  $request['ip'])->first();
+        $visit = Visit::where('ip',  $request['ip'])->orderBy('created_at','desc')->first();
 
         $request['created_at'] = $now->toDateTimeString();
         $request['updated_at'] = $now->toDateTimeString();
@@ -79,7 +79,8 @@ class VisitMiddleware
         else
         {
             $visit_created_at = Carbon::parse($visit['created_at']);
-            $diff = $visit_created_at->diffInMinutes($now, true);
+            $diff = $visit_created_at->diffInMinutes($now);
+
             //se sono passati almeno 30 minuti salvo
             if ($diff > 30){
                 $new_visit->fill($data);

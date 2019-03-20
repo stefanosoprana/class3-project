@@ -13,10 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->namespace('API')->namespace('API')->prefix('API')->name('API.')->group(function() {
+Route::middleware('api.auth')->namespace('Api')->prefix('v1')->name('api.')->group(function() {
     Route::get('/messages', 'MessageController@index')->name('message.index');
     Route::get('/message/{id}', 'MessageController@show')->name('message.show');
     Route::get('/message', 'MessageController@create')->name('message.create');
     Route::post('/message', 'MessageController@store')->name('message.store');
-    Route::post('/apartments/dashboard', 'ApartmentController@create')->name('apartment.dashboard');
+    Route::get('/apartment/{id}/dashboard', 'ApartmentController@show')->name('apartment.dashboard');
 });
