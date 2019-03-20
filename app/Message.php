@@ -8,13 +8,13 @@ use App\Apartment;
 
 class Message extends Model
 {
-   use SoftDeletes;
+   // use SoftDeletes;
 
     public function user(){
       return $this->belongsTo('App\User');
     }
 
-    public function apartments(){
-      return $this->hasMany('App\Apartment');
+    public function apartment(){
+      return $this->belongsTo('App\Apartment');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Message;
 
 class MessageController extends Controller
 {
@@ -13,7 +14,11 @@ class MessageController extends Controller
      */
     public function index()
     {
-        //
+
+      $messages = Message::all();
+
+      return view('user.messages.index', compact('messages'));
+
     }
 
     /**
@@ -45,7 +50,13 @@ class MessageController extends Controller
      */
     public function show($id)
     {
-        //
+        $message = Message::find($id);
+
+        if (empty($message)) {
+          abort(404);
+        };
+
+        return view('user.messages.show', compact('message'));
     }
 
     /**
@@ -79,6 +90,10 @@ class MessageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $message = Message::find($id);
+
+        $message->delete();
+
+        return redirect()->back();
     }
 }

@@ -69,4 +69,3 @@ Route::middleware('permission:Admin')->namespace('Admin')->prefix('Admin')->name
     Route::delete('/apartment/{id}/delete', 'ApartmentController@destroy')->name('apartment.destroy');
     Route::get('/apartmens/sponsorships', 'ApartmentController@sponsorships')->name('apartments.sponsorships');
 });
-
