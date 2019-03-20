@@ -9,12 +9,13 @@ use App\Apartment;
 
 class Message extends Model
 {
+   // use SoftDeletes;
 
     public function user(){
       return $this->belongsTo('App\User');
     }
 
-    public function apartments(){
+    public function apartment(){
       return $this->belongsTo('App\Apartment');
     }
 }
