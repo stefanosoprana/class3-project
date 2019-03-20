@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Apartment;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Visit;
 use Carbon\Carbon;
@@ -19,11 +21,21 @@ class VisitMiddleware
     public function handle($request, Closure $next)
     {
 
-        //Da inserire controllo su ruolo admin e su utente loggato, se è proprietario non devo procedere
-
         //Salvo id appartamento passato in route
         $apartment_id = $request->route()->parameters();
         $request['apartment_id'] = $apartment_id['id'];
+
+        //controllo che l'appartamento non sia dell'utente ch elo sta visitando
+        $apartment = Apartment::where('id', $apartment_id)->first();
+        $user_owner = $apartment->user_id;
+
+        //se l'utente è loggato controllo che non sia il proprietario e che non sia l'admin
+        if(!Auth::guest()) {
+            if($user_owner === Auth::user()->id || Auth::user()->hasRole('admin')){
+                return $next($request);
+            }
+        }
+
         //creo nuova Visit
         $new_visit = new Visit();
 
@@ -45,7 +57,7 @@ class VisitMiddleware
         $now = Carbon::now();
 
         //chiamo DB cercando per IP
-        $visit = Visit::where('ip',  $request['ip'])->first();
+        $visit = Visit::where('ip',  $request['ip'])->orderBy('created_at','desc')->first();
 
         $request['created_at'] = $now->toDateTimeString();
         $request['updated_at'] = $now->toDateTimeString();
@@ -67,7 +79,8 @@ class VisitMiddleware
         else
         {
             $visit_created_at = Carbon::parse($visit['created_at']);
-            $diff = $visit_created_at->diffInMinutes($now, true);
+            $diff = $visit_created_at->diffInMinutes($now);
+
             //se sono passati almeno 30 minuti salvo
             if ($diff > 30){
                 $new_visit->fill($data);
