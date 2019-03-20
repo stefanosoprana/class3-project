@@ -28,7 +28,8 @@ import { Bar, Line } from 'vue-chartjs';
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('chart-component', require('./components/ChartComponent.vue').default);
+Vue.component('chart-component-visits', require('./components/ChartVisitsComponent.vue').default);
+Vue.component('chart-component-messages', require('./components/ChartMessagesComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

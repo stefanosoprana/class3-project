@@ -4,11 +4,14 @@
     export default {
         extends: Bar,
         mounted() {
-            //test
-            console.log("mounted");
-            let url = 'http://localhost:8000/api/v1/apartment/1/visits';
+            let href = window.location.href.split('/');
+            let host = href[2];
+            let idApartment = href[href.length - 2];
+            let urlApi = '/api/v1/apartment/';
+
+            let url = 'http://'+host+urlApi+idApartment+'/messages';
             let labels = [];
-            let visits = [];
+            let messages = [];
 
             this.axios({
                 method:'get',
@@ -16,24 +19,25 @@
                 headers: {'Authorization': 'Bearer 123_Pippo_Pluto'}
             }).then((response) => {
                 let data = response.data.result;
-                console.log(data.visits);
-                if(data.visits) {
-                    data.visits.labels.forEach(
+                let messagesData = data.messages;
+                console.log(data.messages);
+                if(messagesData) {
+                    messagesData.labels.forEach(
                         function (element) {
                             labels.push(element);
                         }
                     );
-                    data.visits.number.forEach(
+                    messagesData.number.forEach(
                         function (element) {
-                            visits.push(element);
+                            messages.push(element);
                         }
                     );
                     this.renderChart({
                         labels: labels,
                         datasets: [{
-                            label: 'Visite',
+                            label: 'Messages',
                             backgroundColor: '#FC2525',
-                            data: Visits
+                            data: messages
                         }]
                     }, {
                         responsive: true, maintainAspectRatio: false
