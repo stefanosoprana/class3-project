@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Apartment;
 use Illuminate\Http\Request;
 
 class ApartmentController extends Controller
@@ -80,5 +81,16 @@ class ApartmentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     *
+     * View Statistics
+     *
+     */
+    public function statistics($id)
+    {
+        $apartment = Apartment::find($id)->first();
+        return view('apartment.statistics', compact('apartment'));
     }
 }
