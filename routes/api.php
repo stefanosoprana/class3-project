@@ -18,5 +18,6 @@ Route::middleware('api.auth')->namespace('Api')->prefix('v1')->name('api.')->gro
     Route::get('/message/{id}', 'MessageController@show')->name('message.show');
     Route::get('/message', 'MessageController@create')->name('message.create');
     Route::post('/message', 'MessageController@store')->name('message.store');
-    Route::get('/apartment/{id}/dashboard', 'ApartmentController@show')->name('apartment.dashboard');
+    Route::get('/apartment/{id}/visits', 'ApartmentController@visits')->name('apartment.visits');
+    Route::get('/apartment/{id}/messages', 'ApartmentController@messages')->name('apartment.messages');
 });
