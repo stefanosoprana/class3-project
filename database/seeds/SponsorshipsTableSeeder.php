@@ -1,49 +1,60 @@
 <?php
 
-// use Illuminate\Database\Seeder;
-// use Illuminate\Support\Carbon;
-// use App\Sponsorship;
-// use App\Apartment;
-// use App\SponsorshipsType;
-//
-// class SponsorshipsTableSeeder extends Seeder
-// {
-//     /**
-//      * Run the database seeds.
-//      *
-//      * @return void
-//      */
-//     public function run()
-//     {
-//
-//         $now = Carbon::now();
-//
-//         $data = [
-//             [
-//                 'apartment_id' => 1,
-//                 'sponsorships_type_id' => 1,
-//                 'sponsor_created' => $now,
-//                 'sponsor_expired' => $now->addDay(1)
-//             ],
-//             [
-//                 'apartment_id' => 2,
-//                 'sponsorships_type_id' => 2,
-//                 'sponsor_created' => $now,
-//                 'sponsor_expired' => $now->addDay(2)
-//             ],
-//             [
-//                 'apartment_id' => 3,
-//                 'sponsorships_type_id' => 3,
-//                 'sponsor_created' => $now,
-//                 'sponsor_expired' => $now->addDay(3)
-//             ],
-//
-//
-//
-//         ];
-//
-//
-//
-//
-//     }
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
+use App\Sponsorship;
+use App\Apartment;
+use App\SponsorshipsType;
+
+class SponsorshipsTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+
+
+        // var_dump($sponsorId["period"]);
+        // dd($period);
+          $data = [
+
+          ];
+
+          $apartments = [];
+
+          do {
+          $now = Carbon::now();
+          $apartment = Apartment::inRandomOrder()->first();
+          if (!in_array($apartment["id"],$apartments)) {
+
+            $sponsorId = SponsorshipsType::inRandomOrder()->first();
+
+            $period = $now->addHours($sponsorId["period"]);
+
+            $data[] = [
+              "apartment_id" => $apartment["id"],
+              "sponsorships_type_id" => $sponsorId["id"],
+              "sponsor_expired" =>$period
+            ];
+
+            $apartments[] = $apartment["id"];
+
+
+
+
+          }
+
+        } while (count($apartments)< 5);
+
+
+        Sponsorship::insert($data);
+
+
+
+
+
+    }
 }

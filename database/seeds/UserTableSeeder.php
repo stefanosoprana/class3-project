@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use Faker\Generator as Faker;
 
 class UserTableSeeder extends Seeder
 {
@@ -10,24 +11,30 @@ class UserTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
 
-        $users = [
-            [
-                'name' => 'Super',
-                'lastname' => 'Admin',
-                'email' => 'example@example.it',
-                'password' => Hash::make('123456')
-            ],
-            [
-                'name' => 'Owner',
-                'lastname' => 'User',
-                'email' => 'example2@example.it',
-                'password' => Hash::make('123456')
-            ],
-        ];
+      $newUser = new User;
 
-        User::insert($users);
+      $newUser->name = 'Super';
+      $newUser->lastname = 'Admin';
+      $newUser->email = 'example@example.it';
+      $newUser->password = Hash::make("esempio");
+
+
+      $newUser->save();
+
+
+        for ($i=0; $i < 10; $i++) {
+          $newUser = new User;
+
+          $newUser->name = $faker->firstName;
+          $newUser->lastname = $faker->lastName;
+          $newUser->email = $faker->unique()->email;
+          $newUser->password = Hash::make("esempio");
+
+
+          $newUser->save();
+        }
     }
 }

@@ -16,11 +16,16 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleTableSeeder::class);
         $this->call(PermissionRoleTableSeeder::class);
         $this->call(RoleUserTableSeeder::class);
-        $this->call(ApartmentsTableSeeder::class);
-        $this->call(MessagesTableSeeder::class);
         $this->call(ServicesTableSeeder::class);
         $this->call(SponsorshipsTypeTableSeeder::class);
+        $this->call(ApartmentsTableSeeder::class);
+        $this->call(SponsorshipsTableSeeder::class);
         $this->call(ApartmentServiceTableSeeder::class);
+        $this->call(MessagesTableSeeder::class);
+        $this->call(VisitsTableSeeder::class);
+
+
+
 
 
     }
