@@ -24,9 +24,5 @@ class DatabaseSeeder extends Seeder
         $this->call(MessagesTableSeeder::class);
         $this->call(VisitsTableSeeder::class);
 
-
-
-
-
     }
 }
