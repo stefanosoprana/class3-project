@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Apartment;
+use App\Sponsorship;
 use Illuminate\Http\Request;
 
 class ApartmentController extends Controller
@@ -14,7 +15,21 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        //
+        $apartments = Apartment::all();
+
+        $data =[
+            'apartments' => [],
+            'sponsorships' => []
+        ];
+        foreach ($apartments as $apartment){
+            if(!empty($apartment->sponsorship->id)){
+                $data['sponsorships'][] = $apartment;
+            }
+            else{
+                $data['apartments'][] = $apartment;
+            }
+        }
+        return view('apartment.index',$data);
     }
 
     /**

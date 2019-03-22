@@ -7,7 +7,6 @@ use App\User;
 use App\Message;
 use App\Service;
 use App\Sponsorship;
-use App\Scopes\GetRadiusScope;
 
 class Apartment extends Model
 {
@@ -24,17 +23,19 @@ class Apartment extends Model
     }
 
     public function sponsorship(){
-      return $this->hasOne('App\Sponsorship', 'foreign_key');
+      return $this->hasOne('App\Sponsorship');
     }
 
-
-    public function scopeRadius($query,$longitude,$latitude){
-      $radius = 40000;
-      // 40000 sono in metri, quindi 40 km
+    /*
+     * Uso scope Apartment::radius($longitude, $latitude, $radius)->where(...)->get();
+     * $radius è in metri quindi 40000 per 40km
+    */
+    public function scopeRadius($query, $longitude, $latitude, $radius){
       return $query->whereRaw("
         ST_DISTANCE_SPHERE(
             POINT($longitude, $latitude),
             POINT(longitude, latitude)) < $radius
          ");
     }
+
 }

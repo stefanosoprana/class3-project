@@ -9,10 +9,10 @@ use App\SponsorshipType;
 class Sponsorship extends Model
 {
     public function apartment(){
-       return $this->belongsTo('App\Apartment', 'foreign_key');
+       return $this->belongsTo('App\Apartment');
     }
 
     public function sponsorshipsType(){
-      return $this->hasMany('App\SponsorshipType');
+      return $this->belongsTo('App\SponsorshipType');
     }
 }

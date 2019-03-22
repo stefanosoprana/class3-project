@@ -12,14 +12,11 @@
 */
 
 
-//guest
-Route::get('/', function () {
-    return view('public.home');
-});
 
 //tutti gli appartamenti con ricerca per guest
-Route::get('/apartments', 'ApartmentController@index');
-Route::get('/apartment/{id}', 'ApartmentController@show')->middleware('visit');
+Route::get('/', 'ApartmentController@index')->name('apartments.index');
+Route::get('/apartments', 'ApartmentController@search')->name('apartments.search');
+Route::get('/apartment/{id}', 'ApartmentController@show')->middleware('visit')->name('apartment.show');
 
 
 //tutte le altre rotte appartamenti
