@@ -25,4 +25,6 @@ class Apartment extends Model
     public function sponsorship(){
       return $this->hasOne('App\Sponsorship', 'foreign_key');
     }
+
+    protected $fillable = ['title', 'price', 'image', 'street', 'house_number', 'postal_code', 'state', 'square_meters', 'rooms', 'beds', 'bathrooms', 'user_id'];
 }

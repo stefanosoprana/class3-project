@@ -27,7 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/apartments/{user}', 'ApartmentController@userIndex')->name('apartments.user.index');
     Route::get('/apartment', 'ApartmentController@create')->name('apartment.create');
     Route::post('/apartment', 'ApartmentController@store')->name('apartment.store');
-    Route::patch('/apartment/{id}/update', 'ApartmentController@update')->name('apartment.update');
+    Route::get('/apartment/{id}/edit', 'ApartmentController@edit')->name('apartment.edit');
+    Route::patch('/apartment/{id}', 'ApartmentController@update')->name('apartment.update');
     Route::get('/apartment/{id}/statistics', 'ApartmentController@statistics')->name('apartment.statistic');
     Route::delete('/apartment/{id}/delete', 'ApartmentController@destroy')->name('apartment.destroy');
 });
