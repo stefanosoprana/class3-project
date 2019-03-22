@@ -27,11 +27,14 @@ class Apartment extends Model
       return $this->hasOne('App\Sponsorship', 'foreign_key');
     }
 
-    public function scopeRadius($query,$latitude,$longitude,$radius){
+
+    public function scopeRadius($query,$longitude,$latitude){
+      $radius = 40000;
+      // 40000 sono in metri, quindi 40 km
       return $query->whereRaw("
         ST_DISTANCE_SPHERE(
-            POINT($latitude, $longitude),
-            POINT(latitude, longitude)) < $radius
+            POINT($longitude, $latitude),
+            POINT(longitude, latitude)) < $radius
          ");
     }
 }
