@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Apartment;
 use App\Sponsorship;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ApartmentController extends Controller
@@ -15,15 +16,26 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $apartments = Apartment::all();
-
+        $apartments = Apartment::where('published', true)->get();
         $data =[
             'apartments' => [],
             'sponsorships' => []
         ];
+
+        $now = Carbon::now();
         foreach ($apartments as $apartment){
-            if(!empty($apartment->sponsorship->id)){
-                $data['sponsorships'][] = $apartment;
+            // se esiste la sponsorship
+            if($apartment->sponsorship){
+                //seleziono la sponsorhip con apartment id corrispondente
+                $sponsorship = Sponsorship::where('apartment_id', $apartment->id)->first();
+                //salvo data di fine in formato carbon
+                $sponsorship_expire = Carbon::create($sponsorship['sponsor_expired']);
+                //controllo differenza tra oggi e la data
+                $diff = $sponsorship_expire->diffInDays($now, false);
+                //se è minore di 0 è ancora attiva e la salvo nell'array
+                if($diff < 0){
+                    $data['sponsorships'][] = $apartment;
+                }
             }
             else{
                 $data['apartments'][] = $apartment;
