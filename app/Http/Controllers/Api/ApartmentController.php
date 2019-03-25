@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Apartment;
 use App\Message;
 use App\Visit;
+use App\Service;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -92,4 +93,49 @@ class ApartmentController extends Controller
 
         }
     }
+
+    public function search(){
+      $data = [];
+
+      $apartments = Apartment::all();
+      $services = Service::all();
+
+      // foreach ($services as $service) {
+      //   $service = $apartments->services()->get();
+      // }
+      //
+      //
+
+      // problemi con la many to many relantionship
+
+
+      foreach ($apartments as $apartment) {
+        $rooms = $apartment->rooms;
+        $beds = $apartment->beds;
+        $latitude = $apartment->latitude;
+        $longitude = $apartment->longitude;
+
+        $newData = [
+          'apartments' =>[
+            'rooms'=>$rooms,
+            'beds'=>$beds,
+            'latitude'=>$latitude,
+            'longitude'=>$longitude,
+          ],
+          // 'services'=>[
+          //   'apartment_service'=>$services
+          // ]
+        ];
+
+          $data[] = $newData;
+
+      }
+
+      return response()->json([
+        'success'=>true,
+        'error'=>'',
+        'result'=> $data
+      ]);
+    }
+
 }
