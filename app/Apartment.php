@@ -23,8 +23,19 @@ class Apartment extends Model
     }
 
     public function sponsorship(){
-      return $this->hasOne('App\Sponsorship', 'foreign_key');
+      return $this->hasOne('App\Sponsorship');
     }
 
-    protected $fillable = ['title', 'price', 'image', 'street', 'house_number', 'postal_code', 'state', 'square_meters', 'rooms', 'beds', 'bathrooms', 'user_id'];
+    /*
+     * Uso scope Apartment::radius($longitude, $latitude, $radius)->where(...)->get();
+     * $radius è in metri quindi 40000 per 40km
+    */
+    public function scopeRadius($query, $longitude, $latitude, $radius){
+      return $query->whereRaw("
+        ST_DISTANCE_SPHERE(
+            POINT($longitude, $latitude),
+            POINT(longitude, latitude)) < $radius
+         ");
+    }
+
 }

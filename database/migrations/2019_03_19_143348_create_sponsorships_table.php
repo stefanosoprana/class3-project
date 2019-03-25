@@ -15,7 +15,6 @@ class CreateSponsorshipsTable extends Migration
     {
         Schema::create('sponsorships', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamp('sponsor_created')->nullable();
             $table->timestamp('sponsor_expired')->nullable();
 
             $table->timestamps();
