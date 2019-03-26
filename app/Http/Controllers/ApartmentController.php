@@ -32,8 +32,8 @@ class ApartmentController extends Controller
                 $sponsorship_expire = Carbon::create($sponsorship['sponsor_expired']);
                 //controllo differenza tra oggi e la data
                 $diff = $sponsorship_expire->diffInDays($now, false);
-                //se è minore di 0 è ancora attiva e la salvo nell'array
-                if($diff < 0){
+                //se è minore o uguale a 0 è ancora attiva e la salvo nell'array
+                if($diff <= 0){
                     $data['sponsorships'][] = $apartment;
                 }
             }
