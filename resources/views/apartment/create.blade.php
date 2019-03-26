@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group">
                             <label for="price">Prezzo</label>
-                            <input type="number" name="price" placeholder="{{$errors->has('price') ? $errors->first('price') : 'Inserisci il prezzo dell\'appartamento'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->price : null}}">
+                            <input type="number"  step="0.5"  name="price" placeholder="{{$errors->has('price') ? $errors->first('price') : 'Inserisci il prezzo dell\'appartamento'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->price : null}}">
                         </div>
                         <h2>Inserisci l'indirizzo completo</h2>
                         <div class="form-group">

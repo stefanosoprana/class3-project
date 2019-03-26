@@ -12,7 +12,7 @@
         @forelse ($apartments as $apartment)
           <tr>
             <td>
-              <img src="{{ $apartment->image }}">
+              <img src="{{asset('storage/' . $apartment->image)}}" alt="{{ $apartment->title }}">
             </td>
             <td>
               <h3>{{ $apartment->title }}</h3>

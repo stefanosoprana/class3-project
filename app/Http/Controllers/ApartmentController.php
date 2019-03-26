@@ -139,7 +139,7 @@ class ApartmentController extends Controller
 
         $message = 'Categoria creata con successo';
 
-        return redirect(route('apartments.user.index'))->with('status', $message);
+        return redirect(route('apartments.user.index', $data['user_id']))->with('status', $message);
 
     }
 

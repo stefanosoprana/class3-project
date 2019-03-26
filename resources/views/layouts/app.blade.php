@@ -21,9 +21,21 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+
     <div id="app">
         @include('partials.header')
         <main class="py-4">
+            @if(session('status'))
+                <div class="alert mt-5">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 alert-warning">
+                                {{session('status')}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
             @yield('content')
         </main>
         @include('partials.footer')

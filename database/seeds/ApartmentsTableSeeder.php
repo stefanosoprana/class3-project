@@ -28,7 +28,7 @@
             $newApt->state = $faker->state;
             $newApt->latitude = $faker->latitude($min = -90, $max = 90);
             $newApt->longitude = $faker->longitude($min = -180, $max = 180);
-            $newApt->image = $faker->imageUrl($width = 640, $height = 480);
+            $newApt->image = 'apartment_image/default.jpeg';
             $newApt->published = $faker->numberBetween($min = 0, $max = 1);
 
             $newApt->save();
