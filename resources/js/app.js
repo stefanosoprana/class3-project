@@ -6,6 +6,7 @@
  */
 
 require('./bootstrap');
+require('geocomplete');
 
 window.Vue = require('vue');
 Vue.use(VueAxios, axios);
@@ -17,8 +18,6 @@ import axios from 'axios';
 import VueCharts from 'vue-chartjs';
 import { Bar, Line } from 'vue-chartjs';
 
-
-import geocomplete from 'jquery.geocomplete'
 
 /**
  * The following block of code may be used to automatically register your
@@ -42,4 +41,12 @@ Vue.component('chart-component-messages', require('./components/ChartMessagesCom
 
 const charts = new Vue({
     el: '#charts'
+});
+
+
+$(document).ready(function () {
+    $('#address').geocomplete({
+        details: "#address-complete",
+        detailsAttribute: "data-geo"
+    });
 });

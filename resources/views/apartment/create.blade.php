@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('scripts')
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{config('app.google_api_key')}}
-&callback=initMap"
-            type="text/javascript"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key={{config('app.google_api_key')}}&libraries=places"></script>
 @endsection
 @section('content')
   <div class="container">
@@ -23,22 +21,31 @@
                       <label for="price">Prezzo</label>
                       <input type="number" name="price" placeholder="Inserisci il prezzo dell'appartamento" class="form-control">
                   </div>
+                  <h2>Inserisci l'indirizzo completo</h2>
+                  <div class="form-group">
+                      <label for="address">Indirizzo</label>
+                      <input type="text" id="address" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidoina, RM, Italia" autocomplete="off">
+                  </div>
                   <h2>Indirizzo</h2>
-                  <div class="form-group">
-                      <label for="street">Via</label>
-                      <input type="text" name="street" class="form-control" placeholder="Inserisci la via">
-                  </div>
-                  <div class="form-group">
-                      <label for="house_number">Numero abitazione</label>
-                      <input type="number" name="house_number" placeholder="Inserisci il numero civico" class="form-control">
-                  </div>
-                  <div class="form-group">
-                      <label for="postal_code">Codice postale</label>
-                      <input type="number" name="postal_code" placeholder="Inserisci il codice postale" class="form-control">
-                  </div>
-                  <div class="form-group">
-                      <label for="state">Stato</label>
-                      <input type="text" name="state" placeholder="Inserisci lo stato" class="form-control">
+                  <div class="" id="address-complete">
+                      <div class="form-group">
+                          <label for="street">Via</label>
+                          <input type="text" id="street" name="street" class="form-control" disabled  data-geo="route">
+                      </div>
+                      <div class="form-group">
+                          <label for="house_number">Numero abitazione</label>
+                          <input type="number" id="number" name="house_number" class="form-control" disabled  data-geo="street_number">
+                      </div>
+                      <div class="form-group">
+                          <label for="postal_code">Codice postale</label>
+                          <input type="number" id="postal_code" name="postal_code" class="form-control" disabled  data-geo="postal_code">
+                      </div>
+                      <div class="form-group">
+                          <label for="state">Stato</label>
+                          <input type="text" id="state" name="state"  class="form-control" disabled data-geo="country">
+                          <input name="latitude" type="hidden"  disabled data-geo="lat">
+                          <input name="longitude" type="hidden"  disabled data-geo="lng">
+                      </div>
                   </div>
                   <h2>Caratteristiche</h2>
                   <div class="form-group">
