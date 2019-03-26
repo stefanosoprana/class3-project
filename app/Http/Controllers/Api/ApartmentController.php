@@ -95,14 +95,26 @@ class ApartmentController extends Controller
     }
 
     public function search(){
+        $services = [1, 2];
+
       $data = [];
 
-      $apartments = Apartment::all();
+      //whereHas fa ricerca su tabella pivot
+      $apartments = Apartment::whereHas('services', function ($query) use ($services){
+          //whereIn accetta array
+          $query->whereIn('services.id', $services);
+      })->get();
+
+        
       $services = Service::all();
 
-      // foreach ($services as $service) {
-      //   $service = $apartments->services()->get();
-      // }
+      /*l'utente chiede gli apparftamenti che hanno tot servizi
+        array di servizi
+      */
+     /* foreach ($services as $service) {
+         $service = $apartments->services()->get();
+         dd($service);
+       }*/
       //
       //
 
