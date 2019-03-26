@@ -1,11 +1,16 @@
-.apartment_main {
+.apartment__main {
   margin-top: 50px;
   h2 {
     margin-bottom: 20px;
   }
-  .apartment_main_description {
+  .apartment__main__description {
     h2 {
       margin-top: 30px;
     }
   };
+  .apartment__main__map {
+    width: 100%;
+    height: 400px;
+    margin-top: 40px;
+  }
 }
