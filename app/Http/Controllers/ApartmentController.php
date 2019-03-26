@@ -6,6 +6,7 @@ use App\Apartment;
 use App\Sponsorship;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ApartmentController extends Controller
 {
@@ -69,7 +70,8 @@ class ApartmentController extends Controller
      */
     public function userIndex()
     {
-        $apartments = Apartment::all();
+        $user = Auth::user()->id;
+        $apartments = Apartment::where('user_id', $user)->get();
         return view('apartment.userIndex', compact('apartments'));
     }
 

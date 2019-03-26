@@ -1,7 +1,9 @@
 @extends('layouts.app')
 @section('content')
+
   <div class="apartment_header" style="background-image: url('{{ $apartment->image }}');">
     <h1>{{ $apartment->title }}</h1>
+    {{--Inserire immagine e nascondere con css--}}
   </div>
   <div class="apartment_main">
     <div class="container">
