@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Message;
 
 class MessageController extends Controller
@@ -15,7 +16,9 @@ class MessageController extends Controller
     public function index()
     {
 
-      $messages = Message::all();
+      $user = Auth::user()->id;
+      $messages = Message::where('user_id', $user)->get();
+      // $messages = Message::all();
 
       return view('user.messages.index', compact('messages'));
 
@@ -39,7 +42,18 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $data = $request->all();
+
+      $newMessage = new Message();
+      $newMessage->name = $data['name'];
+      $newMessage->email = $data['email'];
+      $newMessage->text = $data['text'];
+      $newMessage->user_id = $data['user_id'];
+      $newMessage->apartment_id = $data['apartment_id'];
+
+      $newMessage->save();
+
+      return redirect()->back();
     }
 
     /**

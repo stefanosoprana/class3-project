@@ -17,6 +17,7 @@
 Route::get('/', 'ApartmentController@index')->name('apartments.index');
 Route::get('/apartments', 'ApartmentController@search')->name('apartments.search');
 Route::get('/apartment/{id}', 'ApartmentController@show')->middleware('visit')->name('apartment.show');
+Route::post('/apartment/message', 'MessageController@store')->name('apartment.message.store');
 
 
 //tutte le altre rotte appartamenti
@@ -37,7 +38,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('profile');
 
 Route::get('/message', 'MessageController@create')->name('message.create');
-Route::post('/message', 'MessageController@store')->name('message.storep');
+Route::post('/message', 'MessageController@store')->name('message.store');
 
 //rotte per messaggi
 Route::middleware('auth')->group(function () {
