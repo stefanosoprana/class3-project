@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Mapper;
 
-
 class ApartmentController extends Controller
 {
 
