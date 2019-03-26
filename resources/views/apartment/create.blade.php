@@ -1,4 +1,9 @@
 @extends('layouts.app')
+@section('scripts')
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{config('app.google_api_key')}}
+&callback=initMap"
+            type="text/javascript"></script>
+@endsection
 @section('content')
   <div class="container">
       <div class="row">
