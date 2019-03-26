@@ -2,6 +2,7 @@
 @section('content')
   <div class="apartment">
     <div class="apartment__header" style="background-image: url('{{ $apartment->image }}');">
+      <img hidden src="{{ $apartment->image }}">
       <h1>{{ $apartment->title }}</h1>
     </div>
     <div class="apartment__main">
@@ -33,6 +34,4 @@
       </div>
     </div>
   </div>
-  <script src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
-  <script src="jquery.geocomplete.js"></script>
 @endsection
