@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Apartment;
 use App\Message;
 use App\Visit;
+use App\Service;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -92,4 +93,61 @@ class ApartmentController extends Controller
 
         }
     }
+
+    public function search(){
+        $services = [1, 2];
+
+      $data = [];
+
+      //whereHas fa ricerca su tabella pivot
+      $apartments = Apartment::whereHas('services', function ($query) use ($services){
+          //whereIn accetta array
+          $query->whereIn('services.id', $services);
+      })->get();
+
+        
+      $services = Service::all();
+
+      /*l'utente chiede gli apparftamenti che hanno tot servizi
+        array di servizi
+      */
+     /* foreach ($services as $service) {
+         $service = $apartments->services()->get();
+         dd($service);
+       }*/
+      //
+      //
+
+      // problemi con la many to many relantionship
+
+
+      foreach ($apartments as $apartment) {
+        $rooms = $apartment->rooms;
+        $beds = $apartment->beds;
+        $latitude = $apartment->latitude;
+        $longitude = $apartment->longitude;
+
+        $newData = [
+          'apartments' =>[
+            'rooms'=>$rooms,
+            'beds'=>$beds,
+            'latitude'=>$latitude,
+            'longitude'=>$longitude,
+          ],
+          // 'services'=>[
+          //   'apartment_service'=>$services
+          // ]
+        ];
+
+          $data[] = $newData;
+
+      }
+
+      return response()->json([
+        'success'=>true,
+        'error'=>'',
+        'result'=> $data
+      ]);
+    }
+
 }
