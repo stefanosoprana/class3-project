@@ -10655,7 +10655,7 @@ a.text-dark:focus {
   }
 }
 
-.apartment_header {
+.apartment__header {
   position: relative;
   width: 100%;
   height: 450px;
@@ -10664,22 +10664,22 @@ a.text-dark:focus {
   background-repeat: no-repeat;
 }
 
-.apartment_header h1 {
+.apartment__header h1 {
   position: absolute;
   bottom: 10px;
   left: 20px;
   color: white;
 }
 
-.apartment_main {
+.apartment__main {
   margin-top: 50px;
 }
 
-.apartment_main h2 {
+.apartment__main h2 {
   margin-bottom: 20px;
 }
 
-.apartment_main .apartment_main_description h2 {
+.apartment__main .apartment__main__description h2 {
   margin-top: 30px;
 }
 
