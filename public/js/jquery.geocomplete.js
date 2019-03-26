@@ -623,7 +623,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/chiarapassaro/Sites/class3-project/resources/js/jquery.geocomplete.js */"./resources/js/jquery.geocomplete.js");
+module.exports = __webpack_require__(/*! /home/stefano/Boolean/class3-project/resources/js/jquery.geocomplete.js */"./resources/js/jquery.geocomplete.js");
 
 
 /***/ })

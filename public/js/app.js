@@ -81647,6 +81647,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
+!(function webpackMissingModule() { var e = new Error("Cannot find module 'jquery.geocomplete'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -81658,6 +81659,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.use(vue_axios__WEBPACK_IMPORTED_MODULE_0___default.a, axios__WEBPACK_IMPORTED_MODULE_1___default.a);
 
  //import VueCharts Wrapper
+
 
 
 
@@ -81861,8 +81863,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/chiarapassaro/Sites/class3-project/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/chiarapassaro/Sites/class3-project/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/stefano/Boolean/class3-project/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/stefano/Boolean/class3-project/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

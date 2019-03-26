@@ -186,7 +186,7 @@ return [
          * Package Service Providers...
          */
         Zizaco\Entrust\EntrustServiceProvider::class,
-
+        Cornford\Googlmapper\MapperServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -247,6 +247,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
+        'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class,
 
 
     ],

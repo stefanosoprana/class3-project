@@ -5,8 +5,8 @@
       <img hidden src="{{ $apartment->image }}">
       <h1>{{ $apartment->title }}</h1>
     </div>
-    <div class="apartment__main">
-      <div class="container">
+      <div class="apartment__main">
+        <div class="container">
         <div class="row">
           <div class="col-12">
             <h2>Descrizione</h2>
@@ -31,7 +31,19 @@
             </ul>
           </div>
         </div>
+      <div class="row">
+        <div class="col-6">
+          <div class="apartment__main__map">
+            {!! Mapper::render() !!}
+          </div>
+      </div>
+      <div class="col-6">
+        
       </div>
     </div>
+  </div>
+
+    </div>
+
   </div>
 @endsection

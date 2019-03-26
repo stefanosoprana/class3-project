@@ -7,6 +7,7 @@ use App\Sponsorship;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mapper;
 
 class ApartmentController extends Controller
 {
@@ -57,6 +58,8 @@ class ApartmentController extends Controller
     public function show($id)
     {
       $apartment = Apartment::find($id);
+
+      Mapper::map($apartment->latitude, $apartment->longitude);
 
       return view('apartment.show', compact('apartment'));
     }
