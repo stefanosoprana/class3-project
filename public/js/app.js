@@ -82279,20 +82279,17 @@ Vue.use(vue_axios__WEBPACK_IMPORTED_MODULE_0___default.a, axios__WEBPACK_IMPORTE
 
 Vue.component('chart-component-visits', __webpack_require__(/*! ./components/ChartVisitsComponent.vue */ "./resources/js/components/ChartVisitsComponent.vue").default);
 Vue.component('chart-component-messages', __webpack_require__(/*! ./components/ChartMessagesComponent.vue */ "./resources/js/components/ChartMessagesComponent.vue").default);
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-var charts = new Vue({
-  el: '#charts'
-});
 $(document).ready(function () {
   $('#address').geocomplete({
     details: "#address-complete",
     detailsAttribute: "data-geo"
   });
+
+  if ($('#charts').length) {
+    var charts = new Vue({
+      el: '#charts'
+    });
+  }
 });
 
 /***/ }),

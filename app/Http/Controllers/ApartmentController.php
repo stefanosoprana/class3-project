@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 
 class ApartmentController extends Controller
@@ -101,15 +102,45 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
+
+        $data = $request->all();
+
+        $validated_data = Validator::make($data,[
+            'title'=> 'required',
+            'price'=> 'required|numeric',
+            'street'=> 'required|string',
+            'house_number'=> 'required|numeric',
+            'postal_code'=> 'required|numeric',
+            'state'=> 'required|string',
+            'latitude'=> 'required|numeric',
+            'longitude'=> 'required|numeric',
+            'image'=>'required|mimes:jpeg,bmp,png',
+            'square_meters'=>'required|numeric',
+            'rooms'=>'required|numeric',
+            'beds'=>'required|numeric',
+            'bathrooms'=>'required|numeric',
+            'user_id'=>'exists:users,id',
+            'published'=>'required|boolean',
+        ]);
+
+        //dd($data);
+        if ($validated_data->fails()) {
+            return redirect()->back()
+                ->withErrors($validated_data)
+                ->withInput();
+        }
+
         $image = Storage::disk('public')->put('apartment_image', $request['image']);
+        $data['image'] = $image;
 
-        /* $data = $request->all();
+        $newApartment = new Apartment();
+        $newApartment->fill($data);
+        $newApartment->save();
 
-      $newApartment = new Apartment();
-      $newApartment->fill($data);
-      $newApartment->save();*/
+        $message = 'Categoria creata con successo';
 
-      return redirect()->back();
+        return redirect(route('apartments.user.index'))->with('status', $message);
+
     }
 
     /**

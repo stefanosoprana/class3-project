@@ -33,20 +33,16 @@ import { Bar, Line } from 'vue-chartjs';
 Vue.component('chart-component-visits', require('./components/ChartVisitsComponent.vue').default);
 Vue.component('chart-component-messages', require('./components/ChartMessagesComponent.vue').default);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-const charts = new Vue({
-    el: '#charts'
-});
-
 
 $(document).ready(function () {
     $('#address').geocomplete({
         details: "#address-complete",
         detailsAttribute: "data-geo"
     });
+
+    if($('#charts').length){
+        const charts = new Vue({
+            el: '#charts'
+        });
+    }
 });
