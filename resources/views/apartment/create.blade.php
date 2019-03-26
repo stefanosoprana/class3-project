@@ -7,15 +7,16 @@
       <div class="row">
           <div class="col-12">
               <h1>Aggiungi nuovo appartamento</h1>
-              <form class="form-group" action="{{ route('apartment.store') }}" method="post">
+              <form class="form-group" action="{{ $data['route'] }}" method="POST" enctype="multipart/form-data">
                   @csrf
+                  @method($data['method'])
                   <div class="form-group">
-                      <label for="title">Titolo</label>
+                      <label for="title">Nome appartamento</label>
                       <input type="text" name="title" class="form-control" placeholder="Inserisci il nome dell'appartamento">
                   </div>
-                  <div class="form-group">
-                      <label for="image">Immagine</label>
-                      <input type="text" name="image" placeholder="Inserisci il path dell'immagine" class="form-control">
+                  <div class="custom-file mt-3 mb-3">
+                      <label for="image" class="custom-file-label">Immagine</label>
+                      <input type="file" name="image" id="image" class="custom-file-input">
                   </div>
                   <div class="form-group">
                       <label for="price">Prezzo</label>

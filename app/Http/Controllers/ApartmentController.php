@@ -7,6 +7,8 @@ use App\Sponsorship;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 
 class ApartmentController extends Controller
 {
@@ -82,7 +84,13 @@ class ApartmentController extends Controller
      */
     public function create()
     {
-        return view('apartment.create');
+        $data = [
+            'title' => '',
+            'method' => 'POST',
+            'route' => route('apartment.store'),
+        ];
+
+        return view('apartment.create', compact('data'));
     }
 
     /**
@@ -93,11 +101,13 @@ class ApartmentController extends Controller
      */
     public function store(Request $request)
     {
-      $data = $request->all();
+        $image = Storage::disk('public')->put('apartment_image', $request['image']);
+
+        /* $data = $request->all();
 
       $newApartment = new Apartment();
       $newApartment->fill($data);
-      $newApartment->save();
+      $newApartment->save();*/
 
       return redirect()->back();
     }
