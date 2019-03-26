@@ -94,8 +94,9 @@ class ApartmentController extends Controller
         }
     }
 
-    public function search(){
-        $services = [1, 2];
+    public function search(Request $request){
+
+      $services = Service::find($id)->first();
 
       $data = [];
 
@@ -105,43 +106,25 @@ class ApartmentController extends Controller
           $query->whereIn('services.id', $services);
       })->get();
 
-        
-      $services = Service::all();
-
-      /*l'utente chiede gli apparftamenti che hanno tot servizi
-        array di servizi
-      */
-     /* foreach ($services as $service) {
-         $service = $apartments->services()->get();
-         dd($service);
-       }*/
-      //
-      //
-
-      // problemi con la many to many relantionship
+      $input = Input::only('radius');
 
 
-      foreach ($apartments as $apartment) {
-        $rooms = $apartment->rooms;
-        $beds = $apartment->beds;
-        $latitude = $apartment->latitude;
-        $longitude = $apartment->longitude;
 
-        $newData = [
+        $newData = $request->validate([
+
           'apartments' =>[
-            'rooms'=>$rooms,
-            'beds'=>$beds,
-            'latitude'=>$latitude,
-            'longitude'=>$longitude,
+            'rooms'=>'required',
+            'beds'=>'required',
+            'latitude'=>'required',
+            'longitude'=>'required',
           ],
-          // 'services'=>[
-          //   'apartment_service'=>$services
-          // ]
-        ];
+          'services'=>[
+            'apartment_service'=>'required'
+          ]
+
+        ]);
 
           $data[] = $newData;
-
-      }
 
       return response()->json([
         'success'=>true,
