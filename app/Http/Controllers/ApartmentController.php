@@ -159,7 +159,7 @@ class ApartmentController extends Controller
         abort(404);
       };
 
-      return view('apartment.edit', compact('apartment'));
+      return view('apartment.create', compact('apartment'));
     }
 
     /**
