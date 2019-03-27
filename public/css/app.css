@@ -10683,10 +10683,13 @@ a.text-dark:focus {
   margin-top: 30px;
 }
 
-.apartment__main .apartment__main__map {
+.apartment__main .row {
+  margin-top: 40px;
+}
+
+.apartment__main .row .apartment__main__map {
   width: 100%;
   height: 400px;
-  margin-top: 40px;
 }
 
 .navbar-laravel {
