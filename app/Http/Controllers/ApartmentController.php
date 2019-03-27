@@ -160,7 +160,14 @@ class ApartmentController extends Controller
         abort(404);
       };
 
-      return view('apartment.create', compact('apartment'));
+      $data = [
+            'title' => '',
+            'method' => 'PATCH',
+            'route' => route('apartment.update', $apartment->id),
+            'apartment' => $apartment
+      ];
+
+      return view('apartment.create', compact('data'));
     }
 
     /**
@@ -172,7 +179,7 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request);
     }
 
     /**
