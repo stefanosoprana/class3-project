@@ -61,7 +61,8 @@ class MessageController extends Controller
 
       $newMessage->save();
 
-      return redirect()->back();
+        $status = 'Messaggio inviato con successo';
+        return redirect()->back()->with('status', $status);
     }
 
     /**
