@@ -112,10 +112,13 @@ class MessageController extends Controller
      */
     public function destroy($id)
     {
+        $user = Auth::user();
         $message = Message::find($id);
-
+        $message_name = $message->name;
         $message->delete();
 
-        return redirect()->back();
+        $status = 'Hai cancellato il messaggio ricevuto da ' . $message_name;
+
+        return redirect(route('messages.index', $user))->with('status', $status);
     }
 }

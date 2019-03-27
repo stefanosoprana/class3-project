@@ -27,7 +27,7 @@
             <td>{{ str_limit($message->text, 30, '(...)') }}</td>
             <td>{{ DateTime::createFromFormat('Y-m-d H:i:s', $message->created_at )->format('d/m/Y H:i') }}</td>
             <td>
-              <a href="{{ route('message.show', $message->id ) }}" class="btn btn-primary">View</a>
+              <a href="{{ route('message.show', $message->id ) }}" class="btn btn-primary">Leggi</a>
             </td>
           </tr>
         @empty
