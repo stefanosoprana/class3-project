@@ -10692,6 +10692,10 @@ a.text-dark:focus {
   height: 400px;
 }
 
+.apartment__create .apartment__create__address-disabled input {
+  pointer-events: none;
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

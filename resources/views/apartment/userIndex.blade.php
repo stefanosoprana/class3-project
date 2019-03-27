@@ -18,7 +18,7 @@
             </td>
             <td>
               <h3>{{ $apartment->title }}</h3>
-              <h5>{{ $apartment->street}} {{ $apartment->house_number}}, {{ $apartment->postal_code}}, {{ $apartment->state }}</h5>
+              <h5>{{ $apartment->street}} {{ $apartment->house_number}}, {{ $apartment->locality}}, {{ $apartment->postal_code}}, {{ $apartment->state }}</h5>
               <h5>Caratteristiche</h5>
               <ul>
                 <li>Dimensioni: {{ $apartment->square_meters}}m²</li>

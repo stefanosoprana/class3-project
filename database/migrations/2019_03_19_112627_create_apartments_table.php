@@ -23,6 +23,7 @@ class CreateApartmentsTable extends Migration
             $table->integer('bathrooms');
             $table->integer('square_meters');
             $table->string('street');
+            $table->string('locality');
             $table->integer('house_number');
             $table->bigInteger('postal_code');
             $table->string('state');

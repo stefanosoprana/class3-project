@@ -24,7 +24,7 @@
             </div>
             <div class="apartment__main__address">
               <h3>Indirizzo</h3>
-              <p>{{ $apartment->street }} {{ $apartment->house_number }}, {{ $apartment->postal_code }}, {{ $apartment->state }}</p>
+              <p>{{ $apartment->street }} {{ $apartment->house_number }}, {{ $apartment->locality }}, {{ $apartment->postal_code }}, {{ $apartment->state }}</p>
             </div>
           </div>
           <div class="col-4">

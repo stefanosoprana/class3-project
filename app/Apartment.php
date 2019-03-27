@@ -10,7 +10,7 @@ use App\Sponsorship;
 
 class Apartment extends Model
 {
-    protected $fillable = ['title', 'description', 'price', 'street', 'house_number', 'postal_code', 'state', 'latitude', 'longitude', 'image', 'square_meters', 'rooms', 'beds', 'bathrooms', 'user_id', 'published' ];
+    protected $fillable = ['title', 'description', 'price', 'street', 'house_number', 'locality', 'postal_code', 'state', 'latitude', 'longitude', 'image', 'square_meters', 'rooms', 'beds', 'bathrooms', 'user_id', 'published' ];
 
     public function user(){
       return $this->belongsTo('App\User');

@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     @isset($data)
-        <div class="container">
+        <div class="container apartment__create">
             <div class="row">
                 <div class="col-12">
                     <h1>{{$data['title']}}</h1>
@@ -35,11 +35,11 @@
                                 <input type="checkbox" name="delete_image" id="delete_image" class="form-check" value="{{$data['apartment']->image}}">
                             </div>
                         @else
-                        <div class="alert-warning mb-3">{{ $errors->has('image') ? $errors->first('image') : '' }}</div>
-                        <div class="custom-file mt-3 mb-3">
-                            <label for="image" class="custom-file-label">Immagine</label>
-                            <input type="file" name="image" id="image" class="custom-file-input">
-                        </div>
+                            <div class="alert-warning mb-3">{{ $errors->has('image') ? $errors->first('image') : '' }}</div>
+                            <div class="custom-file mt-3 mb-3">
+                                <label for="image" class="custom-file-label">Immagine</label>
+                                <input type="file" name="image" id="image" class="custom-file-input">
+                            </div>
                         @endif
                         {{--/Immagine--}}
 
@@ -59,25 +59,30 @@
                             @endif
                             <input type="text" id="address" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidonia, RM, Italia" autocomplete="off">
                         </div>
-                        <h2>Indirizzo</h2>
-                        <div class="" id="address-complete">
-                            <div class="form-group">
-                                <label for="street">Via</label>
-                                <input type="text" id="street" name="street" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->street : null}}"  data-geo="route">
-                            </div>
-                            <div class="form-group">
-                                <label for="house_number">Numero abitazione</label>
-                                <input type="number" id="number" name="house_number" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->house_number : null}}"  data-geo="street_number">
-                            </div>
-                            <div class="form-group">
-                                <label for="postal_code">Codice postale</label>
-                                <input type="number" id="postal_code" name="postal_code" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->postal_code : null}}"  data-geo="postal_code">
-                            </div>
-                            <div class="form-group">
-                                <label for="state">Stato</label>
-                                <input type="text" id="state" name="state"  class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->state : null}}"  data-geo="country">
-                                <input name="latitude" type="hidden" value="{{ (isset($data['apartment'])) ? $data['apartment']->latitude : null}}"  data-geo="lat">
-                                <input name="longitude" type="hidden" value="{{ (isset($data['apartment'])) ? $data['apartment']->longitude : null}}"  data-geo="lng">
+                        <div class="apartment__create__address-disabled">
+                            <h2>Indirizzo</h2>
+                            <div class="" id="address-complete">
+                                <div class="form-group">
+                                    <label for="street">Via</label>
+                                    <input type="text" id="street" name="street" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->street : null}}"  data-geo="route">
+                                </div>
+                                <div class="form-group">
+                                    <label for="house_number">Numero abitazione</label>
+                                    <input type="number" id="number" name="house_number" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->house_number : null}}"  data-geo="street_number">
+                                </div>
+                                <div class="form-group">
+                                    <label for="locality">Citt&agrave;</label>
+                                    <input type="text" id="locality" name="locality" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->locality : null}}"  data-geo="locality">
+                                </div><div class="form-group">
+                                    <label for="postal_code">Codice postale</label>
+                                    <input type="number" id="postal_code" name="postal_code" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->postal_code : null}}"  data-geo="postal_code">
+                                </div>
+                                <div class="form-group">
+                                    <label for="state">Stato</label>
+                                    <input type="text" id="state" name="state"  class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->state : null}}"  data-geo="country">
+                                    <input name="latitude" type="hidden" value="{{ (isset($data['apartment'])) ? $data['apartment']->latitude : null}}"  data-geo="lat">
+                                    <input name="longitude" type="hidden" value="{{ (isset($data['apartment'])) ? $data['apartment']->longitude : null}}"  data-geo="lng">
+                                </div>
                             </div>
                         </div>
                         {{--Indirizzo--}}
