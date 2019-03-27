@@ -227,7 +227,7 @@ class ApartmentController extends Controller
             $image = Storage::disk('public')->put('apartment_image', $request['image']);
             $data['image'] = $image;
         } else {
-            $data['image'] = null;
+           $data['image'] = ($apartment->image) ? $apartment->image : null;
         }
 
         $data['updated_at'] = Carbon::now();

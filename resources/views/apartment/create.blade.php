@@ -14,11 +14,11 @@
                         {{--Pubblicato--}}
                         <div class="alert-warning mb-3">{{$errors->has('published') ? $errors->first('published') : ''}}</div>
                         <div class="form-check form-check-inline">
-                            <input type="radio" name="published" id="published" {{ (isset($data['apartment']) && $data['apartment']->published) ? 'checked' : null}} value="1" class="form-check-input">
+                            <input type="radio" name="published" id="published" {{ (isset($data['apartment']) && $data['apartment']->published) ? 'checked' : null }} value="1" class="form-check-input">
                             <label class="form-check-label" for="published">Pubblica</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input type="radio" name="published" id="published" {{ (isset($data['apartment']) && !$data['apartment']->published) ? 'checked' : null}} value="0" class="form-check-input">
+                            <input type="radio" name="published" id="published" {{ (isset($data['apartment']) && !$data['apartment']->published) ? 'checked' : null }} value="0" class="form-check-input">
                             <label class="form-check-label" for="published">Sospendi Pubblicazione</label>
                         </div>
                         {{--/Pubblicato--}}
@@ -26,7 +26,7 @@
                         {{--titolo--}}
                         <div class="form-group">
                             <label for="title">Nome appartamento</label>
-                            <input type="text" name="title" class="form-control" placeholder="{{$errors->has('title') ? $errors->first('title') : 'Inserisci il nome dell\'appartamento'}}" value="{{ (isset($data['apartment'])) ? $data['apartment']->title : null}}">
+                            <input type="text" name="title" class="form-control" placeholder="{{$errors->has('title') ? $errors->first('title') : 'Inserisci il nome dell\'appartamento'}}" value="{{ (isset($data['apartment'])) ? $data['apartment']->title : old('title')}}">
                         </div>
                         {{--/titolo--}}
 
@@ -34,7 +34,7 @@
                         <div class="form-group">
                             <div class="alert-warning mb-3">{{$errors->has('description') ? $errors->first('description') : ''}}</div>
                             <label for="title">Descrizione</label>
-                            <textarea name="description" id="description" class="form-control" rows="5">{{ (isset($data['apartment'])) ? $data['apartment']->description : null}}</textarea>
+                            <textarea name="description" id="description" class="form-control" rows="5">{{ (isset($data['apartment'])) ? $data['apartment']->description : old('description')}}</textarea>
                         </div>
                         {{--/Descrizione--}}
 
@@ -57,7 +57,7 @@
                         {{--Prezzo--}}
                         <div class="form-group">
                             <label for="price">Prezzo</label>
-                            <input type="number"  step="0.5"  name="price" placeholder="{{$errors->has('price') ? $errors->first('price') : 'Inserisci il prezzo dell\'appartamento'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->price : null}}">
+                            <input type="number"  step="0.5"  name="price" placeholder="{{$errors->has('price') ? $errors->first('price') : 'Inserisci il prezzo dell\'appartamento'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->price : old('price')}}">
                         </div>
                         {{--/Prezzo--}}
 
@@ -75,24 +75,24 @@
                             <div class="" id="address-complete">
                                 <div class="form-group">
                                     <label for="street">Via</label>
-                                    <input type="text" id="street" name="street" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->street : null}}"  data-geo="route">
+                                    <input type="text" id="street" name="street" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->street : old('street')}}"  data-geo="route">
                                 </div>
                                 <div class="form-group">
                                     <label for="house_number">Numero abitazione</label>
-                                    <input type="number" id="number" name="house_number" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->house_number : null}}"  data-geo="street_number">
+                                    <input type="number" id="number" name="house_number" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->house_number : old('house_number')}}"  data-geo="street_number">
                                 </div>
                                 <div class="form-group">
                                     <label for="locality">Citt&agrave;</label>
-                                    <input type="text" id="locality" name="locality" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->locality : null}}"  data-geo="locality">
+                                    <input type="text" id="locality" name="locality" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->locality : old('locality')}}"  data-geo="locality">
                                 </div><div class="form-group">
                                     <label for="postal_code">Codice postale</label>
-                                    <input type="number" id="postal_code" name="postal_code" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->postal_code : null}}"  data-geo="postal_code">
+                                    <input type="number" id="postal_code" name="postal_code" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->postal_code : old('postal_code')}}"  data-geo="postal_code">
                                 </div>
                                 <div class="form-group">
                                     <label for="state">Stato</label>
-                                    <input type="text" id="state" name="state"  class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->state : null}}"  data-geo="country">
-                                    <input name="latitude" type="hidden" value="{{ (isset($data['apartment'])) ? $data['apartment']->latitude : null}}"  data-geo="lat">
-                                    <input name="longitude" type="hidden" value="{{ (isset($data['apartment'])) ? $data['apartment']->longitude : null}}"  data-geo="lng">
+                                    <input type="text" id="state" name="state"  class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->state : old('state')}}"  data-geo="country">
+                                    <input name="latitude" type="hidden" value="{{ (isset($data['apartment'])) ? $data['apartment']->latitude : old('latitude')}}"  data-geo="lat">
+                                    <input name="longitude" type="hidden" value="{{ (isset($data['apartment'])) ? $data['apartment']->longitude : old('longitude')}}"  data-geo="lng">
                                 </div>
                             </div>
                         </div>
@@ -102,19 +102,19 @@
                         <h2>Caratteristiche</h2>
                         <div class="form-group">
                             <label for="square_meters">Dimensioni</label>
-                            <input type="number" name="square_meters" placeholder="{{$errors->has('square_meters') ? $errors->first('square_meters') : 'Inserisci le dimensioni in mq'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->square_meters : null}}">
+                            <input type="number" name="square_meters" placeholder="{{$errors->has('square_meters') ? $errors->first('square_meters') : 'Inserisci le dimensioni in mq'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->square_meters : old('square_meters')}}">
                         </div>
                         <div class="form-group">
                             <label for="rooms">Stanze</label>
-                            <input type="number" name="rooms" placeholder="{{$errors->has('square_meters') ? $errors->first('square_meters') : 'Inserisci il numero di stanze'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->rooms : null}}">
+                            <input type="number" name="rooms" placeholder="{{$errors->has('square_meters') ? $errors->first('square_meters') : 'Inserisci il numero di stanze'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->rooms : old('rooms')}}">
                         </div>
                         <div class="form-group">
                             <label for="beds">Letti</label>
-                            <input type="number" name="beds" placeholder="{{$errors->has('bes') ? $errors->first('beds') : 'Inserisci il numero di letti'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->beds : null}}">
+                            <input type="number" name="beds" placeholder="{{$errors->has('bes') ? $errors->first('beds') : 'Inserisci il numero di letti'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->beds : old('beds')}}">
                         </div>
                         <div class="form-group">
                             <label for="bathrooms">Bagni</label>
-                            <input type="number" name="bathrooms" placeholder="{{$errors->has('bes') ? $errors->first('beds') : 'Inserisci il numero di bagni'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->bathrooms : null}}">
+                            <input type="number" name="bathrooms" placeholder="{{$errors->has('bes') ? $errors->first('beds') : 'Inserisci il numero di bagni'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->bathrooms : old('bathrooms')}}">
                         </div>
                         {{--/Caratteristiche--}}
 
