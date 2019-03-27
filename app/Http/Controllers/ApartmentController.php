@@ -113,11 +113,12 @@ class ApartmentController extends Controller
             'price'=> 'required|numeric',
             'street'=> 'required|string',
             'house_number'=> 'required|numeric',
+            'locality'=> 'required|string',
             'postal_code'=> 'required|numeric',
             'state'=> 'required|string',
             'latitude'=> 'required|numeric',
             'longitude'=> 'required|numeric',
-            'image'=>'nullable|mimes:jpeg,bmp,png',
+            'image'=>'nullable|image',
             'square_meters'=>'required|numeric',
             'rooms'=>'required|numeric',
             'beds'=>'required|numeric',
@@ -133,8 +134,12 @@ class ApartmentController extends Controller
                 ->withInput();
         }
 
-        $image = Storage::disk('public')->put('apartment_image', $request['image']);
-        $data['image'] = $image;
+        if(!empty($request['image'])){
+            $image = Storage::disk('public')->put('apartment_image', $request['image']);
+            $data['image'] = $image;
+        } else {
+            $data['image'] = null;
+        }
 
         $newApartment = new Apartment();
         $newApartment->fill($data);
@@ -179,23 +184,18 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-
         $apartment = Apartment::find($id);
+        $data = $request->all();
+
+        if (empty($apartment)) {
+            abort(404);
+        };
 
         if($request['delete_image']){
             $delete = Storage::disk('public')->delete($request['delete_image']);
-            $request['image'] = null;
+            $data['image'] = null;
         }
 
-
-        if(!empty($request['image'])){
-            $image = Storage::disk('public')->put('apartment_image', $request['image']);
-            $request['image'] = $image;
-        } else {
-            $request['image'] = null;
-        }
-
-        $data = $request->all();
 
         $validated_data = Validator::make($data,[
             'title'=> 'required',
@@ -203,11 +203,12 @@ class ApartmentController extends Controller
             'price'=> 'required|numeric',
             'street'=> 'required|string',
             'house_number'=> 'required|numeric',
+            'locality'=> 'required|string',
             'postal_code'=> 'required|numeric',
             'state'=> 'required|string',
             'latitude'=> 'required|numeric',
             'longitude'=> 'required|numeric',
-            'image'=>'nullable|mimes:jpeg,bmp,png',
+            'image'=>'nullable|image',
             'square_meters'=>'required|numeric',
             'rooms'=>'required|numeric',
             'beds'=>'required|numeric',
@@ -222,7 +223,15 @@ class ApartmentController extends Controller
                 ->withInput();
         }
 
+        if(!empty($request['image'])){
+            $image = Storage::disk('public')->put('apartment_image', $request['image']);
+            $data['image'] = $image;
+        } else {
+            $data['image'] = null;
+        }
+
         $data['updated_at'] = Carbon::now();
+
         $apartment->fill($data);
         $apartment->save();
 
@@ -239,7 +248,24 @@ class ApartmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $apartment = Apartment::find($id);
+        $user = $apartment->user_id;
+        $apartment_title = $apartment->title;
+
+        if (empty($apartment)) {
+            abort(404);
+        };
+
+        $messages = $apartment->messages()->get();
+        foreach ($messages as $message){
+            $message->delete();
+        }
+
+        $apartment->delete();
+
+        $message = 'Hai cancellato l\'appartamento ' . $apartment_title;
+
+        return redirect(route('apartments.user.index', $user))->with('status', $message);
     }
 
     /**

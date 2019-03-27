@@ -12,12 +12,13 @@
                         @csrf
                         @method($data['method'])
                         {{--Pubblicato--}}
+                        <div class="alert-warning mb-3">{{$errors->has('published') ? $errors->first('published') : ''}}</div>
                         <div class="form-check form-check-inline">
-                            <input type="radio" name="published" id="published" {{ ($data['apartment']->published) ? 'checked' : null}} value="1" class="form-check-input">
+                            <input type="radio" name="published" id="published" {{ (isset($data['apartment']) && $data['apartment']->published) ? 'checked' : null}} value="1" class="form-check-input">
                             <label class="form-check-label" for="published">Pubblica</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input type="radio" name="published" id="published" {{ (!$data['apartment']->published) ? 'checked' : null}} value="0" class="form-check-input">
+                            <input type="radio" name="published" id="published" {{ (isset($data['apartment']) && !$data['apartment']->published) ? 'checked' : null}} value="0" class="form-check-input">
                             <label class="form-check-label" for="published">Sospendi Pubblicazione</label>
                         </div>
                         {{--/Pubblicato--}}
@@ -64,7 +65,7 @@
                         <h2>Inserisci l'indirizzo completo</h2>
                         <div class="form-group">
                             <label for="address">Indirizzo</label>
-                            @if($errors->has('street') || $errors->has('number') || $errors->has('postal_code') || $errors->has('state') || $errors->has('latitude') || $errors->has('longitude'))
+                            @if($errors->has('street') || $errors->has('number') || $errors->has('locality') || $errors->has('postal_code') || $errors->has('state') || $errors->has('latitude') || $errors->has('longitude'))
                                 <div class="alert-warning mb-3">Indirizzo errato inseriscilo nuovamente</div>
                             @endif
                             <input type="text" id="address" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidonia, RM, Italia" autocomplete="off">

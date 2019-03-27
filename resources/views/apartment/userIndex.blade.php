@@ -42,7 +42,11 @@
             </td>
             @endif
             <td>
-              <a href="#" class="btn btn-danger">Elimina</a>
+              <form action="{{route('apartment.destroy', $apartment->id)}}" method="post">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger">Elimina</button>
+              </form>
             </td>
           </tr>
         @empty
