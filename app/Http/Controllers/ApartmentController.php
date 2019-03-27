@@ -279,9 +279,10 @@ class ApartmentController extends Controller
             abort(404);
         };
 
-        if(!Auth::user()->id == $apartment->id || !Auth::user()->hasRole('admin')){
-        abort(404);
-    }
+        if(Auth::user()->id !== $apartment->user_id && !Auth::user()->hasRole('admin')){
+            abort(404);
+        }
+
         return view('apartment.statistics', compact('apartment'));
     }
 }

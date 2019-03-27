@@ -42,7 +42,7 @@ Route::post('/message', 'MessageController@store')->name('message.store');
 
 //rotte per messaggi
 Route::middleware('auth')->group(function () {
-    Route::get('/messages/{user}', 'MessageController@index')->name('messages.index');
+    Route::get('{user}/messages', 'MessageController@index')->name('messages.index');
     Route::get('/message/{id}', 'MessageController@show')->name('message.show');
     Route::delete('/message/{id}/delete', 'MessageController@destroy')->name('message.destroy');
 });
