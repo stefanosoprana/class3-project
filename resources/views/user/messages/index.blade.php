@@ -28,7 +28,7 @@
             <td>{{ $message->apartment->title }}</td>
             <td>{{ $message->user->name }}</td>
             <td>{{ str_limit($message->text, 30, '(...)') }}</td>
-            <td>{{ DateTime::createFromFormat('Y-m-d H:i:s', $message->date )->format('d/m/Y H:i') }}</td>
+            <td>{{ DateTime::createFromFormat('Y-m-d H:i:s', $message->created_at )->format('d/m/Y H:i') }}</td>
             <td>
               <a href="{{ route('message.show', $message->id ) }}" class="btn btn-primary">View</a>
             </td>
