@@ -109,6 +109,7 @@ class ApartmentController extends Controller
 
         $validated_data = Validator::make($data,[
             'title'=> 'required',
+            'description'=> 'required|string',
             'price'=> 'required|numeric',
             'street'=> 'required|string',
             'house_number'=> 'required|numeric',
@@ -139,7 +140,7 @@ class ApartmentController extends Controller
         $newApartment->fill($data);
         $newApartment->save();
 
-        $message = 'Categoria creata con successo';
+        $message = 'Appartamento creato con successo';
 
         return redirect(route('apartments.user.index', $data['user_id']))->with('status', $message);
 

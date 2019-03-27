@@ -14,6 +14,10 @@
                         <div class="form-group">
                             <label for="title">Nome appartamento</label>
                             <input type="text" name="title" class="form-control" placeholder="{{$errors->has('title') ? $errors->first('title') : 'Inserisci il nome dell\'appartamento'}}" value="{{ (isset($data['apartment'])) ? $data['apartment']->title : null}}">
+                        </div> <div class="form-group">
+                            <div class="alert-warning mb-3">{{$errors->has('description') ? $errors->first('description') : ''}}</div>
+                            <label for="title">Descrizione</label>
+                            <textarea name="description" id="description" class="form-control" rows="5"></textarea>
                         </div>
                         <div class="alert-warning mb-3">{{ $errors->has('image') ? $errors->first('image') : '' }}</div>
                         <div class="custom-file mt-3 mb-3">
