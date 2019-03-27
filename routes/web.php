@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/apartment', 'ApartmentController@store')->name('apartment.store');
     Route::get('/apartment/{id}/edit', 'ApartmentController@edit')->name('apartment.edit');
     Route::patch('/apartment/{id}', 'ApartmentController@update')->name('apartment.update');
-    Route::get('/apartment/{id}/statistics', 'ApartmentController@statistics')->name('apartment.statistic');
+    Route::get('/apartment/{apartment}/statistics', 'ApartmentController@statistics')->name('apartment.statistic');
     Route::delete('/apartment/{id}/delete', 'ApartmentController@destroy')->name('apartment.destroy');
 });
 

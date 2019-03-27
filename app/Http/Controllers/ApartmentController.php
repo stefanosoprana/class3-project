@@ -273,9 +273,15 @@ class ApartmentController extends Controller
      * View Statistics
      *
      */
-    public function statistics($id)
+    public function statistics(Apartment $apartment)
     {
-        $apartment = Apartment::find($id)->first();
+        if (empty($apartment)) {
+            abort(404);
+        };
+
+        if(!Auth::user()->id == $apartment->id || !Auth::user()->hasRole('admin')){
+        abort(404);
+    }
         return view('apartment.statistics', compact('apartment'));
     }
 }

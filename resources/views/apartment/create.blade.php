@@ -11,6 +11,7 @@
                     <form class="form-group" action="{{ $data['route'] }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method($data['method'])
+
                         {{--Pubblicato--}}
                         <div class="alert-warning mb-3">{{$errors->has('published') ? $errors->first('published') : ''}}</div>
                         <div class="form-check form-check-inline">
