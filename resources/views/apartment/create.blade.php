@@ -7,7 +7,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h1>Aggiungi nuovo appartamento</h1>
+                    <h1>{{$data['title']}}</h1>
                     <form class="form-group" action="{{ $data['route'] }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method($data['method'])
@@ -23,17 +23,16 @@
                         <div class="form-group">
                             <div class="alert-warning mb-3">{{$errors->has('description') ? $errors->first('description') : ''}}</div>
                             <label for="title">Descrizione</label>
-                            <textarea name="description" id="description" class="form-control" rows="5"></textarea>
+                            <textarea name="description" id="description" class="form-control" rows="5">{{ (isset($data['apartment'])) ? $data['apartment']->description : null}}</textarea>
                         </div>
                         {{--/Descrizione--}}
 
                         {{--Immagine--}}
-
-                        @if($data['apartment'] && !empty($data['apartment']->image))
-                            <img src="{{asset('storage/' . $data['category']->image)}}" alt="">
+                        @if(isset($data['apartment']) && !empty($data['apartment']->image))
+                            <img src="{{asset('storage/' . $data['apartment']->image)}}" alt="{{$data['apartment']->title}}">
                             <div class="form-group">
                                 <label for="delete_image">Elimina immagine</label>
-                                <input type="checkbox" name="delete_image" id="delete_image" class="form-check" value="{{$data['image']->image}}">
+                                <input type="checkbox" name="delete_image" id="delete_image" class="form-check" value="{{$data['apartment']->image}}">
                             </div>
                         @else
                         <div class="alert-warning mb-3">{{ $errors->has('image') ? $errors->first('image') : '' }}</div>
@@ -58,7 +57,7 @@
                             @if($errors->has('street') || $errors->has('number') || $errors->has('postal_code') || $errors->has('state') || $errors->has('latitude') || $errors->has('longitude'))
                                 <div class="alert-warning mb-3">Indirizzo errato inseriscilo nuovamente</div>
                             @endif
-                            <input type="text" id="address" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidoina, RM, Italia" autocomplete="off">
+                            <input type="text" id="address" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidonia, RM, Italia" autocomplete="off">
                         </div>
                         <h2>Indirizzo</h2>
                         <div class="" id="address-complete">

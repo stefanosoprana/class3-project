@@ -88,7 +88,7 @@ class ApartmentController extends Controller
     public function create()
     {
         $data = [
-            'title' => '',
+            'title' => 'Aggiungi un nuovo appartamento',
             'method' => 'POST',
             'route' => route('apartment.store'),
         ];
@@ -117,7 +117,7 @@ class ApartmentController extends Controller
             'state'=> 'required|string',
             'latitude'=> 'required|numeric',
             'longitude'=> 'required|numeric',
-            'image'=>'required|mimes:jpeg,bmp,png',
+            'image'=>'nullable|mimes:jpeg,bmp,png',
             'square_meters'=>'required|numeric',
             'rooms'=>'required|numeric',
             'beds'=>'required|numeric',
@@ -161,7 +161,7 @@ class ApartmentController extends Controller
       };
 
       $data = [
-            'title' => '',
+            'title' => 'Modifica l\'appartamento '.$apartment->title,
             'method' => 'PATCH',
             'route' => route('apartment.update', $apartment->id),
             'apartment' => $apartment
@@ -179,7 +179,54 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($request);
+        $apartment = Apartment::find($id);
+
+        if($request['delete_image']){
+            $delete = Storage::disk('public')->delete($request['delete_image']);
+            $request['image'] = null;
+        }
+
+        if(!empty($request['image'])){
+            $image = Storage::disk('public')->put('apartment_image', $request['image']);
+            $request['image'] = $image;
+        } else {
+            $request['image'] = null;
+        }
+
+        $data = $request->all();
+
+        $validated_data = Validator::make($data,[
+            'title'=> 'required',
+            'description'=> 'required|string',
+            'price'=> 'required|numeric',
+            'street'=> 'required|string',
+            'house_number'=> 'required|numeric',
+            'postal_code'=> 'required|numeric',
+            'state'=> 'required|string',
+            'latitude'=> 'required|numeric',
+            'longitude'=> 'required|numeric',
+            'image'=>'nullable|mimes:jpeg,bmp,png',
+            'square_meters'=>'required|numeric',
+            'rooms'=>'required|numeric',
+            'beds'=>'required|numeric',
+            'bathrooms'=>'required|numeric',
+            'user_id'=>'exists:users,id',
+            'published'=>'required|boolean',
+        ]);
+
+        if ($validated_data->fails()) {
+            return redirect()->back()
+                ->withErrors($validated_data)
+                ->withInput();
+        }
+
+        $data['updated_at'] = Carbon::now();
+        $apartment->fill($data);
+        $apartment->save();
+
+        $message = 'Appartamento aggiornato con successo';
+
+        return redirect(route('apartments.user.index', $data['user_id']))->with('status', $message);
     }
 
     /**
