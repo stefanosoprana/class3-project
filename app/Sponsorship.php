@@ -13,6 +13,6 @@ class Sponsorship extends Model
     }
 
     public function sponsorshipsType(){
-      return $this->belongsTo('App\SponsorshipType');
+      return $this->belongsTo('App\SponsorshipsType');
     }
 }

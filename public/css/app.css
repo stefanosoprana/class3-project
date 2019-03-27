@@ -10692,6 +10692,22 @@ a.text-dark:focus {
   height: 400px;
 }
 
+.home__main .home__main__title h1 {
+  margin: 10px 0 20px 0;
+}
+
+.home__main .home__main__last-apartments h2 {
+  margin: 10px 0 20px 0;
+}
+
+.home__main .home__main__last-messages h2 {
+  margin: 20px 0 30px 0;
+}
+
+.home__main .home__main__sponsorized-apartments h2 {
+  margin: 40px 0 30px 0;
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
