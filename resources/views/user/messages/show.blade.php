@@ -13,7 +13,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-              <h3>{{ DateTime::createFromFormat('Y-m-d H:i:s', $message->date )->format('d/m/Y  H:i') }}</h3>
+              <h3>{{ DateTime::createFromFormat('Y-m-d H:i:s', $message->created_at )->format('d/m/Y  H:i') }}</h3>
             </div>
         </div>
         <div class="row">
