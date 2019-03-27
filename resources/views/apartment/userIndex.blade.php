@@ -10,7 +10,7 @@
     <table class="table">
       <tbody>
         @forelse ($apartments as $apartment)
-          <tr>
+          <tr  class="{{(!$apartment->published) ? 'unpublished alert alert-dark' : null}}">
             <td>
               @if($apartment->image)
               <img src="{{asset('storage/' . $apartment->image)}}" alt="{{ $apartment->title }}">
@@ -29,8 +29,18 @@
               <h4>Prezzo: {{ $apartment->price }}€</h4>
             </td>
             <td>
+              <a href="{{ route('apartment.show', $apartment->id) }}" class="btn btn-info">Visualizza</a>
+            </td>
+            @if($apartment->published)
+              <td>
               <a href="{{ route('apartment.edit', $apartment->id) }}" class="btn btn-primary">Modifica</a>
             </td>
+            @endif
+            @if(!$apartment->published)
+            <td>
+              <a href="{{ route('apartment.edit', $apartment->id) }}" class="btn btn-primary">Pubblica</a>
+            </td>
+            @endif
             <td>
               <a href="#" class="btn btn-danger">Elimina</a>
             </td>

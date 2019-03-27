@@ -179,12 +179,14 @@ class ApartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $apartment = Apartment::find($id);
 
         if($request['delete_image']){
             $delete = Storage::disk('public')->delete($request['delete_image']);
             $request['image'] = null;
         }
+
 
         if(!empty($request['image'])){
             $image = Storage::disk('public')->put('apartment_image', $request['image']);

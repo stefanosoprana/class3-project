@@ -11,6 +11,16 @@
                     <form class="form-group" action="{{ $data['route'] }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method($data['method'])
+                        {{--Pubblicato--}}
+                        <div class="form-check form-check-inline">
+                            <input type="radio" name="published" id="published" {{ ($data['apartment']->published) ? 'checked' : null}} value="1" class="form-check-input">
+                            <label class="form-check-label" for="published">Pubblica</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" name="published" id="published" {{ (!$data['apartment']->published) ? 'checked' : null}} value="0" class="form-check-input">
+                            <label class="form-check-label" for="published">Sospendi Pubblicazione</label>
+                        </div>
+                        {{--/Pubblicato--}}
 
                         {{--titolo--}}
                         <div class="form-group">
@@ -109,7 +119,6 @@
 
                         {{--Hidden--}}
                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                        <input type="hidden" name="published" value="1">
                         <div class="form-group">
                             <input type="submit" value="Salva Nuovo appartamento" class="form-control">
                         </div>
