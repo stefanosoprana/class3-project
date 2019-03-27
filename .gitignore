@@ -1,6 +1,5 @@
 /node_modules
 /public/hot
-/storage/framework
 /storage/logs
 /vendor
 .env
