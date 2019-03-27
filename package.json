@@ -28,6 +28,7 @@
   "dependencies": {
     "chart.js": "^2.8.0",
     "vue-axios": "^2.1.4",
-    "vue-chartjs": "^3.4.2"
+    "vue-chartjs": "^3.4.2",
+    "geocomplete": "^1.7.0"
   }
 }
