@@ -30,9 +30,9 @@ class HomeController extends Controller
 
         $user = Auth::user()->id;
 
-        $apartments = Apartment::where('user_id', $user)->get();
+        $apartments = Apartment::where('user_id', $user)->latest()->limit(3)->get();
 
-        $messages = Message::where('user_id', $user)->get();
+        $messages = Message::where('user_id', $user)->latest()->limit(2)->get();
 
         $apartments_user = [];
 
