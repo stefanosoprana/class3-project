@@ -285,4 +285,13 @@ class ApartmentController extends Controller
 
         return view('apartment.statistics', compact('apartment'));
     }
+
+    /**
+     *
+     * View Search
+     *
+     */
+    function search(){
+        return view('apartment.search');
+    }
 }

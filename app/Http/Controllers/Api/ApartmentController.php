@@ -9,6 +9,8 @@ use App\Service;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+
 
 class ApartmentController extends Controller
 {
@@ -95,18 +97,28 @@ class ApartmentController extends Controller
     }
 
     public function search(Request $request){
-        /* L'utente sceglie il raggio*/
-        $radius = 20000;
+        $data_search = $request->all();
 
-         /*  l'utente sceglie latitudine e longitudine*/
-        $lat = -80.712790;
-        $lon = 134.529656;
+        $validated_data = Validator::make($data_search,[
+            'latitude'=> 'required|numeric',
+            'longitude'=> 'required|numeric',
+            'radius'=> 'required|numeric',
+        ]);
 
-        /*l'utente chiede gli appartamenti che hanno tot servizi
-          array di servizi
-        */
+        if ($validated_data->fails()) {
+            dd($validated_data);
+            return response()->json([
+                'success'=>true,
+                'error'=> $validated_data,
+                'result'=> ''
+            ]);
+        }
+
+        $radius = $data_search['radius'];
+        $lat = $data_search['latitude'];
+        $lon = $data_search['longitude'];
+
         $services = [1, 2];
-
         //creo array dati
         $data = [];
 

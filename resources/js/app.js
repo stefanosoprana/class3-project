@@ -45,4 +45,35 @@ $(document).ready(function () {
             el: '#charts'
         });
     }
+    $('#button-search').click(function () {
+        event.preventDefault();
+        var href = window.location.href.split('/');
+        var host = href[2];
+        var urlApi = '/api/v1/apartments';
+
+        var url = 'http://'+host+urlApi;
+        var lat = $('#latitude').val();
+        var lon = $('#longitude').val();
+        var radius = $('#radius').val();
+        radius = radius * 1000;
+        console.log(url);
+        console.log(lat);
+        console.log(lon);
+        console.log(radius);
+
+        axios({
+            method:'post',
+            url: url,
+            headers: {'Authorization': 'Bearer 123_Pippo_Pluto'},
+            data: {
+                latitude: lat,
+                longitude: lon,
+                radius: radius,
+            }
+        }).then((response) => {
+            console.log(response.data);
+        }).catch(error => {
+            console.log(error.response)
+        });
+    });
 });
