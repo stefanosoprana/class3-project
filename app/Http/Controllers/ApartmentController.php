@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Apartment;
+use App\Service;
 use App\Sponsorship;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -292,6 +293,7 @@ class ApartmentController extends Controller
      *
      */
     function search(){
-        return view('apartment.search');
+        $services = Service::all();
+        return view('apartment.search', compact('services'));
     }
 }

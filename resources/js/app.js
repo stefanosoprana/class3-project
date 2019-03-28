@@ -47,19 +47,22 @@ $(document).ready(function () {
     }
     $('#button-search').click(function () {
         event.preventDefault();
-        var href = window.location.href.split('/');
-        var host = href[2];
-        var urlApi = '/api/v1/apartments';
+        let href = window.location.href.split('/');
+        let host = href[2];
+        let urlApi = '/api/v1/apartments';
 
-        var url = 'http://'+host+urlApi;
-        var lat = $('#latitude').val();
-        var lon = $('#longitude').val();
-        var radius = $('#radius').val();
+        let url = 'http://'+host+urlApi;
+        let lat = $('#latitude').val();
+        let lon = $('#longitude').val();
+        let radius = $('#radius').val() | 20;
+        let $services = $('#services input:checked');
+        let services = [];
+
+        for(var i = 0, lenght = $services.length; i < lenght; i++){
+            services.push($($services[i]).val());
+        }
+
         radius = radius * 1000;
-        console.log(url);
-        console.log(lat);
-        console.log(lon);
-        console.log(radius);
 
         axios({
             method:'post',
@@ -69,6 +72,7 @@ $(document).ready(function () {
                 latitude: lat,
                 longitude: lon,
                 radius: radius,
+                services: services,
             }
         }).then((response) => {
             console.log(response.data);

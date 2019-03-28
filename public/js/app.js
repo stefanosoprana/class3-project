@@ -82299,12 +82299,15 @@ $(document).ready(function () {
     var url = 'http://' + host + urlApi;
     var lat = $('#latitude').val();
     var lon = $('#longitude').val();
-    var radius = $('#radius').val();
+    var radius = $('#radius').val() | 20;
+    var $services = $('#services input:checked');
+    var services = [];
+
+    for (var i = 0, lenght = $services.length; i < lenght; i++) {
+      services.push($($services[i]).val());
+    }
+
     radius = radius * 1000;
-    console.log(url);
-    console.log(lat);
-    console.log(lon);
-    console.log(radius);
     axios__WEBPACK_IMPORTED_MODULE_1___default()({
       method: 'post',
       url: url,
@@ -82314,7 +82317,8 @@ $(document).ready(function () {
       data: {
         latitude: lat,
         longitude: lon,
-        radius: radius
+        radius: radius,
+        services: services
       }
     }).then(function (response) {
       console.log(response.data);

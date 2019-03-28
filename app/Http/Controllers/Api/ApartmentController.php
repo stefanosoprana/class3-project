@@ -118,8 +118,12 @@ class ApartmentController extends Controller
         $lat = $data_search['latitude'];
         $lon = $data_search['longitude'];
 
-        $services = [1, 2];
-        //creo array dati
+        $services =  [];
+        foreach ($data_search['services'] as $service_name){
+            $service = Service::where('name', $service_name)->first();
+            $services[] = $service->id;
+        }
+
         $data = [];
 
         //whereHas fa ricerca su tabella pivot
