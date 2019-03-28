@@ -94,60 +94,69 @@ class ApartmentController extends Controller
         }
     }
 
-    public function search(){
+    public function search(Request $request){
+        /* L'utente sceglie il raggio*/
+        $radius = 20000;
+
+         /*  l'utente sceglie latitudine e longitudine*/
+        $lat = -80.712790;
+        $lon = 134.529656;
+
+        /*l'utente chiede gli appartamenti che hanno tot servizi
+          array di servizi
+        */
         $services = [1, 2];
 
-      $data = [];
+        //creo array dati
+        $data = [];
 
-      //whereHas fa ricerca su tabella pivot
-      $apartments = Apartment::whereHas('services', function ($query) use ($services){
-          //whereIn accetta array
-          $query->whereIn('services.id', $services);
-      })->get();
+        //whereHas fa ricerca su tabella pivot
+        $apartments = Apartment::radius($lon, $lat, $radius)->whereHas('services', function ($query) use ($services){
+            //whereIn accetta array
+            $query->whereIn('services.id', $services);
+        })->get();
 
-        
-      $services = Service::all();
+        foreach ($apartments as $apartment) {
+            $name = $apartment->title;
+            $rooms = $apartment->rooms;
+            $beds = $apartment->beds;
+            $bathrooms = $apartment->bathrooms;
+            $square_meters = $apartment->square_meters;
+            $street = $apartment->street;
+            $house_number = $apartment->house_number;
+            $postal_code = $apartment->postal_code;
+            $locality = $apartment->locality;
+            $state = $apartment->state;
+            $latitude = $apartment->latitude;
+            $longitude = $apartment->longitude;
+            $image = $apartment->image;
+            $this_services = $apartment->services;
 
-      /*l'utente chiede gli apparftamenti che hanno tot servizi
-        array di servizi
-      */
-     /* foreach ($services as $service) {
-         $service = $apartments->services()->get();
-         dd($service);
-       }*/
-      //
-      //
+            $data_apartment = [
+                'name'=>$name,
+                'rooms'=>$rooms,
+                'beds'=>$beds,
+                'bathrooms'=>$bathrooms,
+                'square_meters'=>$square_meters,
+                'street'=>$street,
+                'house_number'=>$house_number,
+                'postal_code'=>$postal_code,
+                'locality'=>$locality,
+                'state'=>$state,
+                'latitude'=>$latitude,
+                'longitude'=>$longitude,
+                'image'=>$image,
+                'services' => $this_services,
+            ];
+            $data[] = $data_apartment;
 
-      // problemi con la many to many relantionship
+        }
 
-
-      foreach ($apartments as $apartment) {
-        $rooms = $apartment->rooms;
-        $beds = $apartment->beds;
-        $latitude = $apartment->latitude;
-        $longitude = $apartment->longitude;
-
-        $newData = [
-          'apartments' =>[
-            'rooms'=>$rooms,
-            'beds'=>$beds,
-            'latitude'=>$latitude,
-            'longitude'=>$longitude,
-          ],
-          // 'services'=>[
-          //   'apartment_service'=>$services
-          // ]
-        ];
-
-          $data[] = $newData;
-
-      }
-
-      return response()->json([
-        'success'=>true,
-        'error'=>'',
-        'result'=> $data
-      ]);
+        return response()->json([
+            'success'=>true,
+            'error'=>'',
+            'result'=> $data
+        ]);
     }
 
 }
