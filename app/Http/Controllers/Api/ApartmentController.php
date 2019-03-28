@@ -9,6 +9,8 @@ use App\Service;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+
 
 class ApartmentController extends Controller
 {
@@ -39,7 +41,8 @@ class ApartmentController extends Controller
             return response()->json([
                 'success'=>true,
                 'error'=>'',
-                'result'=> $data
+                'result'=> $data,
+                'results_number'=> count($data),
             ]);
 
         } else {
@@ -47,7 +50,8 @@ class ApartmentController extends Controller
             return response()->json([
                 'success'=>true,
                 'error'=>'Appartamento non esistente',
-                'result'=> ''
+                'result'=> '',
+                'results_number'=> 0,
             ]);
 
         }
@@ -80,7 +84,8 @@ class ApartmentController extends Controller
             return response()->json([
                 'success'=>true,
                 'error'=>'',
-                'result'=> $data
+                'result'=> $data,
+                'results_number'=> count($data),
             ]);
 
         } else {
@@ -88,66 +93,103 @@ class ApartmentController extends Controller
             return response()->json([
                 'success'=>true,
                 'error'=>'Appartamento non esistente',
-                'result'=> ''
+                'result'=> '',
+                'results_number'=> 0,
             ]);
 
         }
     }
 
-    public function search(){
-        $services = [1, 2];
+    public function search(Request $request){
+        $data_search = $request->all();
 
-      $data = [];
+        $validated_data = Validator::make($data_search,[
+            'latitude'=> 'required|numeric',
+            'longitude'=> 'required|numeric',
+            'radius'=> 'required|numeric',
+        ]);
 
-      //whereHas fa ricerca su tabella pivot
-      $apartments = Apartment::whereHas('services', function ($query) use ($services){
-          //whereIn accetta array
-          $query->whereIn('services.id', $services);
-      })->get();
+        if ($validated_data->fails()) {
+            //se i dati non sono esatti ritorno errore
+            return response()->json([
+                'success'=>true,
+                'error'=> 'Dati inviati non corretti',
+                'result'=> '',
+                'results_number'=> 0
+            ]);
+        }
 
-        
-      $services = Service::all();
+        $radius = $data_search['radius'];
+        $lat = $data_search['latitude'];
+        $lon = $data_search['longitude'];
 
-      /*l'utente chiede gli apparftamenti che hanno tot servizi
-        array di servizi
-      */
-     /* foreach ($services as $service) {
-         $service = $apartments->services()->get();
-         dd($service);
-       }*/
-      //
-      //
+        //salvo id servizi
+        $services =  [];
+        if(isset($data_search['services'])){
+            foreach ($data_search['services'] as $service_name){
+                $service = Service::where('name', $service_name)->first();
+                $services[] = $service->id;
+            }
+        }
 
-      // problemi con la many to many relantionship
+        //se sono presenti servizi uso tabella pivot
+        if(count($services) > 0){
+            //whereHas fa ricerca su tabella pivot
+            $apartments = Apartment::radius($lon, $lat, $radius)->whereHas('services', function ($query) use ($services){
+                //whereIn accetta array
+                $query->whereIn('services.id', $services);
+            })->get();
+        }
+        //altrimenti ricerco solo per radius
+        else{
+            $apartments = Apartment::radius($lon, $lat, $radius)->get();
+        }
 
+        //salvo dati in array
+        $data = [];
+        foreach ($apartments as $apartment) {
+            $name = $apartment->title;
+            $rooms = $apartment->rooms;
+            $beds = $apartment->beds;
+            $bathrooms = $apartment->bathrooms;
+            $square_meters = $apartment->square_meters;
+            $street = $apartment->street;
+            $house_number = $apartment->house_number;
+            $postal_code = $apartment->postal_code;
+            $locality = $apartment->locality;
+            $state = $apartment->state;
+            $latitude = $apartment->latitude;
+            $longitude = $apartment->longitude;
+            $image = asset('storage/' .$apartment->image);
+            $this_services = $apartment->services;
 
-      foreach ($apartments as $apartment) {
-        $rooms = $apartment->rooms;
-        $beds = $apartment->beds;
-        $latitude = $apartment->latitude;
-        $longitude = $apartment->longitude;
+            $data_apartment = [
+                'name'=>$name,
+                'rooms'=>$rooms,
+                'beds'=>$beds,
+                'bathrooms'=>$bathrooms,
+                'square_meters'=>$square_meters,
+                'street'=>$street,
+                'house_number'=>$house_number,
+                'postal_code'=>$postal_code,
+                'locality'=>$locality,
+                'state'=>$state,
+                'latitude'=>$latitude,
+                'longitude'=>$longitude,
+                'image'=>$image,
+                'services' => $this_services,
+            ];
+            $data[] = $data_apartment;
 
-        $newData = [
-          'apartments' =>[
-            'rooms'=>$rooms,
-            'beds'=>$beds,
-            'latitude'=>$latitude,
-            'longitude'=>$longitude,
-          ],
-          // 'services'=>[
-          //   'apartment_service'=>$services
-          // ]
-        ];
+        }
 
-          $data[] = $newData;
-
-      }
-
-      return response()->json([
-        'success'=>true,
-        'error'=>'',
-        'result'=> $data
-      ]);
+        //ritorno json
+        return response()->json([
+            'success'=>true,
+            'error'=>'',
+            'result'=> $data,
+            'results_number'=> count($data),
+        ]);
     }
 
 }

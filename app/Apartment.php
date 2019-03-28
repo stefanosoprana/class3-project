@@ -36,7 +36,7 @@ class Apartment extends Model
       return $query->whereRaw("
         ST_DISTANCE_SPHERE(
             POINT($longitude, $latitude),
-            POINT(longitude, latitude)) < $radius
+            POINT(longitude, latitude)) <= $radius
          ");
     }
 

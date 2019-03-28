@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Apartment;
+use App\Service;
 use App\Sponsorship;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -284,5 +285,15 @@ class ApartmentController extends Controller
         }
 
         return view('apartment.statistics', compact('apartment'));
+    }
+
+    /**
+     *
+     * View Search
+     *
+     */
+    function search(){
+        $services = Service::all();
+        return view('apartment.search', compact('services'));
     }
 }

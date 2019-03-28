@@ -20,7 +20,6 @@
             }).then((response) => {
                 let data = response.data.result;
                 let visitsData = data.visits;
-                console.log(data.visits);
                 if(visitsData) {
                     visitsData.labels.forEach(
                         function (element) {
