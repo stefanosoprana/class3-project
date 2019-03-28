@@ -30,7 +30,7 @@
                 <legend>Servizi</legend>
                 @foreach($services as $service)
                   <input type="checkbox" name="service" value="{{$service->name}}" class="form-check-input">
-                  <label class="form-check-label" for="{{$service->name}}">{{$service->name}}</label>
+                  <label class="form-check-label" for="{{$service->name}}">{!! $service->icon !!} {{$service->name}}</label>
                 @endforeach
               </fieldset>
             </div>

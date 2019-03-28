@@ -10692,6 +10692,10 @@ a.text-dark:focus {
   height: 400px;
 }
 
+.apartment__create .apartment__create__address-disabled input {
+  pointer-events: none;
+}
+
 .home__main .home__main__title h1 {
   margin: 10px 0 20px 0;
 }
@@ -10712,3 +10716,4 @@ a.text-dark:focus {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+

@@ -148,7 +148,9 @@ class ApartmentController extends Controller
         //salvo dati in array
         $data = [];
         foreach ($apartments as $apartment) {
+            $id =  $apartment->id;
             $name = $apartment->title;
+            $price = $apartment->price;
             $rooms = $apartment->rooms;
             $beds = $apartment->beds;
             $bathrooms = $apartment->bathrooms;
@@ -162,9 +164,12 @@ class ApartmentController extends Controller
             $longitude = $apartment->longitude;
             $image = asset('storage/' .$apartment->image);
             $this_services = $apartment->services;
+            $url = route('apartment.show', $id);
 
             $data_apartment = [
+                'id' => $id,
                 'name'=>$name,
+                'price'=>$price,
                 'rooms'=>$rooms,
                 'beds'=>$beds,
                 'bathrooms'=>$bathrooms,
@@ -178,6 +183,7 @@ class ApartmentController extends Controller
                 'longitude'=>$longitude,
                 'image'=>$image,
                 'services' => $this_services,
+                'url' => $url
             ];
             $data[] = $data_apartment;
 

@@ -33,6 +33,7 @@ import { Bar, Line } from 'vue-chartjs';
 Vue.component('chart-component-visits', require('./components/ChartVisitsComponent.vue').default);
 Vue.component('chart-component-messages', require('./components/ChartMessagesComponent.vue').default);
 Vue.component('card', require('./components/CardComponent.vue').default);
+Vue.component('service-component', require('./components/ServiceComponent.vue').default);
 
 
 $(document).ready(function () {
