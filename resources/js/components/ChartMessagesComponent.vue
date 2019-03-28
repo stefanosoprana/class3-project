@@ -36,7 +36,7 @@
                         labels: labels,
                         datasets: [{
                             label: 'Messages',
-                            backgroundColor: '#FC2525',
+                            backgroundColor: '#007bff',
                             data: messages
                         }]
                     }, {

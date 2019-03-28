@@ -24,6 +24,7 @@
             $newApt->bathrooms = $faker->numberBetween($min = 1, $max = 10);
             $newApt->square_meters = $faker->numberBetween($min = 30, $max = 400);
             $newApt->street = $faker->streetName;
+            $newApt->locality = $faker->city;
             $newApt->house_number = $faker->buildingNumber;
             $newApt->postal_code = $faker->randomNumber($nbDigits = NULL, $strict = false);
             $newApt->state = $faker->state;

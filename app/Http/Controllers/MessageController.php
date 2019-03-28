@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 use App\Message;
 
 class MessageController extends Controller
@@ -13,14 +14,21 @@ class MessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
+        if($user->id !==  Auth::user()->id && !Auth::user()->hasRole('admin')){
 
-      $user = Auth::user()->id;
-      $messages = Message::where('user_id', $user)->get();
-      // $messages = Message::all();
+            abort(404);
+        }
 
-      return view('user.messages.index', compact('messages'));
+        $messages = Message::where('user_id', $user->id)->get();
+
+        $data =  [
+            'user' => $user,
+            'messages' => $messages,
+        ];
+
+      return view('user.messages.index', compact('data'));
 
     }
 
@@ -53,7 +61,8 @@ class MessageController extends Controller
 
       $newMessage->save();
 
-      return redirect()->back();
+        $status = 'Messaggio inviato con successo';
+        return redirect()->back()->with('status', $status);
     }
 
     /**
@@ -104,10 +113,13 @@ class MessageController extends Controller
      */
     public function destroy($id)
     {
+        $user = Auth::user();
         $message = Message::find($id);
-
+        $message_name = $message->name;
         $message->delete();
 
-        return redirect()->back();
+        $status = 'Hai cancellato il messaggio ricevuto da ' . $message_name;
+
+        return redirect(route('messages.index', $user))->with('status', $status);
     }
 }

@@ -33,7 +33,7 @@ class ApartmentController extends Controller
             foreach ($visits as $visit){
                 $visit_created = Carbon::make($visit['created_at']);
                 $visit_month = $visit_created->month;
-                $data['visits']['number'][$visit_month] += 1;
+                $data['visits']['number'][$visit_month-1] += 1;
             }
 
             return response()->json([
@@ -74,7 +74,7 @@ class ApartmentController extends Controller
             foreach ($messages as $message){
                 $message_created = Carbon::make($message['created_at']);
                 $message_month = $message_created->month;
-                $data['messages']['number'][$message_month] += 1;
+                $data['messages']['number'][$message_month-1] += 1;
             }
 
             return response()->json([

@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/apartment', 'ApartmentController@store')->name('apartment.store');
     Route::get('/apartment/{id}/edit', 'ApartmentController@edit')->name('apartment.edit');
     Route::patch('/apartment/{id}', 'ApartmentController@update')->name('apartment.update');
-    Route::get('/apartment/{id}/statistics', 'ApartmentController@statistics')->name('apartment.statistic');
+    Route::get('/apartment/{apartment}/statistics', 'ApartmentController@statistics')->name('apartment.statistic');
     Route::delete('/apartment/{id}/delete', 'ApartmentController@destroy')->name('apartment.destroy');
 });
 
@@ -42,7 +42,7 @@ Route::post('/message', 'MessageController@store')->name('message.store');
 
 //rotte per messaggi
 Route::middleware('auth')->group(function () {
-    Route::get('/messages/{user}', 'MessageController@index')->name('messages.index');
+    Route::get('{user}/messages', 'MessageController@index')->name('messages.index');
     Route::get('/message/{id}', 'MessageController@show')->name('message.show');
     Route::delete('/message/{id}/delete', 'MessageController@destroy')->name('message.destroy');
 });

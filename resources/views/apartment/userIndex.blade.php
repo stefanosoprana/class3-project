@@ -10,13 +10,15 @@
     <table class="table">
       <tbody>
         @forelse ($apartments as $apartment)
-          <tr>
+          <tr  class="{{(!$apartment->published) ? 'unpublished alert alert-dark' : null}}">
             <td>
+              @if($apartment->image)
               <img src="{{asset('storage/' . $apartment->image)}}" alt="{{ $apartment->title }}">
+              @endif
             </td>
             <td>
               <h3>{{ $apartment->title }}</h3>
-              <h5>{{ $apartment->street}} {{ $apartment->house_number}}, {{ $apartment->postal_code}}, {{ $apartment->state }}</h5>
+              <h5>{{ $apartment->street}} {{ $apartment->house_number}}, {{ $apartment->locality}}, {{ $apartment->postal_code}}, {{ $apartment->state }}</h5>
               <h5>Caratteristiche</h5>
               <ul>
                 <li>Dimensioni: {{ $apartment->square_meters}}m²</li>
@@ -27,10 +29,24 @@
               <h4>Prezzo: {{ $apartment->price }}€</h4>
             </td>
             <td>
+              <a href="{{ route('apartment.show', $apartment->id) }}" class="btn btn-info">Visualizza</a>
+            </td>
+            @if($apartment->published)
+              <td>
               <a href="{{ route('apartment.edit', $apartment->id) }}" class="btn btn-primary">Modifica</a>
             </td>
+            @endif
+            @if(!$apartment->published)
             <td>
-              <a href="#" class="btn btn-danger">Elimina</a>
+              <a href="{{ route('apartment.edit', $apartment->id) }}" class="btn btn-primary">Pubblica</a>
+            </td>
+            @endif
+            <td>
+              <form action="{{route('apartment.destroy', $apartment->id)}}" method="post">
+                @csrf
+                @method('DELETE')
+                <button class="btn btn-danger">Elimina</button>
+              </form>
             </td>
           </tr>
         @empty
