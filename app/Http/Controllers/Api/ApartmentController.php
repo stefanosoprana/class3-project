@@ -41,7 +41,8 @@ class ApartmentController extends Controller
             return response()->json([
                 'success'=>true,
                 'error'=>'',
-                'result'=> $data
+                'result'=> $data,
+                'results_number'=> count($data),
             ]);
 
         } else {
@@ -49,7 +50,8 @@ class ApartmentController extends Controller
             return response()->json([
                 'success'=>true,
                 'error'=>'Appartamento non esistente',
-                'result'=> ''
+                'result'=> '',
+                'results_number'=> 0,
             ]);
 
         }
@@ -82,7 +84,8 @@ class ApartmentController extends Controller
             return response()->json([
                 'success'=>true,
                 'error'=>'',
-                'result'=> $data
+                'result'=> $data,
+                'results_number'=> count($data),
             ]);
 
         } else {
@@ -90,7 +93,8 @@ class ApartmentController extends Controller
             return response()->json([
                 'success'=>true,
                 'error'=>'Appartamento non esistente',
-                'result'=> ''
+                'result'=> '',
+                'results_number'=> 0,
             ]);
 
         }
@@ -106,11 +110,12 @@ class ApartmentController extends Controller
         ]);
 
         if ($validated_data->fails()) {
-            dd($validated_data);
+            //se i dati non sono esatti ritorno errore
             return response()->json([
                 'success'=>true,
-                'error'=> $validated_data,
-                'result'=> ''
+                'error'=> 'Dati inviati non corretti',
+                'result'=> '',
+                'results_number'=> 0
             ]);
         }
 
@@ -118,20 +123,30 @@ class ApartmentController extends Controller
         $lat = $data_search['latitude'];
         $lon = $data_search['longitude'];
 
+        //salvo id servizi
         $services =  [];
-        foreach ($data_search['services'] as $service_name){
-            $service = Service::where('name', $service_name)->first();
-            $services[] = $service->id;
+        if(isset($data_search['services'])){
+            foreach ($data_search['services'] as $service_name){
+                $service = Service::where('name', $service_name)->first();
+                $services[] = $service->id;
+            }
         }
 
+        //se sono presenti servizi uso tabella pivot
+        if(count($services) > 0){
+            //whereHas fa ricerca su tabella pivot
+            $apartments = Apartment::radius($lon, $lat, $radius)->whereHas('services', function ($query) use ($services){
+                //whereIn accetta array
+                $query->whereIn('services.id', $services);
+            })->get();
+        }
+        //altrimenti ricerco solo per radius
+        else{
+            $apartments = Apartment::radius($lon, $lat, $radius)->get();
+        }
+
+        //salvo dati in array
         $data = [];
-
-        //whereHas fa ricerca su tabella pivot
-        $apartments = Apartment::radius($lon, $lat, $radius)->whereHas('services', function ($query) use ($services){
-            //whereIn accetta array
-            $query->whereIn('services.id', $services);
-        })->get();
-
         foreach ($apartments as $apartment) {
             $name = $apartment->title;
             $rooms = $apartment->rooms;
@@ -145,7 +160,7 @@ class ApartmentController extends Controller
             $state = $apartment->state;
             $latitude = $apartment->latitude;
             $longitude = $apartment->longitude;
-            $image = $apartment->image;
+            $image = asset('storage/' .$apartment->image);
             $this_services = $apartment->services;
 
             $data_apartment = [
@@ -168,10 +183,12 @@ class ApartmentController extends Controller
 
         }
 
+        //ritorno json
         return response()->json([
             'success'=>true,
             'error'=>'',
-            'result'=> $data
+            'result'=> $data,
+            'results_number'=> count($data),
         ]);
     }
 

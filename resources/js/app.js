@@ -32,6 +32,7 @@ import { Bar, Line } from 'vue-chartjs';
 
 Vue.component('chart-component-visits', require('./components/ChartVisitsComponent.vue').default);
 Vue.component('chart-component-messages', require('./components/ChartMessagesComponent.vue').default);
+Vue.component('card', require('./components/CardComponent.vue').default);
 
 
 $(document).ready(function () {
@@ -45,39 +46,62 @@ $(document).ready(function () {
             el: '#charts'
         });
     }
-    $('#button-search').click(function () {
-        event.preventDefault();
-        let href = window.location.href.split('/');
-        let host = href[2];
-        let urlApi = '/api/v1/apartments';
 
-        let url = 'http://'+host+urlApi;
-        let lat = $('#latitude').val();
-        let lon = $('#longitude').val();
-        let radius = $('#radius').val() | 20;
-        let $services = $('#services input:checked');
-        let services = [];
-
-        for(var i = 0, lenght = $services.length; i < lenght; i++){
-            services.push($($services[i]).val());
-        }
-
-        radius = radius * 1000;
-
-        axios({
-            method:'post',
-            url: url,
-            headers: {'Authorization': 'Bearer 123_Pippo_Pluto'},
+    if($('#search__result').length) {
+        const searchResult = new Vue({
+            el: '#search__result',
             data: {
-                latitude: lat,
-                longitude: lon,
-                radius: radius,
-                services: services,
-            }
-        }).then((response) => {
-            console.log(response.data);
-        }).catch(error => {
-            console.log(error.response)
+                latitude: '',
+                longitude: '',
+                radius: '',
+                services: '',
+                apartments: []
+            },
+            methods: {
+                getFormValues: function(submitEvent) {
+                    console.log(submitEvent.target.elements.latitude.value);
+                    let href = window.location.href.split('/');
+                    let host = href[2];
+                    let urlApi = '/api/v1/apartments';
+                    let url = 'http://'+host+urlApi;
+                    this.latitude = submitEvent.target.elements.latitude.value;
+                    this.longitude = submitEvent.target.elements.longitude.value;
+                    this.radius = submitEvent.target.elements.radius.value;
+                    let services = submitEvent.target.elements.service;
+                    let arrServices = [];
+                    services.forEach(function (service, i) {
+                        if(service.checked){
+                            arrServices.push(service.value);
+                        }
+                    });
+                    this.services = arrServices;
+                    axios({
+                        method:'post',
+                        url: url,
+                        headers: {'Authorization': 'Bearer 123_Pippo_Pluto'},
+                        data: {
+                            latitude: this.latitude,
+                            longitude: this.longitude,
+                            radius: this.radius,
+                            services: this.services,
+                        }
+                    }).then((response) => {
+                        console.log(response.data.result);
+                        this.apartments = response.data.result;
+                    }).catch(error => {
+                        console.log(error.response)
+                    });
+                }
+            },
+            mounted() {
+                //avvio geocomplete
+                $('#address').geocomplete({
+                    details: "#address-complete",
+                    detailsAttribute: "data-geo"
+                });
+            },
         });
-    });
+    }
 });
+
+
