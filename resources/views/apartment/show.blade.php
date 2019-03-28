@@ -59,6 +59,12 @@
               <li><b>Bagni:</b> {{ $apartment->bathrooms }}</li>
               <li><b>Dimensioni:</b> {{ $apartment->square_meters }} mq</li>
             </ul>
+            <h3>Servizi</h3>
+            <ul class="services">
+              @foreach($apartment->services as $service)
+                <li class="services_item">{!! $service->icon !!} {{$service->name}}</li>
+              @endforeach
+            </ul>
           </div>
           {{--/caratteristiche--}}
         </div>
