@@ -32,7 +32,7 @@ class HomeController extends Controller
 
         $apartments = Apartment::where('user_id', $user)->latest()->limit(3)->get();
 
-        $messages = Message::where('user_id', $user)->latest()->limit(2)->get();
+        $messages = Message::where('user_id', $user)->latest()->limit(4)->get();
 
         $apartments_user = [];
 
