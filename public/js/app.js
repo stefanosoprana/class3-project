@@ -70838,7 +70838,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col-12 col-xl-4 col-md-6 mb-4" }, [
-    _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card", class: _vm.card.sponsorized }, [
       _c("div", { staticClass: "card__header" }, [
         _c("div", { staticClass: "card__img" }, [
           _c(
@@ -83143,7 +83143,6 @@ $(document).ready(function () {
         getFormValues: function getFormValues(submitEvent) {
           var _this = this;
 
-          console.log(submitEvent.target.elements.latitude.value);
           var href = window.location.href.split('/');
           var host = href[2];
           var urlApi = '/api/v1/apartments';
@@ -83152,6 +83151,8 @@ $(document).ready(function () {
           this.longitude = submitEvent.target.elements.longitude.value;
           this.radius = submitEvent.target.elements.radius.value;
           var services = submitEvent.target.elements.service;
+          this.beds = submitEvent.target.elements.beds.value;
+          this.rooms = submitEvent.target.elements.rooms.value;
           var arrServices = [];
           services.forEach(function (service, i) {
             if (service.checked) {
@@ -83169,7 +83170,9 @@ $(document).ready(function () {
               latitude: this.latitude,
               longitude: this.longitude,
               radius: this.radius,
-              services: this.services
+              services: this.services,
+              beds: this.beds,
+              rooms: this.rooms
             }
           }).then(function (response) {
             console.log(response.data.result);

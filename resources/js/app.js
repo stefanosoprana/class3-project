@@ -60,21 +60,26 @@ $(document).ready(function () {
             },
             methods: {
                 getFormValues: function(submitEvent) {
-                    console.log(submitEvent.target.elements.latitude.value);
+
                     let href = window.location.href.split('/');
                     let host = href[2];
                     let urlApi = '/api/v1/apartments';
                     let url = 'http://'+host+urlApi;
+
                     this.latitude = submitEvent.target.elements.latitude.value;
                     this.longitude = submitEvent.target.elements.longitude.value;
                     this.radius = submitEvent.target.elements.radius.value;
                     let services = submitEvent.target.elements.service;
+                    this.beds = submitEvent.target.elements.beds.value;
+                    this.rooms = submitEvent.target.elements.rooms.value;
+                    
                     let arrServices = [];
                     services.forEach(function (service, i) {
                         if(service.checked){
                             arrServices.push(service.value);
                         }
                     });
+
                     this.services = arrServices;
                     axios({
                         method:'post',
@@ -85,6 +90,8 @@ $(document).ready(function () {
                             longitude: this.longitude,
                             radius: this.radius,
                             services: this.services,
+                            beds: this.beds,
+                            rooms: this.rooms,
                         }
                     }).then((response) => {
                         console.log(response.data.result);

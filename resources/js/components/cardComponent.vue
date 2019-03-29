@@ -1,6 +1,6 @@
 <template>
     <div class="col-12 col-xl-4 col-md-6 mb-4">
-        <div class="card">
+        <div class="card" v-bind:class="card.sponsorized">
             <div class="card__header">
                 <div class="card__img">
                     <a v-bind:href="card.url"  v-bind:style="{backgroundImage: 'url(' + card.image + ')'}" target="_blank"><img v-bind:src="card.image" v-bind:alt="card.name" aria-hidden="false" hidden></a>

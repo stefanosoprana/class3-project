@@ -22,8 +22,16 @@
               <input id="longitude" name="longitude" type="hidden"  data-geo="lng" value="">
             </div>
             <div class="form-group">
-            <input type="text" id="radius" name="radius" placeholder="Inserisci il raggio in metri">
-
+              <label for="radius">Raggio di ricerca</label>
+              <input type="number" id="radius" name="radius" placeholder="Inserisci il raggio in metri">
+            </div>
+            <div class="form-group">
+              <label for="beds">Numero minimo di letti</label>
+              <input type="number" id="beds" name="beds" placeholder="Inserisci il numero di letti">
+            </div>
+            <div class="form-group">
+              <label for="rooms">Numero minimo di stanze</label>
+              <input type="number" id="rooms" name="rooms" placeholder="Inserisci il numero di stanze">
             </div>
             <div class="form-check form-check-inline">
               <fieldset id="services">

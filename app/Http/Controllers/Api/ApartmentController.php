@@ -107,6 +107,8 @@ class ApartmentController extends Controller
             'latitude'=> 'required|numeric',
             'longitude'=> 'required|numeric',
             'radius'=> 'required|numeric',
+            'beds'=> 'nullable|numeric',
+            'rooms'=> 'nullable|numeric',
         ]);
 
         if ($validated_data->fails()) {
@@ -122,6 +124,8 @@ class ApartmentController extends Controller
         $radius = $data_search['radius'];
         $lat = $data_search['latitude'];
         $lon = $data_search['longitude'];
+        $beds = (isset($data_search['beds'])) ? $data_search['beds'] : null;
+        $rooms = (isset($data_search['rooms'])) ? $data_search['rooms'] : null;
 
         //salvo id servizi
         $services =  [];
@@ -132,21 +136,85 @@ class ApartmentController extends Controller
             }
         }
 
+        $apartments_query = Apartment::radius($lon, $lat, $radius);
+        $apartments_query->where('published', '=', 1);
+
         //se sono presenti servizi uso tabella pivot
         if(count($services) > 0){
             //whereHas fa ricerca su tabella pivot
-            $apartments = Apartment::radius($lon, $lat, $radius)->whereHas('services', function ($query) use ($services){
+            $apartments_query->whereHas('services', function ($query) use ($services){
                 //whereIn accetta array
                 $query->whereIn('services.id', $services);
-            })->get();
-        }
-        //altrimenti ricerco solo per radius
-        else{
-            $apartments = Apartment::radius($lon, $lat, $radius)->get();
+            });
         }
 
-        //salvo dati in array
+        //se è presente il numero di letti
+        if($beds){
+            //dd($beds);
+            $apartments_query->where('beds', '>=', $beds);
+        }
+        //se è presente il numero di stanze
+        if($rooms){
+            // dd($rooms);
+            $apartments_query->where('rooms', '>=', $rooms);
+        }
+        //duplico query prendo solo appartamenti sponsorizzati
+        $apartments_sponsorized_query =  clone $apartments_query;
+
+        //elimino sponsorizzati
+        $apartments_query->doesnthave('sponsorship');
+        //get su apartmenti
+        $apartments = $apartments_query->get();
+
+        //get su apartmenti sponsorizzati
+        $apartments_sponsorized = $apartments_sponsorized_query->has('sponsorship')->get();
+
+        //salvo dati appartamenti sponsorizzati in array
         $data = [];
+        foreach ($apartments_sponsorized as $apartment) {
+            $id =  $apartment->id;
+            $name = $apartment->title;
+            $price = $apartment->price;
+            $rooms = $apartment->rooms;
+            $beds = $apartment->beds;
+            $bathrooms = $apartment->bathrooms;
+            $square_meters = $apartment->square_meters;
+            $street = $apartment->street;
+            $house_number = $apartment->house_number;
+            $postal_code = $apartment->postal_code;
+            $locality = $apartment->locality;
+            $state = $apartment->state;
+            $latitude = $apartment->latitude;
+            $longitude = $apartment->longitude;
+            $image = asset('storage/' .$apartment->image);
+            $this_services = $apartment->services;
+            $url = route('apartment.show', $id);
+            $sponsorized = true;
+
+            $data_apartment = [
+                'id' => $id,
+                'name'=>$name,
+                'price'=>$price,
+                'rooms'=>$rooms,
+                'beds'=>$beds,
+                'bathrooms'=>$bathrooms,
+                'square_meters'=>$square_meters,
+                'street'=>$street,
+                'house_number'=>$house_number,
+                'postal_code'=>$postal_code,
+                'locality'=>$locality,
+                'state'=>$state,
+                'latitude'=>$latitude,
+                'longitude'=>$longitude,
+                'image'=>$image,
+                'services' => $this_services,
+                'sponsorized' => 'sponsorized',
+                'url' => $url
+            ];
+            $data[] = $data_apartment;
+        }
+
+        //salvo dati appartamenti normali in array
         foreach ($apartments as $apartment) {
             $id =  $apartment->id;
             $name = $apartment->title;
@@ -183,11 +251,13 @@ class ApartmentController extends Controller
                 'longitude'=>$longitude,
                 'image'=>$image,
                 'services' => $this_services,
+                'sponsorized' => '',
                 'url' => $url
             ];
             $data[] = $data_apartment;
 
         }
+
 
         //ritorno json
         return response()->json([
