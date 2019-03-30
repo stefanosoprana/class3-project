@@ -10,6 +10,8 @@ use App\Sponsorship;
 
 class Apartment extends Model
 {
+    protected $fillable = ['title', 'description', 'price', 'street', 'house_number', 'locality', 'postal_code', 'state', 'latitude', 'longitude', 'image', 'square_meters', 'rooms', 'beds', 'bathrooms', 'user_id', 'published' ];
+
     public function user(){
       return $this->belongsTo('App\User');
     }
@@ -31,11 +33,12 @@ class Apartment extends Model
      * $radius è in metri quindi 40000 per 40km
     */
     public function scopeRadius($query, $longitude, $latitude, $radius){
-      return $query->whereRaw("
+      return $query->selectRaw("*, ST_DISTANCE_SPHERE(
+            POINT($longitude, $latitude),
+            POINT(longitude, latitude)) as distance")->whereRaw("
         ST_DISTANCE_SPHERE(
             POINT($longitude, $latitude),
-            POINT(longitude, latitude)) < $radius
-         ");
+            POINT(longitude, latitude)) < $radius")->orderBy('distance', 'desc');
     }
 
 }

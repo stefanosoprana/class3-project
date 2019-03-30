@@ -15,6 +15,20 @@
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
+              @auth
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('apartments.user.index', Auth::user()->name) }}">Appartamenti</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('messages.index', Auth::user()->id)}}">Messaggi</a>
+                </li>
+                {{-- <li class="nav-item">
+                  <a class="nav-link" href="#">Statistiche</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Sponsorizza</a>
+                </li> --}}
+              @endauth
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">

@@ -4,33 +4,30 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h1>Nome utente</h1>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <h1>I tuoi messaggi</h1>
+        <h1>Messaggi Ricevuti</h1>
       </div>
     </div>
     <table class="table">
       <thead>
         <tr>
           <th>Appartamento</th>
-          <th>Nome</th>
+          <th>Da</th>
+          <th>A</th>
           <th>Messaggio</th>
           <th>Data</th>
           <th>Visualizza</th>
         </tr>
       </thead>
       <tbody>
-        @forelse ($messages as $message)
+        @forelse ($data['messages'] as $message)
           <tr>
             <td>{{ $message->apartment->title }}</td>
+            <td>{{ $message->name }}</td>
             <td>{{ $message->user->name }}</td>
             <td>{{ str_limit($message->text, 30, '(...)') }}</td>
-            <td>{{ DateTime::createFromFormat('Y-m-d H:i:s', $message->date )->format('d/m/Y H:i') }}</td>
+            <td>{{ DateTime::createFromFormat('Y-m-d H:i:s', $message->created_at )->format('d/m/Y H:i') }}</td>
             <td>
-              <a href="{{ route('message.show', $message->id ) }}" class="btn btn-primary">View</a>
+              <a href="{{ route('message.show', $message->id ) }}" class="btn btn-primary">Leggi</a>
             </td>
           </tr>
         @empty

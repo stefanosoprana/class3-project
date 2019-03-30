@@ -17,18 +17,20 @@
 
             $newApt->user_id = $faker->numberBetween($min = 1, $max = 10);
             $newApt->title = $faker->sentence(4);
+            $newApt->description = $faker->paragraph(10);
             $newApt->price = $faker->randomFloat($nbMaxDecimals = 2, $min = 100, $max = 2000);
             $newApt->rooms = $faker->numberBetween($min = 1, $max = 15);
             $newApt->beds = $faker->numberBetween($min = 1, $max = 10);
             $newApt->bathrooms = $faker->numberBetween($min = 1, $max = 10);
             $newApt->square_meters = $faker->numberBetween($min = 30, $max = 400);
             $newApt->street = $faker->streetName;
+            $newApt->locality = $faker->city;
             $newApt->house_number = $faker->buildingNumber;
             $newApt->postal_code = $faker->randomNumber($nbDigits = NULL, $strict = false);
             $newApt->state = $faker->state;
             $newApt->latitude = $faker->latitude($min = -90, $max = 90);
             $newApt->longitude = $faker->longitude($min = -180, $max = 180);
-            $newApt->image = $faker->imageUrl($width = 640, $height = 480);
+            $newApt->image = 'apartment_image/default.jpeg';
             $newApt->published = $faker->numberBetween($min = 0, $max = 1);
 
             $newApt->save();
