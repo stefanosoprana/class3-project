@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     @yield('scripts')
+    <script src="http://maps.googleapis.com/maps/api/js?key={{config('app.google_api_key')}}&libraries=places"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
@@ -25,40 +26,47 @@
 <body>
 
         @include('partials.header')
+
         <div class="row">
             <div class="col-12">
                 @if( Route::currentRouteName() === 'apartments.search')
+                    {{--container for search vue--}}
                     <div class="search" id="search__result">
+                        {{--Search Form--}}
                         <form class="control" @submit.prevent="getFormValues">
                 @else
+                    {{--container without id vue--}}
                     <div class="search">
+                        {{--Search Form with get action--}}
                         <form class="control" action="{{ route('apartments.search') }}" method="get">
+                        @csrf
+                        @method('GET')
                 @endif
                         <div id="address-complete">
                             <div class="form-group">
                                 <label for="address">Indirizzo</label>
-                                <input type="text" id="address" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidonia, RM, Italia" autocomplete="off">
+                                <input type="text" id="address" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidonia, RM, Italia" autocomplete="off"  v-model="address">
                             </div>
                             <input id="latitude" name="latitude" type="hidden" data-geo="lat" value="">
                             <input id="longitude" name="longitude" type="hidden"  data-geo="lng" value="">
                         </div>
                         <div class="form-group">
                             <label for="radius">Raggio di ricerca</label>
-                            <input type="number" id="radius" name="radius" placeholder="Inserisci il raggio in metri">
+                            <input type="number" id="radius" name="radius" placeholder="Inserisci il raggio in metri" v-model="radius">
                         </div>
                         <div class="form-group">
                             <label for="beds">Numero minimo di letti</label>
-                            <input type="number" id="beds" name="beds" placeholder="Inserisci il numero di letti">
+                            <input type="number" id="beds" name="beds" placeholder="Inserisci il numero di letti" v-model="beds">
                         </div>
                         <div class="form-group">
                             <label for="rooms">Numero minimo di stanze</label>
-                            <input type="number" id="rooms" name="rooms" placeholder="Inserisci il numero di stanze">
+                            <input type="number" id="rooms" name="rooms" placeholder="Inserisci il numero di stanze" v-model="rooms">
                         </div>
                         <div class="form-check form-check-inline">
                             <fieldset id="services">
                                 <legend>Servizi</legend>
                                 @foreach($services as $service)
-                                    <input type="checkbox" name="service" value="{{$service->name}}" class="form-check-input">
+                                    <input type="checkbox" name="service" value="{{$service->name}}" class="form-check-input" v-model="services">
                                     <label class="form-check-label" for="{{$service->name}}">{!! $service->icon !!} {{$service->name}}</label>
                                 @endforeach
                             </fieldset>
@@ -67,8 +75,10 @@
                             <button id="button-search">Cerca</button>
                         </div>
                     </form>
+                        {{--/Search Form--}}
 
-                    <main class="py-4">
+                        {{--Main--}}
+                        <main class="py-4">
                         @if(session('status'))
                             <div class="alert mt-5">
                                 <div class="container">
@@ -82,9 +92,16 @@
                         @endif
                         @yield('content')
                     </main>
+                    {{--/Main--}}
+
                 </div>
+                {{-- /container for vue or generic--}}
             </div>
+            {{--/col-12--}}
         </div>
+        {{--/row--}}
+
         @include('partials.footer')
+
 </body>
 </html>

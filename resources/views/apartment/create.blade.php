@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('scripts')
-    <script src="http://maps.googleapis.com/maps/api/js?key={{config('app.google_api_key')}}&libraries=places"></script>
+
 @endsection
 @section('content')
     @isset($data)

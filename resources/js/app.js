@@ -52,9 +52,12 @@ $(document).ready(function () {
         const searchResult = new Vue({
             el: '#search__result',
             data: {
+                address: '',
                 latitude: '',
                 longitude: '',
                 radius: '',
+                beds: '',
+                rooms: '',
                 services: '',
                 apartments: []
             },
@@ -103,9 +106,49 @@ $(document).ready(function () {
             },
             mounted() {
                 //avvio geocomplete
-                $('#address').geocomplete({
-                    details: "#address-complete",
-                    detailsAttribute: "data-geo"
+
+                let uri = window.location.search.substring(1);
+                let params = new URLSearchParams(uri);
+
+                this.address = params.get("address");
+                this.latitude = params.get("latitude");
+                this.longitude = params.get("longitude");
+                this.radius = params.get("radius");
+                this.beds = params.get("beds") || 1;
+                this.rooms = params.get("rooms") || 1;
+                this.services = params.getAll("service");
+
+                let href = window.location.href.split('/');
+                let host = href[2];
+                let urlApi = '/api/v1/apartments';
+                let url = 'http://'+host+urlApi;
+
+                axios({
+                    method:'post',
+                    url: url,
+                    headers: {'Authorization': 'Bearer 123_Pippo_Pluto'},
+                    data: {
+                        latitude: this.latitude,
+                        longitude: this.longitude,
+                        radius: this.radius,
+                        services: this.services,
+                        beds: this.beds,
+                        rooms: this.rooms,
+                    }
+                }).then((response) => {
+                    //console.log(response.data.result);
+                    this.apartments = response.data.result;
+
+                    let vuethis = this;
+                    $('#address').geocomplete({
+                        details: "#address-complete",
+                        detailsAttribute: "data-geo"
+                    }).bind("geocode:result", function(event, result){
+                        vuethis.address =  $('#address').val();
+                    });
+
+                }).catch(error => {
+                    console.log(error.response);
                 });
             },
         });

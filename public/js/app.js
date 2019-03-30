@@ -83133,9 +83133,12 @@ $(document).ready(function () {
     var searchResult = new Vue({
       el: '#search__result',
       data: {
+        address: '',
         latitude: '',
         longitude: '',
         radius: '',
+        beds: '',
+        rooms: '',
         services: '',
         apartments: []
       },
@@ -83183,10 +83186,48 @@ $(document).ready(function () {
         }
       },
       mounted: function mounted() {
+        var _this2 = this;
+
         //avvio geocomplete
-        $('#address').geocomplete({
-          details: "#address-complete",
-          detailsAttribute: "data-geo"
+        var uri = window.location.search.substring(1);
+        var params = new URLSearchParams(uri);
+        this.address = params.get("address");
+        this.latitude = params.get("latitude");
+        this.longitude = params.get("longitude");
+        this.radius = params.get("radius");
+        this.beds = params.get("beds") || 1;
+        this.rooms = params.get("rooms") || 1;
+        this.services = params.getAll("service");
+        var href = window.location.href.split('/');
+        var host = href[2];
+        var urlApi = '/api/v1/apartments';
+        var url = 'http://' + host + urlApi;
+        axios__WEBPACK_IMPORTED_MODULE_1___default()({
+          method: 'post',
+          url: url,
+          headers: {
+            'Authorization': 'Bearer 123_Pippo_Pluto'
+          },
+          data: {
+            latitude: this.latitude,
+            longitude: this.longitude,
+            radius: this.radius,
+            services: this.services,
+            beds: this.beds,
+            rooms: this.rooms
+          }
+        }).then(function (response) {
+          //console.log(response.data.result);
+          _this2.apartments = response.data.result;
+          var vuethis = _this2;
+          $('#address').geocomplete({
+            details: "#address-complete",
+            detailsAttribute: "data-geo"
+          }).bind("geocode:result", function (event, result) {
+            vuethis.address = $('#address').val();
+          });
+        }).catch(function (error) {
+          console.log(error.response);
         });
       }
     });

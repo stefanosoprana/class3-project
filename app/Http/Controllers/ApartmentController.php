@@ -292,8 +292,8 @@ class ApartmentController extends Controller
      * View Search
      *
      */
-    function search(){
-        $services = Service::all();
-        return view('apartment.search', compact('services'));
+    function search(Request $request){
+        $data = $request->all();
+        return view('apartment.search', compact('data'));
     }
 }
