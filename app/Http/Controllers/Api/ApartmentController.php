@@ -168,7 +168,7 @@ class ApartmentController extends Controller
 
         //get su apartmenti sponsorizzati
         $apartments_sponsorized = $apartments_sponsorized_query->has('sponsorship')->get();
-
+        //dd($apartments);
         //salvo dati appartamenti sponsorizzati in array
         $data = [];
         foreach ($apartments_sponsorized as $apartment) {
@@ -189,7 +189,6 @@ class ApartmentController extends Controller
             $image = asset('storage/' .$apartment->image);
             $this_services = $apartment->services;
             $url = route('apartment.show', $id);
-            $sponsorized = true;
 
             $data_apartment = [
                 'id' => $id,

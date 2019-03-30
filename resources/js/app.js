@@ -69,10 +69,10 @@ $(document).ready(function () {
                     this.latitude = submitEvent.target.elements.latitude.value;
                     this.longitude = submitEvent.target.elements.longitude.value;
                     this.radius = submitEvent.target.elements.radius.value;
-                    let services = submitEvent.target.elements.service;
                     this.beds = submitEvent.target.elements.beds.value;
                     this.rooms = submitEvent.target.elements.rooms.value;
-                    
+                    let services = submitEvent.target.elements.service;
+
                     let arrServices = [];
                     services.forEach(function (service, i) {
                         if(service.checked){
@@ -94,10 +94,10 @@ $(document).ready(function () {
                             rooms: this.rooms,
                         }
                     }).then((response) => {
-                        console.log(response.data.result);
+                        //console.log(response.data.result);
                         this.apartments = response.data.result;
                     }).catch(error => {
-                        console.log(error.response)
+                        console.log(error.response);
                     });
                 }
             },
