@@ -83150,9 +83150,9 @@ $(document).ready(function () {
           this.latitude = submitEvent.target.elements.latitude.value;
           this.longitude = submitEvent.target.elements.longitude.value;
           this.radius = submitEvent.target.elements.radius.value;
-          var services = submitEvent.target.elements.service;
           this.beds = submitEvent.target.elements.beds.value;
           this.rooms = submitEvent.target.elements.rooms.value;
+          var services = submitEvent.target.elements.service;
           var arrServices = [];
           services.forEach(function (service, i) {
             if (service.checked) {
@@ -83175,7 +83175,7 @@ $(document).ready(function () {
               rooms: this.rooms
             }
           }).then(function (response) {
-            console.log(response.data.result);
+            //console.log(response.data.result);
             _this.apartments = response.data.result;
           }).catch(function (error) {
             console.log(error.response);
@@ -83527,8 +83527,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/chiarapassaro/Sites/class3-project/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/chiarapassaro/Sites/class3-project/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/paolapog/boolean/class3-project/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/paolapog/boolean/class3-project/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

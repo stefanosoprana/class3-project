@@ -2,9 +2,10 @@
 $body-bg: #f8fafc;
 
 // Typography
-$font-family-sans-serif: "Nunito", sans-serif;
+$font-family-open-sans: 'Open Sans', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
+
 
 // Colors
 $blue: #3490dc;
@@ -17,3 +18,15 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+$blue: #76A2FB;
+
+
+
+$lightBlue: lighten($blue, 21);
+$darkBlue: darken($blue, 30);
+$purple: #A576fb;
+$lightPurple: lighten($purple, 21);
+$orange: #FB8E76;
+$orangeTransp: rgba($orange, 20);
+$grey: #4E4E4E;
+$black: #000;
