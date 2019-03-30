@@ -24,23 +24,67 @@
 </head>
 <body>
 
-    <div id="app">
         @include('partials.header')
-        <main class="py-4">
-            @if(session('status'))
-                <div class="alert mt-5">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-12 alert-warning">
-                                {{session('status')}}
+        <div class="row">
+            <div class="col-12">
+                @if( Route::currentRouteName() === 'apartments.search')
+                    <div class="search" id="search__result">
+                        <form class="control" @submit.prevent="getFormValues">
+                @else
+                    <div class="search">
+                        <form class="control" action="{{ route('apartments.search') }}" method="get">
+                @endif
+                        <div id="address-complete">
+                            <div class="form-group">
+                                <label for="address">Indirizzo</label>
+                                <input type="text" id="address" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidonia, RM, Italia" autocomplete="off">
                             </div>
+                            <input id="latitude" name="latitude" type="hidden" data-geo="lat" value="">
+                            <input id="longitude" name="longitude" type="hidden"  data-geo="lng" value="">
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label for="radius">Raggio di ricerca</label>
+                            <input type="number" id="radius" name="radius" placeholder="Inserisci il raggio in metri">
+                        </div>
+                        <div class="form-group">
+                            <label for="beds">Numero minimo di letti</label>
+                            <input type="number" id="beds" name="beds" placeholder="Inserisci il numero di letti">
+                        </div>
+                        <div class="form-group">
+                            <label for="rooms">Numero minimo di stanze</label>
+                            <input type="number" id="rooms" name="rooms" placeholder="Inserisci il numero di stanze">
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <fieldset id="services">
+                                <legend>Servizi</legend>
+                                @foreach($services as $service)
+                                    <input type="checkbox" name="service" value="{{$service->name}}" class="form-check-input">
+                                    <label class="form-check-label" for="{{$service->name}}">{!! $service->icon !!} {{$service->name}}</label>
+                                @endforeach
+                            </fieldset>
+                        </div>
+                        <div class="form-group">
+                            <button id="button-search">Cerca</button>
+                        </div>
+                    </form>
+
+                    <main class="py-4">
+                        @if(session('status'))
+                            <div class="alert mt-5">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-12 alert-warning">
+                                            {{session('status')}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        @yield('content')
+                    </main>
                 </div>
-            @endif
-            @yield('content')
-        </main>
+            </div>
+        </div>
         @include('partials.footer')
-    </div>
 </body>
 </html>

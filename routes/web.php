@@ -14,10 +14,10 @@
 
 
 //tutti gli appartamenti con ricerca per guest
-Route::get('/', 'ApartmentController@index')->name('apartments.index');
-Route::get('/apartments', 'ApartmentController@search')->name('apartments.search');
-Route::get('/apartment/{id}', 'ApartmentController@show')->middleware('visit')->name('apartment.show');
-Route::post('/apartment/message', 'MessageController@store')->name('apartment.message.store');
+    Route::get('/', 'ApartmentController@index')->name('apartments.index');
+    Route::get('/apartments', 'ApartmentController@search')->name('apartments.search');
+    Route::get('/apartment/{id}', 'ApartmentController@show')->middleware('visit')->name('apartment.show');
+    Route::post('/apartment/message', 'MessageController@store')->name('apartment.message.store');
 
 
 //tutte le altre rotte appartamenti
