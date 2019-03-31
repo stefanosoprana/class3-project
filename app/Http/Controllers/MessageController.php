@@ -120,6 +120,11 @@ class MessageController extends Controller
 
         $status = 'Hai cancellato il messaggio ricevuto da ' . $message_name;
 
-        return redirect(route('messages.index', $user))->with('status', $status);
+        if (Auth::user()->can('modify')) {
+          return redirect( route('Admin.messages.index'))->with('status', $status);
+        } else {
+          return redirect( route('messages.index', $user))->with('status', $status);
+        }
+
     }
 }

@@ -54,8 +54,12 @@ Route::middleware('auth')->group(function () {
 });
 
 //rotte per Admin
-Route::middleware('permission:Admin')->namespace('Admin')->prefix('Admin')->name('Admin.')->group(function () {
+Route::middleware('permission:modify')->namespace('Admin')->prefix('Admin')->name('Admin.')->group(function () {
     Route::get('/home', 'HomeController@index')->name('index');
+
+    // messaggi
+    Route::get('/messages/admin', 'MessageController@index')->name('messages.index');
+    Route::get('/messages/{id}/admin', 'MessageController@show')->name('messages.show');
 
     //utenti
     Route::resource('users', 'UserController');
@@ -69,4 +73,5 @@ Route::middleware('permission:Admin')->namespace('Admin')->prefix('Admin')->name
     Route::get('/apartment/{id}/statistics', 'ApartmentController@statistics')->name('apartment.statistic');
     Route::delete('/apartment/{id}/delete', 'ApartmentController@destroy')->name('apartment.destroy');
     Route::get('/apartmens/sponsorships', 'ApartmentController@sponsorships')->name('apartments.sponsorships');
+
 });
