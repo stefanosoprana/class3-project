@@ -69,11 +69,11 @@
                             @if($errors->has('street') || $errors->has('number') || $errors->has('locality') || $errors->has('postal_code') || $errors->has('state') || $errors->has('latitude') || $errors->has('longitude'))
                                 <div class="alert-warning mb-3">Indirizzo errato inseriscilo nuovamente</div>
                             @endif
-                            <input type="text" id="address" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidonia, RM, Italia" autocomplete="off">
+                            <input type="text" id="address_apartment" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidonia, RM, Italia" autocomplete="off">
                         </div>
                         <div class="apartment__create__address-disabled">
                             <h2>Indirizzo</h2>
-                            <div class="" id="address-complete">
+                            <div class="" id="address_apartment-complete">
                                 <div class="form-group">
                                     <label for="street">Via</label>
                                     <input type="text" id="street" name="street" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->street : old('street')}}"  data-geo="route">
@@ -118,6 +118,18 @@
                             <input type="number" name="bathrooms" placeholder="{{$errors->has('bes') ? $errors->first('beds') : 'Inserisci il numero di bagni'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->bathrooms : old('bathrooms')}}">
                         </div>
                         {{--/Caratteristiche--}}
+
+                        {{--Servizi--}}
+                        <div class="form-check form-check-inline">
+                            <fieldset id="services">
+                                <legend>Servizi</legend>
+                                @foreach($services as $service)
+                                    <input type="checkbox" name="services[]" value="{{$service->name}}" class="form-check-input" v-model="services">
+                                    <label class="form-check-label" for="{{$service->name}}">{!! $service->icon !!} {{$service->name}}</label>
+                                @endforeach
+                            </fieldset>
+                        </div>
+                        {{--/Servizi--}}
 
                         {{--Hidden--}}
                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">

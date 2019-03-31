@@ -37,8 +37,8 @@ Vue.component('service-component', require('./components/ServiceComponent.vue').
 
 
 $(document).ready(function () {
-    $('#address').geocomplete({
-        details: "#address-complete",
+    $('#address_apartment').geocomplete({
+        details: "#address_apartment-complete",
         detailsAttribute: "data-geo"
     });
 

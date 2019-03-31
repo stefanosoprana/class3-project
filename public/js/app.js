@@ -83118,8 +83118,8 @@ Vue.component('chart-component-messages', __webpack_require__(/*! ./components/C
 Vue.component('card', __webpack_require__(/*! ./components/CardComponent.vue */ "./resources/js/components/CardComponent.vue").default);
 Vue.component('service-component', __webpack_require__(/*! ./components/ServiceComponent.vue */ "./resources/js/components/ServiceComponent.vue").default);
 $(document).ready(function () {
-  $('#address').geocomplete({
-    details: "#address-complete",
+  $('#address_apartment').geocomplete({
+    details: "#address_apartment-complete",
     detailsAttribute: "data-geo"
   });
 
