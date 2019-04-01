@@ -59,14 +59,15 @@ $(document).ready(function () {
             components:{
                 ChartComponent,
             },
-            mounted () {
+            async mounted () {
+                this.loaded = false;
                 this.fillData(selected);
             },
             data(){
                 return {
                     selected: selected,
                     loaded: false,
-                    datacollection: null
+                    chartdata: null
                 }
             },
             methods: {
@@ -74,14 +75,13 @@ $(document).ready(function () {
                     this.fillData(this.selected);
                 },
                 fillData(year) {
-                    console.log('dentro fill ' + year);
-                    let thisYear = year;
                     let href = window.location.href.split('/');
                     let host = href[2];
                     let idApartment = href[href.length - 2];
                     let urlApi = '/api/v1/apartment/';
 
-                    let url = 'http://' + host + urlApi + idApartment + '/messages';
+                    let url = 'http://' + host + urlApi + idApartment + '/messages/'+ year;
+
                     let labels = [];
                     let messages = [];
 
@@ -91,31 +91,34 @@ $(document).ready(function () {
                         headers: {'Authorization': 'Bearer 123_Pippo_Pluto'}
                     }).then((response) => {
                         let data = response.data.result;
+                        let label = data.labels;
                         let messagesData = data.messages;
+                        console.log(messagesData);
 
                         if (messagesData) {
-                            messagesData.labels.forEach(
+                            label.forEach(
                                 function (element) {
                                     labels.push(element);
                                 }
                             );
-                            messagesData.number.forEach(
+                            messagesData.forEach(
                                 function (element) {
                                     messages.push(element);
                                 }
                             );
-                            this.datacollection = {
+                            this.chartdata = {
                                 labels: labels,
                                 datasets: [{
                                     label: 'Messages',
                                     backgroundColor: '#007bff',
                                     data: messages
                                 }],
-                                options: {
-                                    responsive: true,
+
+                            };
+                            this.options = {
+                                responsive: true,
                                     maintainAspectRatio: false
-                                }
-                            }
+                            };
                             this.loaded = true;
                         } else {
                             console.log('No data');

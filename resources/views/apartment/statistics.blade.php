@@ -30,12 +30,12 @@
             <div class="row">
                 <div class="col-6">
                     <div class="chart" id="chart-visits">
-                        <chart-component :chart-data="datacollection" v-if="loaded" :options="options"></chart-component>
+                        <chart-component :chart-data="chartdata" v-if="loaded" :options="options"></chart-component>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="chart" id="chart-messages">
-                        <chart-component  :chart-data="datacollection" v-if="loaded" :options="options"></chart-component>
+                        <chart-component  :chart-data="chartdata" v-if="loaded" :options="options"></chart-component>
                     </div>
                 </div>
             </div>

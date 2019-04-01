@@ -27,17 +27,18 @@ class ApartmentController extends Controller
             $data = [
                 'apartment'=> ['apartment_id'=> $apartment->id,'apartment_title'=> $apartment->title],
                 'labels' => $_MONTH,
-                'visits'=> []
+                'year' => $year,
+                'visits'=> [0,0,0,0,0,0,0,0,0,0,0,0],
             ];
 
             foreach ($visits as $visit){
                 $visit_created = Carbon::make($visit['created_at']);
                 $visit_month = $visit_created->month;
                 $visit_year = $visit_created->year;
-                if(!isset($data['visits'][$visit_year])){
-                    $data['visits'][$visit_year] = [0,0,0,0,0,0,0,0,0,0,0,0];
+                if($data['year'] == $visit_year){
+                    $data['visits'][$visit_month-1] += 1;
+
                 }
-                $data['visits'][$visit_year][$visit_month-1] += 1;
             }
 
             return response()->json([
@@ -62,6 +63,7 @@ class ApartmentController extends Controller
 
     public function messages($id, $year)
     {
+
         $apartment = Apartment::find($id);
 
         if(!empty($apartment)){
@@ -72,24 +74,24 @@ class ApartmentController extends Controller
             $data = [
                 'apartment'=> ['apartment_id'=> $apartment->id,'apartment_title'=> $apartment->title],
                 'labels' => $_MONTH,
-                'messages'=> []
+                'year' => $year,
+                'messages'=> [0,0,0,0,0,0,0,0,0,0,0,0],
             ];
 
             foreach ($messages as $message){
                 $message_created = Carbon::make($message['created_at']);
                 $message_month = $message_created->month;
                 $message_year = $message_created->year;
-                if(!isset($data['messages'][$message_year])){
-                    $data['messages'][$message_year] = [0,0,0,0,0,0,0,0,0,0,0,0];
+                if($data['year'] == $message_year){
+                    $data['messages'][$message_month-1] += 1;
+
                 }
-                $data['messages'][$message_year][$message_month-1] += 1;
             }
 
             return response()->json([
                 'success'=>true,
                 'error'=>'',
                 'result'=> $data,
-                'results_number'=> count($data['messages']),
             ]);
 
         } else {
