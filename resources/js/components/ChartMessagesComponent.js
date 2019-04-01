@@ -3,7 +3,7 @@
 
     export default {
         extends: Bar,
-        mixins: [mixins.reactiveProp],
+        mixins: [mixins.reactiveProp], //necessario per undate dati
         props: {
             chartdata: {
                 type: Object,

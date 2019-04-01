@@ -1817,67 +1817,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ChartVisitsComponent.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ChartVisitsComponent.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  extends: vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["Bar"],
-  mounted: function mounted() {
-    var _this = this;
-
-    var href = window.location.href.split('/');
-    var host = href[2];
-    var idApartment = href[href.length - 2];
-    var urlApi = '/api/v1/apartment/';
-    var url = 'http://' + host + urlApi + idApartment + '/visits';
-    var labels = [];
-    var visits = [];
-    this.axios({
-      method: 'get',
-      url: url,
-      headers: {
-        'Authorization': 'Bearer 123_Pippo_Pluto'
-      }
-    }).then(function (response) {
-      var data = response.data.result;
-      var visitsData = data.visits;
-
-      if (visitsData) {
-        visitsData.labels.forEach(function (element) {
-          labels.push(element);
-        });
-        visitsData.number.forEach(function (element) {
-          visits.push(element);
-        });
-
-        _this.renderChart({
-          labels: labels,
-          datasets: [{
-            label: 'Visite',
-            backgroundColor: '#FC2525',
-            data: visits
-          }]
-        }, {
-          responsive: true,
-          maintainAspectRatio: false
-        });
-      } else {
-        console.log('No data');
-      }
-    });
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ServiceComponent.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ServiceComponent.vue?vue&type=script&lang=js& ***!
@@ -83852,9 +83791,6 @@ Vue.use(vue_axios__WEBPACK_IMPORTED_MODULE_1___default.a, axios__WEBPACK_IMPORTE
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('chart-component-visits', __webpack_require__(/*! ./components/ChartVisitsComponent.vue */ "./resources/js/components/ChartVisitsComponent.vue").default);
-/*Vue.component('chart-component-messages', require('./components/ChartMessagesComponent.js').default);*/
-
 Vue.component('card', __webpack_require__(/*! ./components/CardComponent.vue */ "./resources/js/components/CardComponent.vue").default);
 Vue.component('service-component', __webpack_require__(/*! ./components/ServiceComponent.vue */ "./resources/js/components/ServiceComponent.vue").default);
 
@@ -83885,7 +83821,9 @@ $(document).ready(function () {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  this.loaded = false;
+                  //finchè i dati sono sono attivi le chart non sono montate
+                  this.loaded = false; //richiamo funzione per prendere dati da api
+
                   this.fillData(selected);
 
                 case 2:
@@ -83903,26 +83841,52 @@ $(document).ready(function () {
         return mounted;
       }(),
       data: function data() {
+        //ritorna i dati al componente figlio
         return {
-          selected: selected,
-          loaded: false,
-          chartdata: null
+          charts: {
+            visits: {
+              name: 'visits',
+              chartdata: null,
+              options: null,
+              colors: '#FC2525',
+              loaded: false
+            },
+            messages: {
+              name: 'messages',
+              chartdata: null,
+              options: null,
+              colors: '#007bff',
+              loaded: false
+            }
+          },
+          //prende e cambia dati per select anni
+          selected: selected
         };
       },
       methods: {
+        //funzione onChange per select
         onChange: function onChange() {
           this.fillData(this.selected);
         },
+        //funzione che prende dati da Api
         fillData: function fillData(year) {
-          var _this = this;
-
           var href = window.location.href.split('/');
           var host = href[2];
           var idApartment = href[href.length - 2];
           var urlApi = '/api/v1/apartment/';
-          var url = 'http://' + host + urlApi + idApartment + '/messages/' + year;
+          var url = 'http://' + host + urlApi + idApartment + '/';
+          var vm = this; //per ogni chart faccio una chiamata alla api
+
+          for (var chart in this.charts) {
+            vm.callAxios(chart, url, year);
+          }
+        },
+        callAxios: function callAxios(typeData, url, year) {
+          var _this = this;
+
+          url += typeData + '/' + year;
           var labels = [];
-          var messages = [];
+          var datas = [];
           this.axios({
             method: 'get',
             url: url,
@@ -83932,29 +83896,28 @@ $(document).ready(function () {
           }).then(function (response) {
             var data = response.data.result;
             var label = data.labels;
-            var messagesData = data.messages;
-            console.log(messagesData);
+            var thisData = data[typeData];
 
-            if (messagesData) {
+            if (thisData) {
               label.forEach(function (element) {
                 labels.push(element);
               });
-              messagesData.forEach(function (element) {
-                messages.push(element);
+              thisData.forEach(function (element) {
+                datas.push(element);
               });
-              _this.chartdata = {
+              _this.charts[typeData].chartdata = {
                 labels: labels,
                 datasets: [{
-                  label: 'Messages',
-                  backgroundColor: '#007bff',
-                  data: messages
+                  label: typeData,
+                  backgroundColor: _this.charts[typeData].colors,
+                  data: datas
                 }]
               };
-              _this.options = {
+              _this.charts[typeData].options = {
                 responsive: true,
                 maintainAspectRatio: false
               };
-              _this.loaded = true;
+              _this.charts[typeData].loaded = true;
             } else {
               console.log('No data');
             }
@@ -84232,6 +84195,7 @@ var reactiveProp = vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["mixins"].reactivePr
 /* harmony default export */ __webpack_exports__["default"] = ({
   extends: vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["Bar"],
   mixins: [vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["mixins"].reactiveProp],
+  //necessario per undate dati
   props: {
     chartdata: {
       type: Object,
@@ -84246,56 +84210,6 @@ var reactiveProp = vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["mixins"].reactivePr
     this.renderChart(this.chartData, this.options);
   }
 });
-
-/***/ }),
-
-/***/ "./resources/js/components/ChartVisitsComponent.vue":
-/*!**********************************************************!*\
-  !*** ./resources/js/components/ChartVisitsComponent.vue ***!
-  \**********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ChartVisitsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ChartVisitsComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/ChartVisitsComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  _ChartVisitsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/ChartVisitsComponent.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/ChartVisitsComponent.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************!*\
-  !*** ./resources/js/components/ChartVisitsComponent.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ChartVisitsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ChartVisitsComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ChartVisitsComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ChartVisitsComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

@@ -30,8 +30,6 @@ import { Bar, Line } from 'vue-chartjs';
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('chart-component-visits', require('./components/ChartVisitsComponent.vue').default);
-/*Vue.component('chart-component-messages', require('./components/ChartMessagesComponent.js').default);*/
 Vue.component('card', require('./components/CardComponent.vue').default);
 Vue.component('service-component', require('./components/ServiceComponent.vue').default);
 
@@ -60,30 +58,58 @@ $(document).ready(function () {
                 ChartComponent,
             },
             async mounted () {
+                //finchè i dati sono sono attivi le chart non sono montate
                 this.loaded = false;
+                //richiamo funzione per prendere dati da api
                 this.fillData(selected);
             },
             data(){
+                //ritorna i dati al componente figlio
                 return {
+                    charts: {
+                        visits: {
+                            name: 'visits',
+                            chartdata: null,
+                            options: null,
+                            colors:'#FC2525',
+                            loaded: false,
+                        },
+                        messages: {
+                            name: 'messages',
+                            chartdata: null,
+                            options: null,
+                            colors:'#007bff',
+                            loaded: false,
+                        },
+                    },
+                    //prende e cambia dati per select anni
                     selected: selected,
-                    loaded: false,
-                    chartdata: null
                 }
             },
             methods: {
+                //funzione onChange per select
                 onChange() {
                     this.fillData(this.selected);
                 },
+                //funzione che prende dati da Api
                 fillData(year) {
                     let href = window.location.href.split('/');
                     let host = href[2];
                     let idApartment = href[href.length - 2];
                     let urlApi = '/api/v1/apartment/';
+                    let url = 'http://' + host + urlApi + idApartment + '/';
 
-                    let url = 'http://' + host + urlApi + idApartment + '/messages/'+ year;
+                    let vm = this;
+                    //per ogni chart faccio una chiamata alla api
+                    for (let chart in this.charts) {
+                        vm.callAxios(chart, url, year);
+                    }
+                },
+                callAxios(typeData, url, year){
+                    url += typeData+'/'+ year;
 
                     let labels = [];
-                    let messages = [];
+                    let datas = [];
 
                     this.axios({
                         method: 'get',
@@ -92,41 +118,39 @@ $(document).ready(function () {
                     }).then((response) => {
                         let data = response.data.result;
                         let label = data.labels;
-                        let messagesData = data.messages;
-                        console.log(messagesData);
+                        let thisData = data[typeData];
 
-                        if (messagesData) {
+                        if (thisData) {
                             label.forEach(
                                 function (element) {
                                     labels.push(element);
                                 }
                             );
-                            messagesData.forEach(
+                            thisData.forEach(
                                 function (element) {
-                                    messages.push(element);
+                                    datas.push(element);
                                 }
                             );
-                            this.chartdata = {
+                            this.charts[typeData].chartdata = {
                                 labels: labels,
                                 datasets: [{
-                                    label: 'Messages',
-                                    backgroundColor: '#007bff',
-                                    data: messages
+                                    label: typeData,
+                                    backgroundColor: this.charts[typeData].colors,
+                                    data: datas
                                 }],
 
                             };
-                            this.options = {
+                            this.charts[typeData].options = {
                                 responsive: true,
-                                    maintainAspectRatio: false
+                                maintainAspectRatio: false
                             };
-                            this.loaded = true;
+                            this.charts[typeData].loaded = true;
                         } else {
                             console.log('No data');
                         }
                     });
-                },
+                }
             }
-
         });
     }
 
