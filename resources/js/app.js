@@ -260,6 +260,43 @@ $(document).ready(function () {
             },
         });
     }
+
+    //payment
+    var dropin = require('braintree-web-drop-in');
+
+    let $container = $('#dropin-container');
+    let $button = $('#submit-button');
+    let token = $container.data('token');
+    let url = $container.data('action');
+    dropin.create({
+        authorization: token,
+        container: '#dropin-container',
+    }).then(function (instance) {
+        $button.click(function () {
+            event.preventDefault();
+                 instance.requestPaymentMethod().then(function (payload) {
+                // Submit payload.nonce to your server
+                     let nonce = payload.nonce;
+                     console.log(nonce);
+                     axios({
+                         method:'post',
+                         url: url,
+                         data: {
+                             payload: nonce,
+                         }
+                     }).then((response) => {
+                         console.log(response.data);
+                     }).catch(error => {
+                         console.log(error.response);
+                     });
+                 }).catch(function (requestPaymentMethodErr) {
+                // No payment method is available.
+                // An appropriate error will be shown in the UI.
+                console.error(requestPaymentMethodErr);
+            });
+         });
+    });
+
 });
 
 
