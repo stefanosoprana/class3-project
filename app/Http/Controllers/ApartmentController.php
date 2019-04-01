@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Apartment;
+use App\Message;
+use App\Service;
 use App\Sponsorship;
+use App\Visit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -125,6 +128,7 @@ class ApartmentController extends Controller
             'bathrooms'=>'required|numeric',
             'user_id'=>'exists:users,id',
             'published'=>'required|boolean',
+            'services'=>'nullable|exists:services,name',
         ]);
 
         //dd($data);
@@ -144,6 +148,18 @@ class ApartmentController extends Controller
         $newApartment = new Apartment();
         $newApartment->fill($data);
         $newApartment->save();
+
+        if(isset($request['services'])){
+            $services_all = Service::all();
+            $this_services = [];
+            foreach ($services_all as $service){
+                if (in_array($service->name, $request['services'])){
+                    $this_services[] = $service->id;
+                }
+            }
+            $newApartment->services()->sync($this_services);
+        }
+
 
         $message = 'Appartamento creato con successo';
 
@@ -215,6 +231,7 @@ class ApartmentController extends Controller
             'bathrooms'=>'required|numeric',
             'user_id'=>'exists:users,id',
             'published'=>'required|boolean',
+            'services'=>'nullable|exists:services,name',
         ]);
 
         if ($validated_data->fails()) {
@@ -230,10 +247,22 @@ class ApartmentController extends Controller
            $data['image'] = ($apartment->image) ? $apartment->image : null;
         }
 
+
         $data['updated_at'] = Carbon::now();
 
         $apartment->fill($data);
         $apartment->save();
+
+        if(isset($request['services'])){
+            $services_all = Service::all();
+            $this_services = [];
+            foreach ($services_all as $service){
+                if (in_array($service->name, $request['services'])){
+                    $this_services[] = $service->id;
+                }
+            }
+            $apartment->services()->sync($this_services);
+        }
 
         $message = 'Appartamento aggiornato con successo';
 
@@ -283,6 +312,42 @@ class ApartmentController extends Controller
             abort(404);
         }
 
-        return view('apartment.statistics', compact('apartment'));
+        $visits = Visit::all();
+        $messages = Message::all();
+
+        $years = [];
+
+        foreach ($visits as $visit){
+            $visit_created = Carbon::make($visit['created_at']);
+            $visit_year = $visit_created->year;
+            if(!in_array($visit_year, $years)){
+                $years[]= $visit_year;
+            }
+        }
+
+        foreach ($messages as $message){
+            $message_created = Carbon::make($message['created_at']);
+            $message_year = $message_created->year;
+            if(!in_array($message_year, $years)){
+                $years[]= $message_year;
+            }
+        }
+
+        $data = [
+            'apartment' => $apartment,
+            'years' => $years
+        ];
+
+        return view('apartment.statistics', $data);
+    }
+
+    /**
+     *
+     * View Search
+     *
+     */
+    function search(Request $request){
+        $data = $request->all();
+        return view('apartment.search', compact('data'));
     }
 }

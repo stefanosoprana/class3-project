@@ -1,15 +1,13 @@
-@extends('layout.app')
+@extends('layouts.app')
 @section('content')
-<div class="container">
-  <div class="row">
-    <div class="col-8">
-      <form class="control" action="index.html" method="get">
-        <input type="text" name="longitude" value="" placeholder="longitude here">
-        <input type="text" name="latitude" value="" placeholder="latitude here">
-        <input type="text" name="radius" value=""  placeholder="radius here">
-      </form>
-
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div v-if="apartments.length">
+          <card v-for="card in apartments" v-bind:card="card" :key="card.name"></card>
+        </div>
+        <div v-else class="text-center"><h1> Non sono presenti appartamenti con queste caratteristiche</h1></div>
+      </div>
     </div>
   </div>
-</div>
 @endsection

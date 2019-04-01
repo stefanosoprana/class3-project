@@ -11,16 +11,33 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
-                    <div class="chart" id="chart-visits">
-                        <chart-component-visits></chart-component-visits>
+                <div class="col-12">
+                    <div class="form-control">
+                        <select name="year" id="year" v-model="selected"  @change="onChange()">
+                            @foreach($years as $year)
+                                <option value="{{$year}}" {{($year === $years[count($years) -1]) ? 'selected' : ''}}>{{$year}}</option>
+                            @endforeach
+                        </select>
+
                     </div>
                 </div>
-                <div class="col-6">
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <h2>Statistiche  @{{ selected }}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6"  v-for="chart in charts" :id="chart.name">
+                    <div class="chart" >
+                        <chart-component :chart-data="chart.chartdata" v-if="chart.loaded" :options="chart.options" ></chart-component>
+                    </div>
+                </div>
+               {{-- <div class="col-6">
                     <div class="chart" id="chart-messages">
-                        <chart-component-messages></chart-component-messages>
+                        <chart-component  :chart-data="chartdata" v-if="loaded" :options="options" ref="messages"></chart-component>
                     </div>
-                </div>
+                </div>--}}
             </div>
         </div>
     </div>
