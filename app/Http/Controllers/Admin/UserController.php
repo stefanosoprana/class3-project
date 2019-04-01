@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class UserController extends Controller
 {
@@ -14,7 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -80,6 +82,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $user = User::find($id);
+
+      if (empty($user)) {
+          abort(404);
+      };
+
+      $user->delete();
+
+      return redirect()->back();
     }
 }

@@ -266,7 +266,7 @@ class ApartmentController extends Controller
 
         $message = 'Appartamento aggiornato con successo';
 
-        return redirect(route('apartments.user.index', $data['user_id']))->with('status', $message);
+        return redirect(route('apartment.show', $apartment->id))->with('status', $message);
     }
 
     /**
