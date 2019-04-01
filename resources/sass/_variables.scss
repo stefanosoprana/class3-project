@@ -8,8 +8,8 @@ $line-height-base: 1.6;
 
 // Colors
 $blue: #76A2FB;
-$darkBlue: darken($lightBlue, 30);
-$lightBlue: lighten($lightBlue, 21);
+$darkBlue: darken($blue, 30);
+$lightBlue: lighten($blue, 21);
 $purple: #A576fb;
 $lightPurple: lighten($purple, 21);
 $orange: #FB8E76;
