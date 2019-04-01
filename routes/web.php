@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
 //rotte per sponsorships
 Route::middleware('auth')->group(function () {
     Route::get('/apartment/{id}/sponsorship', 'SponsorshipController@index')->name('sponsorships.index');
-    Route::get('/apartment/{id}/sponsorship/pay', 'SponsorshipController@payment')->name('sponsorships.payment');
+    Route::get('/apartment/{id}/sponsorship/{sponsorship_type_id}/pay', 'SponsorshipController@payment')->name('sponsorships.payment');
     Route::post('/apartment/{id}/sponsorship/process', 'SponsorshipController@process')->name('sponsorships.process');
 });
 
