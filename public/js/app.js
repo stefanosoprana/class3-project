@@ -1805,68 +1805,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ChartMessagesComponent.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ChartMessagesComponent.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  extends: vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["Bar"],
-  mounted: function mounted() {
-    var _this = this;
-
-    var href = window.location.href.split('/');
-    var host = href[2];
-    var idApartment = href[href.length - 2];
-    var urlApi = '/api/v1/apartment/';
-    var url = 'http://' + host + urlApi + idApartment + '/messages';
-    var labels = [];
-    var messages = [];
-    this.axios({
-      method: 'get',
-      url: url,
-      headers: {
-        'Authorization': 'Bearer 123_Pippo_Pluto'
-      }
-    }).then(function (response) {
-      var data = response.data.result;
-      var messagesData = data.messages;
-      console.log(data.messages);
-
-      if (messagesData) {
-        messagesData.labels.forEach(function (element) {
-          labels.push(element);
-        });
-        messagesData.number.forEach(function (element) {
-          messages.push(element);
-        });
-
-        _this.renderChart({
-          labels: labels,
-          datasets: [{
-            label: 'Messages',
-            backgroundColor: '#007bff',
-            data: messages
-          }]
-        }, {
-          responsive: true,
-          maintainAspectRatio: false
-        });
-      } else {
-        console.log('No data');
-      }
-    });
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ChartVisitsComponent.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ChartVisitsComponent.vue?vue&type=script&lang=js& ***!
@@ -83087,6 +83025,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
+/* harmony import */ var _components_ChartMessagesComponent_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/ChartMessagesComponent.js */ "./resources/js/components/ChartMessagesComponent.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -83114,20 +83053,95 @@ Vue.use(vue_axios__WEBPACK_IMPORTED_MODULE_0___default.a, axios__WEBPACK_IMPORTE
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('chart-component-visits', __webpack_require__(/*! ./components/ChartVisitsComponent.vue */ "./resources/js/components/ChartVisitsComponent.vue").default);
-Vue.component('chart-component-messages', __webpack_require__(/*! ./components/ChartMessagesComponent.vue */ "./resources/js/components/ChartMessagesComponent.vue").default);
+/*Vue.component('chart-component-messages', require('./components/ChartMessagesComponent.js').default);*/
+
 Vue.component('card', __webpack_require__(/*! ./components/CardComponent.vue */ "./resources/js/components/CardComponent.vue").default);
 Vue.component('service-component', __webpack_require__(/*! ./components/ServiceComponent.vue */ "./resources/js/components/ServiceComponent.vue").default);
+
 $(document).ready(function () {
+  //search geocomplete
+  $('.search #address').geocomplete({
+    details: "#address-complete",
+    detailsAttribute: "data-geo"
+  }); //apartment add geocomplete
+
   $('#address_apartment').geocomplete({
     details: "#address_apartment-complete",
     detailsAttribute: "data-geo"
-  });
+  }); //vue chart
 
   if ($('#charts').length) {
+    var selected = $('#year').val();
     var charts = new Vue({
-      el: '#charts'
+      el: '#charts',
+      components: {
+        ChartComponent: _components_ChartMessagesComponent_js__WEBPACK_IMPORTED_MODULE_3__["default"]
+      },
+      mounted: function mounted() {
+        this.fillData(selected);
+      },
+      data: function data() {
+        return {
+          selected: selected,
+          loaded: false,
+          datacollection: null
+        };
+      },
+      methods: {
+        onChange: function onChange() {
+          this.fillData(this.selected);
+        },
+        fillData: function fillData(year) {
+          var _this = this;
+
+          console.log('dentro fill ' + year);
+          var thisYear = year;
+          var href = window.location.href.split('/');
+          var host = href[2];
+          var idApartment = href[href.length - 2];
+          var urlApi = '/api/v1/apartment/';
+          var url = 'http://' + host + urlApi + idApartment + '/messages';
+          var labels = [];
+          var messages = [];
+          this.axios({
+            method: 'get',
+            url: url,
+            headers: {
+              'Authorization': 'Bearer 123_Pippo_Pluto'
+            }
+          }).then(function (response) {
+            var data = response.data.result;
+            var messagesData = data.messages;
+
+            if (messagesData) {
+              messagesData.labels.forEach(function (element) {
+                labels.push(element);
+              });
+              messagesData.number.forEach(function (element) {
+                messages.push(element);
+              });
+              _this.datacollection = {
+                labels: labels,
+                datasets: [{
+                  label: 'Messages',
+                  backgroundColor: '#007bff',
+                  data: messages
+                }],
+                options: {
+                  responsive: true,
+                  maintainAspectRatio: false
+                }
+              };
+              _this.loaded = true;
+            } else {
+              console.log('No data');
+            }
+          });
+        }
+      }
     });
-  }
+  } //vue search
+
 
   if ($('#search__result').length) {
     var searchResult = new Vue({
@@ -83144,7 +83158,7 @@ $(document).ready(function () {
       },
       methods: {
         getFormValues: function getFormValues(submitEvent) {
-          var _this = this;
+          var _this2 = this;
 
           var href = window.location.href.split('/');
           var host = href[2];
@@ -83179,14 +83193,14 @@ $(document).ready(function () {
             }
           }).then(function (response) {
             //console.log(response.data.result);
-            _this.apartments = response.data.result;
+            _this2.apartments = response.data.result;
           }).catch(function (error) {
             console.log(error.response);
           });
         }
       },
       mounted: function mounted() {
-        var _this2 = this;
+        var _this3 = this;
 
         //avvio geocomplete
         var uri = window.location.search.substring(1);
@@ -83218,8 +83232,8 @@ $(document).ready(function () {
           }
         }).then(function (response) {
           //console.log(response.data.result);
-          _this2.apartments = response.data.result;
-          var vuethis = _this2;
+          _this3.apartments = response.data.result;
+          var vuethis = _this3;
           $('#address').geocomplete({
             details: "#address-complete",
             detailsAttribute: "data-geo"
@@ -83381,53 +83395,28 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/ChartMessagesComponent.vue":
-/*!************************************************************!*\
-  !*** ./resources/js/components/ChartMessagesComponent.vue ***!
-  \************************************************************/
+/***/ "./resources/js/components/ChartMessagesComponent.js":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/ChartMessagesComponent.js ***!
+  \***********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ChartMessagesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ChartMessagesComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/ChartMessagesComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
+/* harmony import */ var vue_chartjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-chartjs */ "./node_modules/vue-chartjs/es/index.js");
 
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  _ChartMessagesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/ChartMessagesComponent.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/ChartMessagesComponent.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/ChartMessagesComponent.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ChartMessagesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ChartMessagesComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ChartMessagesComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ChartMessagesComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+var reactiveProp = vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["mixins"].reactiveProp;
+/* harmony default export */ __webpack_exports__["default"] = ({
+  extends: vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["Bar"],
+  props: {
+    mixins: [reactiveProp],
+    props: ['options']
+  },
+  mounted: function mounted() {
+    this.renderChart(this.chartData, this.options);
+  }
+});
 
 /***/ }),
 

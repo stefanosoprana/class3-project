@@ -13,14 +13,12 @@ class VisitsTableSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-      $data = [
-
-      ];
+      $data = [];
 
       for ($i=0; $i < 50; $i++) {
 
         $apartment = Apartment::inRandomOrder()->first();
-        $date = $faker->dateTime($max = 'now', $timezone = null);
+        $date = $faker->dateTimeBetween('-2 years', $endDate = 'now', $timezone = null);
           $data[] = [
             "apartment_id" => $apartment["id"],
             "ip" => $faker->ipv4,

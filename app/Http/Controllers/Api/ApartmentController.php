@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Validator;
 class ApartmentController extends Controller
 {
 
-    public function visits($id)
+    public function visits($id, $year)
     {
         $apartment = Apartment::find($id);
 
@@ -26,23 +26,25 @@ class ApartmentController extends Controller
 
             $data = [
                 'apartment'=> ['apartment_id'=> $apartment->id,'apartment_title'=> $apartment->title],
-                'visits'=> [
-                    'labels'=> $_MONTH,
-                    'number'=> [0,0,0,0,0,0,0,0,0,0,0,0],
-                ]
+                'labels' => $_MONTH,
+                'visits'=> []
             ];
 
             foreach ($visits as $visit){
                 $visit_created = Carbon::make($visit['created_at']);
                 $visit_month = $visit_created->month;
-                $data['visits']['number'][$visit_month-1] += 1;
+                $visit_year = $visit_created->year;
+                if(!isset($data['visits'][$visit_year])){
+                    $data['visits'][$visit_year] = [0,0,0,0,0,0,0,0,0,0,0,0];
+                }
+                $data['visits'][$visit_year][$visit_month-1] += 1;
             }
 
             return response()->json([
                 'success'=>true,
                 'error'=>'',
                 'result'=> $data,
-                'results_number'=> count($data),
+                'results_number'=> count($data['visits']),
             ]);
 
         } else {
@@ -58,7 +60,7 @@ class ApartmentController extends Controller
     }
 
 
-    public function messages($id)
+    public function messages($id, $year)
     {
         $apartment = Apartment::find($id);
 
@@ -69,23 +71,25 @@ class ApartmentController extends Controller
 
             $data = [
                 'apartment'=> ['apartment_id'=> $apartment->id,'apartment_title'=> $apartment->title],
-                'messages'=> [
-                    'labels'=> $_MONTH,
-                    'number'=> [0,0,0,0,0,0,0,0,0,0,0,0],
-                ],
+                'labels' => $_MONTH,
+                'messages'=> []
             ];
 
             foreach ($messages as $message){
                 $message_created = Carbon::make($message['created_at']);
                 $message_month = $message_created->month;
-                $data['messages']['number'][$message_month-1] += 1;
+                $message_year = $message_created->year;
+                if(!isset($data['messages'][$message_year])){
+                    $data['messages'][$message_year] = [0,0,0,0,0,0,0,0,0,0,0,0];
+                }
+                $data['messages'][$message_year][$message_month-1] += 1;
             }
 
             return response()->json([
                 'success'=>true,
                 'error'=>'',
                 'result'=> $data,
-                'results_number'=> count($data),
+                'results_number'=> count($data['messages']),
             ]);
 
         } else {

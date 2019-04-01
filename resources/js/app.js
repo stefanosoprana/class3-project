@@ -31,23 +31,103 @@ import { Bar, Line } from 'vue-chartjs';
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('chart-component-visits', require('./components/ChartVisitsComponent.vue').default);
-Vue.component('chart-component-messages', require('./components/ChartMessagesComponent.vue').default);
+/*Vue.component('chart-component-messages', require('./components/ChartMessagesComponent.js').default);*/
 Vue.component('card', require('./components/CardComponent.vue').default);
 Vue.component('service-component', require('./components/ServiceComponent.vue').default);
 
+import ChartComponent from './components/ChartMessagesComponent.js';
 
 $(document).ready(function () {
+    //search geocomplete
+    $('.search #address').geocomplete({
+        details: "#address-complete",
+        detailsAttribute: "data-geo"
+    });
+
+    //apartment add geocomplete
     $('#address_apartment').geocomplete({
         details: "#address_apartment-complete",
         detailsAttribute: "data-geo"
     });
 
+
+    //vue chart
     if($('#charts').length){
+        var selected = $('#year').val();
         const charts = new Vue({
-            el: '#charts'
+            el: '#charts',
+            components:{
+                ChartComponent,
+            },
+            mounted () {
+                this.fillData(selected);
+            },
+            data(){
+                return {
+                    selected: selected,
+                    loaded: false,
+                    datacollection: null
+                }
+            },
+            methods: {
+                onChange() {
+                    this.fillData(this.selected);
+                },
+                fillData(year) {
+                    console.log('dentro fill ' + year);
+                    let thisYear = year;
+                    let href = window.location.href.split('/');
+                    let host = href[2];
+                    let idApartment = href[href.length - 2];
+                    let urlApi = '/api/v1/apartment/';
+
+                    let url = 'http://' + host + urlApi + idApartment + '/messages';
+                    let labels = [];
+                    let messages = [];
+
+                    this.axios({
+                        method: 'get',
+                        url: url,
+                        headers: {'Authorization': 'Bearer 123_Pippo_Pluto'}
+                    }).then((response) => {
+                        let data = response.data.result;
+                        let messagesData = data.messages;
+
+                        if (messagesData) {
+                            messagesData.labels.forEach(
+                                function (element) {
+                                    labels.push(element);
+                                }
+                            );
+                            messagesData.number.forEach(
+                                function (element) {
+                                    messages.push(element);
+                                }
+                            );
+                            this.datacollection = {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Messages',
+                                    backgroundColor: '#007bff',
+                                    data: messages
+                                }],
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false
+                                }
+                            }
+                            this.loaded = true;
+                        } else {
+                            console.log('No data');
+                        }
+                    });
+                },
+            }
+
         });
     }
 
+    //vue search
     if($('#search__result').length) {
         const searchResult = new Vue({
             el: '#search__result',
