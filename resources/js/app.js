@@ -263,7 +263,8 @@ $(document).ready(function () {
 
     //payment
     if( $('#dropin-container').length){
-        var dropin = require('braintree-web-drop-in');
+        let dropin = require('braintree-web-drop-in');
+        let $alert =  $('#alert-dropin');
 
         let $container = $('#dropin-container');
         let $button = $('#submit-button');
@@ -278,6 +279,8 @@ $(document).ready(function () {
         }).then(function (instance) {
             $button.click(function () {
                 event.preventDefault();
+                $alert.removeClass('alert alert-danger').html('');
+
                 instance.requestPaymentMethod().then(function (payload) {
                     // Submit payload.nonce to your server
                     let nonce = payload.nonce;
@@ -291,7 +294,7 @@ $(document).ready(function () {
                             apartmentId: apartmentId
                         }
                     }).then((response) => {
-                        console.log(response.data);
+                        //console.log(response.data);
                         if(response.data.success === true){
                             instance.teardown(function(err) {
                                 if (err) { console.error('An error occurred during teardown:', err); }
@@ -299,7 +302,7 @@ $(document).ready(function () {
                             $button.remove();
                             $success.addClass('alert alert-primary').removeAttr('hidden').prepend('Pagamento avvenuto con successo.');
                         } else {
-                            $('#alert-dropin').addClass('alert alert-danger').html(response.data.error);
+                            $alert.addClass('alert alert-danger').html(response.data.message);
                         }
                     }).catch(error => {
                         console.log(error.response);

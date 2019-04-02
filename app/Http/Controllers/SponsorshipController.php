@@ -7,7 +7,8 @@ use App\Sponsorship;
 use App\SponsorshipsType;
 use Illuminate\Http\Request;
 use Braintree_ClientToken;
-use Braintree_Transaction;
+use Braintree_Customer;
+use Braintree_PaymentMethod;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 
@@ -57,6 +58,7 @@ class SponsorshipController extends Controller
 
     public function process(Request $request)
     {
+        $user = Auth::user();
         $data = $request->all();
         $payload = $data['payload'];
         $sponsorship_type_id = $data['sponsorship'];
@@ -64,11 +66,23 @@ class SponsorshipController extends Controller
 
         $apartment_id = $data['apartmentId'];
 
-        $status = Braintree_Transaction::sale([
-            'amount' => $sponsorship_type->price,
+        if(!$user->customer_id){
+            $create_customer = Braintree_Customer::create([
+                'firstName' => $user->name,
+                'lastName' => $user->lastname,
+            ]);
+            if($create_customer->success){
+                $user->customer_id = $create_customer->customer->id;
+                $user->save();
+            }
+        }
+
+        $status = Braintree_PaymentMethod::create([
+            'customerId' => $user->customer_id,
             'paymentMethodNonce' => $payload,
             'options' => [
-                'submitForSettlement' => True,
+                'verifyCard' => true,
+                'verificationAmount' =>  $sponsorship_type->price,
             ]
         ]);
 

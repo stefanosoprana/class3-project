@@ -100016,6 +100016,7 @@ $(document).ready(function () {
   if ($('#dropin-container').length) {
     var dropin = __webpack_require__(/*! braintree-web-drop-in */ "./node_modules/braintree-web-drop-in/dist/browser/dropin.js");
 
+    var $alert = $('#alert-dropin');
     var $container = $('#dropin-container');
     var $button = $('#submit-button');
     var $success = $('#success-payment');
@@ -100029,6 +100030,7 @@ $(document).ready(function () {
     }).then(function (instance) {
       $button.click(function () {
         event.preventDefault();
+        $alert.removeClass('alert alert-danger').html('');
         instance.requestPaymentMethod().then(function (payload) {
           // Submit payload.nonce to your server
           var nonce = payload.nonce;
@@ -100041,8 +100043,7 @@ $(document).ready(function () {
               apartmentId: apartmentId
             }
           }).then(function (response) {
-            console.log(response.data);
-
+            //console.log(response.data);
             if (response.data.success === true) {
               instance.teardown(function (err) {
                 if (err) {
@@ -100052,7 +100053,7 @@ $(document).ready(function () {
               $button.remove();
               $success.addClass('alert alert-primary').removeAttr('hidden').prepend('Pagamento avvenuto con successo.');
             } else {
-              $('#alert-dropin').addClass('alert alert-danger').html(response.data.error);
+              $alert.addClass('alert alert-danger').html(response.data.message);
             }
           }).catch(function (error) {
             console.log(error.response);
