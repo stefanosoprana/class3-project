@@ -10713,7 +10713,32 @@ a.text-dark:focus {
 }
 
 .navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  background-color: #a8c4fc;
+  color: white;
+}
+
+.header-bottom {
+  width: 100%;
+  height: 200px;
+  background: red;
+  display: flex;
+  justify-content: space-between;
+}
+
+.container {
+  padding-top: 40px;
+}
+
+.icons {
+  color: white;
+}
+
+.icons i {
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 2px solid white;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 5px;
 }
 

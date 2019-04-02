@@ -10,7 +10,7 @@
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
                 <a class="nav-link">
-                  <img src="../public/boolbnb-logo.svg" alt="">
+                  <img src="{{ asset('public/boolbnb-logo.svg') }}" alt="">
                  </a>
               </li>
             </ul>
@@ -66,3 +66,33 @@
         </div>
     </div>
 </nav>
+
+<div class="header-bottom">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <form>
+          <div class="form-row align-items-center">
+            <div class="col-8">
+              <label class="sr-only" for="inlineFormInput">Cerca</label>
+              <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Cerca: Via Clanio 8 ,Caserta">
+            </div>
+            <div class="icons">
+                <i class="fas fa-wifi"></i>
+                <i class="fas fa-snowflake"></i>
+                <i class="fas fa-wheelchair"></i>
+                <i class="fas fa-utensils"></i>
+                <i class="fas fa-swimming-pool"></i>
+            </div>
+          <div class="col-auto">
+            <button type="submit" class="btn btn-primary mb-2">Cerca</button>
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
