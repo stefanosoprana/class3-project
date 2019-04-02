@@ -24,7 +24,7 @@ class MessagesTableSeeder extends Seeder
 
           $now = Carbon::now();
           $apartment = Apartment::inRandomOrder()->first();
-          $date = $faker->dateTime($max = 'now', $timezone = null);
+            $date = $faker->dateTimeBetween('-2 years', $endDate = 'now', $timezone = null);
 
             $user = $apartment["user_id"];
             $data[] = [

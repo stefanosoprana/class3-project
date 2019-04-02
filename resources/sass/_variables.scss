@@ -2,28 +2,15 @@
 $body-bg: #f8fafc;
 
 // Typography
-$font-family-open-sans: 'Open Sans', sans-serif;
+$font-family-sans-serif: "Open Sans", sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
 
 // Colors
-$blue: #3490dc;
-$indigo: #6574cd;
-$purple: #9561e2;
-$pink: #f66D9b;
-$red: #e3342f;
-$orange: #f6993f;
-$yellow: #ffed4a;
-$green: #38c172;
-$teal: #4dc0b5;
-$cyan: #6cb2eb;
 $blue: #76A2FB;
-
-
-
-$lightBlue: lighten($blue, 10);
 $darkBlue: darken($blue, 30);
+$lightBlue: lighten($blue, 21);
 $purple: #A576fb;
 $lightPurple: lighten($purple, 21);
 $orange: #FB8E76;

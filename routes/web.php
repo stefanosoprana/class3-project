@@ -14,10 +14,10 @@
 
 
 //tutti gli appartamenti con ricerca per guest
-Route::get('/', 'ApartmentController@index')->name('apartments.index');
-Route::get('/apartments', 'ApartmentController@search')->name('apartments.search');
-Route::get('/apartment/{id}', 'ApartmentController@show')->middleware('visit')->name('apartment.show');
-Route::post('/apartment/message', 'MessageController@store')->name('apartment.message.store');
+    Route::get('/', 'ApartmentController@index')->name('apartments.index');
+    Route::get('/apartments', 'ApartmentController@search')->name('apartments.search');
+    Route::get('/apartment/{id}', 'ApartmentController@show')->middleware('visit')->name('apartment.show');
+    Route::post('/apartment/message', 'MessageController@store')->name('apartment.message.store');
 
 
 //tutte le altre rotte appartamenti
@@ -50,12 +50,17 @@ Route::middleware('auth')->group(function () {
 //rotte per sponsorships
 Route::middleware('auth')->group(function () {
     Route::get('/apartment/{id}/sponsorship', 'SponsorshipController@index')->name('sponsorships.index');
-    Route::post('/apartment/{id}/sponsorship', 'SponsorshipController@payment')->name('sponsorships.payment');
+    Route::get('/apartment/{id}/sponsorship/{sponsorship_type_id}/pay', 'SponsorshipController@payment')->name('sponsorships.payment');
+    Route::post('/apartment/{id}/sponsorship/process', 'SponsorshipController@process')->name('sponsorships.process');
 });
 
 //rotte per Admin
-Route::middleware('permission:Admin')->namespace('Admin')->prefix('Admin')->name('Admin.')->group(function () {
+Route::middleware('permission:modify')->namespace('Admin')->prefix('Admin')->name('Admin.')->group(function () {
     Route::get('/home', 'HomeController@index')->name('index');
+
+    // messaggi
+    Route::get('/messages/admin', 'MessageController@index')->name('messages.index');
+    Route::get('/messages/{id}/admin', 'MessageController@show')->name('messages.show');
 
     //utenti
     Route::resource('users', 'UserController');
@@ -69,4 +74,5 @@ Route::middleware('permission:Admin')->namespace('Admin')->prefix('Admin')->name
     Route::get('/apartment/{id}/statistics', 'ApartmentController@statistics')->name('apartment.statistic');
     Route::delete('/apartment/{id}/delete', 'ApartmentController@destroy')->name('apartment.destroy');
     Route::get('/apartmens/sponsorships', 'ApartmentController@sponsorships')->name('apartments.sponsorships');
+
 });
