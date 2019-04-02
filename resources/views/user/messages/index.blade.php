@@ -32,13 +32,16 @@
             <td>{{ DateTime::createFromFormat('Y-m-d H:i:s', $message->created_at )->format('d/m/Y H:i') }}</td>
             <td>{{ str_limit($message->text, 30, '(...)') }}</td>
             <td>
-              <a href="{{ route('message.show', $message->id ) }}" class="btn btn-primary"><i class="fas fa-eye"></i> </a>
+              <a href="{{ route('message.show', $message->id ) }}" class="btn btn-primary"><i class="fas fa-eye"></i></a>
             </td>
             <td>
               <form action="{{ route('message.destroy', $message->id ) }}" method="post">
                 @csrf
                 @method('DELETE')
-                <input class="btn btn-danger" type="submit" value="Elimina">
+                <input class="btn btn-danger" type="submit" value="E">
+                <div class="icon_container">
+                  <i class="fas fa-trash"></i>
+                </div>
               </form>
             </td>
           </tr>

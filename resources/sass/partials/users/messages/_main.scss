@@ -39,8 +39,31 @@
                   font-size: 20px;
                 }
               }
+              form {
+                position: relative;
+                input {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  opacity: 0;
+                }
+                .icon_container {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  width: 32px;
+                  height: 36px;
+                  background-color: white;
+                  border: 2px solid $orange;
+                  border-radius: 0.25rem;
+                  i {
+                    color: $orange;
+                    font-size: 20px;
+                  }
+                }
+              }
             }
-          }          
+          }
         }
       }
     }
