@@ -15,7 +15,7 @@ class AddApartmentsToMessagesTable extends Migration
     {
         Schema::table('messages', function (Blueprint $table) {
           $table->unsignedInteger('apartment_id')->after('id');
-          $table->foreign('apartment_id')->references('id')->on('apartments');
+          $table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('cascade');
         });
     }
 

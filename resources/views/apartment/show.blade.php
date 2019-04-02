@@ -90,7 +90,11 @@
                 </div>
                 <div class="form-group">
                   <label for="email">Email</label>
-                  <input type="email" name="email" class="form-control" placeholder="Inserisci la email">
+                  @if(isset(Auth::user()->id))
+                    <input type="email" name="email" class="form-control" placeholder="Inserisci la email" value="{{ Auth::user()->email }}">
+                  @else
+                    <input type="email" name="email" class="form-control" placeholder="Inserisci la email">
+                  @endif
                 </div>
                 <div class="form-group">
                   <label for="text">Testo</label>

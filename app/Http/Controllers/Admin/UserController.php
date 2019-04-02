@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Apartment;
+use App\Message;
 
 class UserController extends Controller
 {
@@ -83,7 +85,7 @@ class UserController extends Controller
 
       $user->update($data);
 
-      return redirect()->route('Admin.users.index');        
+      return redirect()->route('Admin.users.index');
     }
 
     /**
