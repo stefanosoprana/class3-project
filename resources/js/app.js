@@ -33,6 +33,15 @@ import { Bar, Line } from 'vue-chartjs';
 Vue.component('card', require('./components/CardComponent.vue').default);
 Vue.component('service-component', require('./components/ServiceComponent.vue').default);
 
+import InfiniteLoading from 'vue-infinite-loading';
+
+Vue.use(InfiniteLoading, {
+    slots: {
+        noMore: 'Non sono presenti altri appartamenti', // you can pass a string value
+        noResults: 'Non sono presenti appartamenti con queste caratteristiche', // you can pass a string value
+    },
+});
+
 import ChartComponent from './components/ChartMessagesComponent.js';
 
 $(document).ready(function () {
@@ -154,27 +163,73 @@ $(document).ready(function () {
         });
     }
 
+
+
     //vue search
     if($('#search__result').length) {
         const searchResult = new Vue({
             el: '#search__result',
-            data: {
-                address: '',
-                latitude: '',
-                longitude: '',
-                radius: '',
-                beds: '',
-                rooms: '',
-                services: '',
-                apartments: []
+            data(){
+                return {
+                    href: '',
+                    host:'',
+                    urlApi:'',
+                    address: '',
+                    latitude: '',
+                    longitude: '',
+                    radius: '',
+                    beds: '',
+                    rooms: '',
+                    services: '',
+                    apartments: [],
+                    page: 1,
+                    infiniteId: +new Date(),
+                }
             },
             methods: {
-                getFormValues: function(submitEvent) {
+                infiniteHandler($state) {
+                    let url = 'http://'+this.host+this.urlApi+this.page;
+                    let vuethis = this;
+                    axios({
+                        method:'post',
+                        url: url,
+                        headers: {'Authorization': 'Bearer 123_Pippo_Pluto'},
+                        data: {
+                            latitude: this.latitude,
+                            longitude: this.longitude,
+                            radius: this.radius,
+                            services: this.services,
+                            beds: this.beds,
+                            rooms: this.rooms,
+                        }
+                    }).then((response) => {
+                        if(response.data.result.length){
+                            this.page += 1;
+                            $.each(response.data.result, function(key, value) {
+                                vuethis.apartments.push(value);
+                            });
+                        console.log(this.page);
+                        console.log(response.data.result.length);
+                            $state.loaded();
+                        } else{
+                            $state.complete();
+                        }
 
-                    let href = window.location.href.split('/');
-                    let host = href[2];
-                    let urlApi = '/api/v1/apartments';
-                    let url = 'http://'+host+urlApi;
+
+                        $('#address').geocomplete({
+                            details: "#address-complete",
+                            detailsAttribute: "data-geo"
+                        }).bind("geocode:result", function(event, result){
+                            vuethis.address =  $('#address').val();
+                        });
+
+                    }).catch(error => {
+                        console.log(error.response);
+                    });
+
+
+                },
+                getFormValues: function(submitEvent) {
 
                     this.latitude = submitEvent.target.elements.latitude.value;
                     this.longitude = submitEvent.target.elements.longitude.value;
@@ -191,9 +246,14 @@ $(document).ready(function () {
                     });
 
                     this.services = arrServices;
-                    axios({
+
+                    this.page = 1;
+                    this.apartments = [];
+                    this.infiniteId += 1;
+
+                   /* axios({
                         method:'post',
-                        url: url,
+                        url: this.url,
                         headers: {'Authorization': 'Bearer 123_Pippo_Pluto'},
                         data: {
                             latitude: this.latitude,
@@ -208,56 +268,26 @@ $(document).ready(function () {
                         this.apartments = response.data.result;
                     }).catch(error => {
                         console.log(error.response);
-                    });
+                    });*/
                 }
             },
             mounted() {
-                //avvio geocomplete
-
                 let uri = window.location.search.substring(1);
                 let params = new URLSearchParams(uri);
                 this.address = params.get("address");
                 this.latitude = params.get("latitude");
                 this.longitude = params.get("longitude");
                 insertParamsLatLon(this.latitude,  this.longitude);
-                
+
                 this.radius = params.get("radius");
                 this.beds = params.get("beds") || 1;
                 this.rooms = params.get("rooms") || 1;
                 this.services = params.getAll("service");
 
-                let href = window.location.href.split('/');
-                let host = href[2];
-                let urlApi = '/api/v1/apartments';
-                let url = 'http://'+host+urlApi;
-
-                axios({
-                    method:'post',
-                    url: url,
-                    headers: {'Authorization': 'Bearer 123_Pippo_Pluto'},
-                    data: {
-                        latitude: this.latitude,
-                        longitude: this.longitude,
-                        radius: this.radius,
-                        services: this.services,
-                        beds: this.beds,
-                        rooms: this.rooms,
-                    }
-                }).then((response) => {
-                    //console.log(response.data.result);
-                    this.apartments = response.data.result;
-
-                    let vuethis = this;
-                    $('#address').geocomplete({
-                        details: "#address-complete",
-                        detailsAttribute: "data-geo"
-                    }).bind("geocode:result", function(event, result){
-                        vuethis.address =  $('#address').val();
-                    });
-
-                }).catch(error => {
-                    console.log(error.response);
-                });
+                this.href = window.location.href.split('/');
+                this.host = this.href[2];
+                this.urlApi = '/api/v1/apartments/';
+                console.log('mounted');
             },
         });
     }

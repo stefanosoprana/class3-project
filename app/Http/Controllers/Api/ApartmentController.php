@@ -106,7 +106,7 @@ class ApartmentController extends Controller
         }
     }
 
-    public function search(Request $request){
+    public function search(Request $request, $page){
         $data_search = $request->all();
 
         $validated_data = Validator::make($data_search,[
@@ -262,14 +262,16 @@ class ApartmentController extends Controller
             $data[] = $data_apartment;
 
         }
-
-
+        //trasformo in collection
+        $new_collection = collect($data);
+        $chunk = $new_collection->forPage($page, 6);
+        $chunk->all();
         //ritorno json
         return response()->json([
             'success'=>true,
             'error'=>'',
-            'result'=> $data,
-            'results_number'=> count($data),
+            'result'=> $chunk,
+            'results_number'=> count($chunk),
         ]);
     }
 
