@@ -15,7 +15,7 @@ class AddApartmentsToSponsorshipsTable extends Migration
     {
         Schema::table('sponsorships', function (Blueprint $table) {
           $table->unsignedInteger('apartment_id')->after('id');
-          $table->foreign('apartment_id')->references('id')->on('apartments');
+          $table->foreign('apartment_id')->references('id')->on('apartments')->onDelete('cascade');
         });
     }
 
