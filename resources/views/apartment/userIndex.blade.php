@@ -41,6 +41,15 @@
               <a href="{{ route('apartment.edit', $apartment->id) }}" class="btn btn-primary">Pubblica</a>
             </td>
             @endif
+            @if(!$apartment->sponsorship)
+            <td>
+              <a href="{{ route('sponsorships.index', $apartment->id) }}" class="btn btn-primary">Sponsorizza</a>
+            </td>
+            @else
+              <td>
+                <div class="btn btn-outline-dark">Sponsorizzato</a>
+              </td>
+            @endif
             <td>
               <form action="{{route('apartment.destroy', $apartment->id)}}" method="post">
                 @csrf

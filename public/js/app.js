@@ -100013,56 +100013,58 @@ $(document).ready(function () {
   } //payment
 
 
-  var dropin = __webpack_require__(/*! braintree-web-drop-in */ "./node_modules/braintree-web-drop-in/dist/browser/dropin.js");
+  if ($('#dropin-container').length) {
+    var dropin = __webpack_require__(/*! braintree-web-drop-in */ "./node_modules/braintree-web-drop-in/dist/browser/dropin.js");
 
-  var $container = $('#dropin-container');
-  var $button = $('#submit-button');
-  var $success = $('#success-payment');
-  var token = $container.data('token');
-  var url = $container.data('action');
-  var sponsorship = $container.data('sponsorship');
-  var apartmentId = $container.data('apartment');
-  dropin.create({
-    authorization: token,
-    container: '#dropin-container'
-  }).then(function (instance) {
-    $button.click(function () {
-      event.preventDefault();
-      instance.requestPaymentMethod().then(function (payload) {
-        // Submit payload.nonce to your server
-        var nonce = payload.nonce;
-        axios__WEBPACK_IMPORTED_MODULE_2___default()({
-          method: 'post',
-          url: url,
-          data: {
-            payload: nonce,
-            sponsorship: sponsorship,
-            apartmentId: apartmentId
-          }
-        }).then(function (response) {
-          console.log(response.data);
+    var $container = $('#dropin-container');
+    var $button = $('#submit-button');
+    var $success = $('#success-payment');
+    var token = $container.data('token');
+    var url = $container.data('action');
+    var sponsorship = $container.data('sponsorship');
+    var apartmentId = $container.data('apartment');
+    dropin.create({
+      authorization: token,
+      container: '#dropin-container'
+    }).then(function (instance) {
+      $button.click(function () {
+        event.preventDefault();
+        instance.requestPaymentMethod().then(function (payload) {
+          // Submit payload.nonce to your server
+          var nonce = payload.nonce;
+          axios__WEBPACK_IMPORTED_MODULE_2___default()({
+            method: 'post',
+            url: url,
+            data: {
+              payload: nonce,
+              sponsorship: sponsorship,
+              apartmentId: apartmentId
+            }
+          }).then(function (response) {
+            console.log(response.data);
 
-          if (response.data.success === true) {
-            instance.teardown(function (err) {
-              if (err) {
-                console.error('An error occurred during teardown:', err);
-              }
-            });
-            $button.remove();
-            $success.addClass('alert alert-primary').removeAttr('hidden').prepend('Pagamento avvenuto con successo.');
-          } else {
-            $('#alert-dropin').addClass('alert alert-danger').html(response.data.error);
-          }
-        }).catch(function (error) {
-          console.log(error.response);
+            if (response.data.success === true) {
+              instance.teardown(function (err) {
+                if (err) {
+                  console.error('An error occurred during teardown:', err);
+                }
+              });
+              $button.remove();
+              $success.addClass('alert alert-primary').removeAttr('hidden').prepend('Pagamento avvenuto con successo.');
+            } else {
+              $('#alert-dropin').addClass('alert alert-danger').html(response.data.error);
+            }
+          }).catch(function (error) {
+            console.log(error.response);
+          });
+        }).catch(function (requestPaymentMethodErr) {
+          // No payment method is available.
+          // An appropriate error will be shown in the UI.
+          console.error(requestPaymentMethodErr);
         });
-      }).catch(function (requestPaymentMethodErr) {
-        // No payment method is available.
-        // An appropriate error will be shown in the UI.
-        console.error(requestPaymentMethodErr);
       });
     });
-  });
+  }
 });
 
 /***/ }),

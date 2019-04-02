@@ -262,54 +262,57 @@ $(document).ready(function () {
     }
 
     //payment
-    var dropin = require('braintree-web-drop-in');
+    if( $('#dropin-container').length){
+        var dropin = require('braintree-web-drop-in');
 
-    let $container = $('#dropin-container');
-    let $button = $('#submit-button');
-    let $success = $('#success-payment');
-    let token = $container.data('token');
-    let url = $container.data('action');
-    let sponsorship = $container.data('sponsorship');
-    let apartmentId = $container.data('apartment');
-    dropin.create({
-        authorization: token,
-        container: '#dropin-container',
-    }).then(function (instance) {
-        $button.click(function () {
-            event.preventDefault();
-                 instance.requestPaymentMethod().then(function (payload) {
-                // Submit payload.nonce to your server
-                     let nonce = payload.nonce;
+        let $container = $('#dropin-container');
+        let $button = $('#submit-button');
+        let $success = $('#success-payment');
+        let token = $container.data('token');
+        let url = $container.data('action');
+        let sponsorship = $container.data('sponsorship');
+        let apartmentId = $container.data('apartment');
+        dropin.create({
+            authorization: token,
+            container: '#dropin-container',
+        }).then(function (instance) {
+            $button.click(function () {
+                event.preventDefault();
+                instance.requestPaymentMethod().then(function (payload) {
+                    // Submit payload.nonce to your server
+                    let nonce = payload.nonce;
 
-                     axios({
-                         method:'post',
-                         url: url,
-                         data: {
-                             payload: nonce,
-                             sponsorship: sponsorship,
-                             apartmentId: apartmentId
-                         }
-                     }).then((response) => {
-                         console.log(response.data);
-                         if(response.data.success === true){
-                             instance.teardown(function(err) {
-                                 if (err) { console.error('An error occurred during teardown:', err); }
-                             });
-                             $button.remove();
-                             $success.addClass('alert alert-primary').removeAttr('hidden').prepend('Pagamento avvenuto con successo.');
-                         } else {
+                    axios({
+                        method:'post',
+                        url: url,
+                        data: {
+                            payload: nonce,
+                            sponsorship: sponsorship,
+                            apartmentId: apartmentId
+                        }
+                    }).then((response) => {
+                        console.log(response.data);
+                        if(response.data.success === true){
+                            instance.teardown(function(err) {
+                                if (err) { console.error('An error occurred during teardown:', err); }
+                            });
+                            $button.remove();
+                            $success.addClass('alert alert-primary').removeAttr('hidden').prepend('Pagamento avvenuto con successo.');
+                        } else {
                             $('#alert-dropin').addClass('alert alert-danger').html(response.data.error);
-                         }
-                     }).catch(error => {
-                         console.log(error.response);
-                     });
-                 }).catch(function (requestPaymentMethodErr) {
-                // No payment method is available.
-                // An appropriate error will be shown in the UI.
-                console.error(requestPaymentMethodErr);
+                        }
+                    }).catch(error => {
+                        console.log(error.response);
+                    });
+                }).catch(function (requestPaymentMethodErr) {
+                    // No payment method is available.
+                    // An appropriate error will be shown in the UI.
+                    console.error(requestPaymentMethodErr);
+                });
             });
-         });
-    });
+        });
+    }
+
 
 });
 

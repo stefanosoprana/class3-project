@@ -16,15 +16,31 @@ class SponsorshipController extends Controller
     //
     public function index($id){
         $apartment = Apartment::find($id);
-
-        return view('payment.index', compact('apartment'));
+        $sponsorships_type = SponsorshipsType::all();
+        $data = [
+            'sponsorships_type' => $sponsorships_type,
+            'apartment' => $apartment
+        ];
+        return view('payment.index', $data);
     }
 
     public function payment($id, $sponsorship_type_id){
         $apartment = Apartment::find($id);
         $user = Auth::user();
-        if($apartment->user_id != $user->id){
+        if(!$apartment || $apartment->user_id != $user->id){
             abort('404');
+        }
+
+        $now = Carbon::now('Europe/Rome');
+
+        $apartment_id = $apartment->id;
+        $sponsorship = Sponsorship::where('apartment_id', $apartment_id)->first();
+        $sponsorship_expire = Carbon::create($sponsorship['sponsor_expired']);
+        $diff = $sponsorship_expire->diffInDays($now, false);
+
+        if($diff <= 0){
+            $message = 'Sponsorizzazione già attiva';
+            return redirect()->back()->with('status', $message);
         }
 
         $client_token = Braintree_ClientToken::generate();
@@ -43,26 +59,26 @@ class SponsorshipController extends Controller
     {
         $data = $request->all();
         $payload = $data['payload'];
-        $sponsorship_id = $data['sponsorship'];
-        $sponsorship = SponsorshipsType::find($sponsorship_id);
+        $sponsorship_type_id = $data['sponsorship'];
+        $sponsorship_type = SponsorshipsType::find($sponsorship_type_id);
 
         $apartment_id = $data['apartmentId'];
 
         $status = Braintree_Transaction::sale([
-            'amount' => $sponsorship->price,
+            'amount' => $sponsorship_type->price,
             'paymentMethodNonce' => $payload,
             'options' => [
                 'submitForSettlement' => True,
             ]
         ]);
 
-       if($status->transaction->processorResponseType === 'approved'){
+       if($status->success){
             $now = Carbon::now('Europe/Rome');
-            $period = $now->addHours($sponsorship["period"]);
+            $period = $now->addHours($sponsorship_type["period"]);
 
             $new_sponsorship = new Sponsorship();
             $new_sponsorship->apartment_id = $apartment_id;
-            $new_sponsorship->sponsorships_type_id = $apartment_id;
+            $new_sponsorship->sponsorships_type_id = $sponsorship_type_id;
             $new_sponsorship->sponsor_expired = $period;
             $new_sponsorship->created_at = $now;
             $new_sponsorship->updated_at = $now;
@@ -73,3 +89,5 @@ class SponsorshipController extends Controller
         return response()->json($status);
     }
 }
+
+
