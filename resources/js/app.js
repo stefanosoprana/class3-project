@@ -45,6 +45,17 @@ Vue.use(InfiniteLoading, {
 import ChartComponent from './components/ChartMessagesComponent.js';
 
 $(document).ready(function () {
+    var forms = $('.needs-validation');
+    console.log(forms);
+    $(forms).submit(function (event) {
+        console.log('subimit');
+        if(!this.checkValidity()){
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        $(this).addClass('was-validated');
+    });
+
     //search geocomplete
     $('.search #address').geocomplete({
         details: "#address-complete",
@@ -56,7 +67,6 @@ $(document).ready(function () {
         details: "#address_apartment-complete",
         detailsAttribute: "data-geo"
     });
-
 
     //vue chart
     if($('#charts').length){
@@ -162,8 +172,6 @@ $(document).ready(function () {
             }
         });
     }
-
-
 
     //vue search
     if($('#search__result').length) {
@@ -295,6 +303,7 @@ $(document).ready(function () {
         $('#latitude').val(lat);
         $('#longitude').val(lon);
     }
+
     //payment
     if( $('#dropin-container').length){
         let dropin = require('braintree-web-drop-in');
@@ -349,6 +358,8 @@ $(document).ready(function () {
             });
         });
     }
+
+
 
 
 });

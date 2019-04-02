@@ -99802,7 +99802,19 @@ Vue.use(vue_infinite_loading__WEBPACK_IMPORTED_MODULE_4___default.a, {
 });
 
 $(document).ready(function () {
-  //search geocomplete
+  var forms = $('.needs-validation');
+  console.log(forms);
+  $(forms).submit(function (event) {
+    console.log('subimit');
+
+    if (!this.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    $(this).addClass('was-validated');
+  }); //search geocomplete
+
   $('.search #address').geocomplete({
     details: "#address-complete",
     detailsAttribute: "data-geo"

@@ -8,26 +8,43 @@
             <div class="row">
                 <div class="col-12">
                     <h1>{{$data['title']}}</h1>
-                    <form class="form-group" action="{{ $data['route'] }}" method="POST" enctype="multipart/form-data">
+                    <form class="needs-validation " action="{{ $data['route'] }}" method="POST" enctype="multipart/form-data" novalidate>
                         @csrf
                         @method($data['method'])
-
                         {{--Pubblicato--}}
                         <div class="alert-warning mb-3">{{$errors->has('published') ? $errors->first('published') : ''}}</div>
                         <div class="form-check form-check-inline">
-                            <input type="radio" name="published" id="published" {{ (isset($data['apartment']) && $data['apartment']->published) ? 'checked' : null }} value="1" class="form-check-input">
+                            <input type="radio" name="published" id="published" {{ (isset($data['apartment']) && $data['apartment']->published) ? 'checked' : null }} value="1" class="form-check-input" required>
                             <label class="form-check-label" for="published">Pubblica</label>
+                            <div class="valid-feedback">
+                               Campo valido
+                            </div>
+                            <div class="invalid-feedback">
+                              L'articolo deve essere pubblicato?
+                            </div>
                         </div>
                         <div class="form-check form-check-inline">
                             <input type="radio" name="published" id="published" {{ (isset($data['apartment']) && !$data['apartment']->published) ? 'checked' : null }} value="0" class="form-check-input">
                             <label class="form-check-label" for="published">Sospendi Pubblicazione</label>
+                            <div class="valid-feedback">
+                                Campo valido
+                            </div>
+                            <div class="invalid-feedback">
+                                O deve essere privato?
+                            </div>
                         </div>
                         {{--/Pubblicato--}}
 
                         {{--titolo--}}
                         <div class="form-group">
                             <label for="title">Nome appartamento</label>
-                            <input type="text" name="title" class="form-control" placeholder="{{$errors->has('title') ? $errors->first('title') : 'Inserisci il nome dell\'appartamento'}}" value="{{ (isset($data['apartment'])) ? $data['apartment']->title : old('title')}}">
+                            <input type="text" name="title" class="form-control" placeholder="{{$errors->has('title') ? $errors->first('title') : 'Inserisci il nome dell\'appartamento'}}" value="{{ (isset($data['apartment'])) ? $data['apartment']->title : old('title')}}" required minlength="10" maxlength="50">
+                            <div class="valid-feedback">
+                                Campo valido
+                            </div>
+                            <div class="invalid-feedback">
+                                Scrivi un titolo valido. Almeno 10 caratteri, massimo 50.
+                            </div>
                         </div>
                         {{--/titolo--}}
 
@@ -35,7 +52,13 @@
                         <div class="form-group">
                             <div class="alert-warning mb-3">{{$errors->has('description') ? $errors->first('description') : ''}}</div>
                             <label for="title">Descrizione</label>
-                            <textarea name="description" id="description" class="form-control" rows="5">{{ (isset($data['apartment'])) ? $data['apartment']->description : old('description')}}</textarea>
+                            <textarea name="description" id="description" class="form-control" rows="5" required  minlength="20" maxlength="1000">{{ (isset($data['apartment'])) ? $data['apartment']->description : old('description')}}</textarea>
+                            <div class="valid-feedback">
+                                Descrizione valida
+                            </div>
+                            <div class="invalid-feedback">
+                               Inserisci una descrizione valida. Almeno 20 caratteri, massimo 1000.
+                            </div>
                         </div>
                         {{--/Descrizione--}}
 
@@ -58,7 +81,13 @@
                         {{--Prezzo--}}
                         <div class="form-group">
                             <label for="price">Prezzo</label>
-                            <input type="number"  step="0.5"  name="price" placeholder="{{$errors->has('price') ? $errors->first('price') : 'Inserisci il prezzo dell\'appartamento'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->price : old('price')}}">
+                            <input type="number" min="1" step="0.5"  name="price" placeholder="{{$errors->has('price') ? $errors->first('price') : 'Inserisci il prezzo dell\'appartamento'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->price : old('price')}}" required>
+                            <div class="valid-feedback">
+                                Campo valido
+                            </div>
+                            <div class="invalid-feedback">
+                                Inserisci un prezzo valido.
+                            </div>
                         </div>
                         {{--/Prezzo--}}
 
@@ -69,7 +98,13 @@
                             @if($errors->has('street') || $errors->has('number') || $errors->has('locality') || $errors->has('postal_code') || $errors->has('state') || $errors->has('latitude') || $errors->has('longitude'))
                                 <div class="alert-warning mb-3">Indirizzo errato inseriscilo nuovamente</div>
                             @endif
-                            <input type="text" id="address_apartment" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidonia, RM, Italia" autocomplete="off">
+                            <input type="text" id="address_apartment" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidonia, RM, Italia" autocomplete="off" required>
+                            <div class="valid-feedback">
+                                Campo valido
+                            </div>
+                            <div class="invalid-feedback">
+                               Inserisci un indirizzo completo di strada, numero civico, città, stato.
+                            </div>
                         </div>
                         <div class="apartment__create__address-disabled">
                             <h2>Indirizzo</h2>
@@ -103,19 +138,43 @@
                         <h2>Caratteristiche</h2>
                         <div class="form-group">
                             <label for="square_meters">Dimensioni</label>
-                            <input type="number" name="square_meters" placeholder="{{$errors->has('square_meters') ? $errors->first('square_meters') : 'Inserisci le dimensioni in mq'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->square_meters : old('square_meters')}}">
+                            <input type="number" name="square_meters" placeholder="{{$errors->has('square_meters') ? $errors->first('square_meters') : 'Inserisci le dimensioni in mq'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->square_meters : old('square_meters')}}" required min="1">
+                            <div class="valid-feedback">
+                                Campo valido
+                            </div>
+                            <div class="invalid-feedback">
+                                Inserisci i mq
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="rooms">Stanze</label>
-                            <input type="number" name="rooms" placeholder="{{$errors->has('square_meters') ? $errors->first('square_meters') : 'Inserisci il numero di stanze'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->rooms : old('rooms')}}">
+                            <input type="number" name="rooms" placeholder="{{$errors->has('square_meters') ? $errors->first('square_meters') : 'Inserisci il numero di stanze'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->rooms : old('rooms')}}" required min="1">
+                            <div class="valid-feedback">
+                                Campo valido
+                            </div>
+                            <div class="invalid-feedback">
+                                Inserisci le stanze
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="beds">Letti</label>
-                            <input type="number" name="beds" placeholder="{{$errors->has('bes') ? $errors->first('beds') : 'Inserisci il numero di letti'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->beds : old('beds')}}">
+                            <input type="number" name="beds" placeholder="{{$errors->has('bes') ? $errors->first('beds') : 'Inserisci il numero di letti'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->beds : old('beds')}}" required min="1">
+                            <div class="valid-feedback">
+                                Campo valido
+                            </div>
+                            <div class="invalid-feedback">
+                               Inserisci i letti
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="bathrooms">Bagni</label>
-                            <input type="number" name="bathrooms" placeholder="{{$errors->has('bes') ? $errors->first('beds') : 'Inserisci il numero di bagni'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->bathrooms : old('bathrooms')}}">
+                            <input type="number" name="bathrooms" placeholder="{{$errors->has('bathrooms') ? $errors->first('bathrooms') : 'Inserisci il numero di bagni'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->bathrooms : old('bathrooms')}}" required min="1">
+                            <div class="valid-feedback">
+                                Campo valido
+                            </div>
+                            <div class="invalid-feedback">
+                                Inserisci i bagni.
+                            </div>
                         </div>
                         {{--/Caratteristiche--}}
 

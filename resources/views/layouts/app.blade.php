@@ -38,17 +38,17 @@
                     <div class="col-12">
                         @if( Route::currentRouteName() === 'apartments.search')
                             {{--Search Form--}}
-                            <form class="control" @submit.prevent="getFormValues">
+                            <form  class="control needs-validation" @submit.prevent="getFormValues" id="search__form" novalidate>
                                 @else
                                     {{--Search Form with get action--}}
-                                    <form class="control" action="{{ route('apartments.search') }}" method="get">
+                                    <form class="control needs-validation" action="{{ route('apartments.search') }}" method="get" id="search__form" novalidate>
                                         @csrf
                                         @method('GET')
                                         @endif
                                         <div id="address-complete">
                                             <div class="form-group">
                                                 <label for="address">Indirizzo</label>
-                                                <input type="text" id="address" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidonia, RM, Italia" autocomplete="off"  v-model="address">
+                                                <input type="text" id="address" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidonia, RM, Italia" autocomplete="off"  v-model="address" required>
                                             </div>
                                             <input id="latitude" name="latitude" type="hidden" data-geo="lat" value="">
                                             <input id="longitude" name="longitude" type="hidden"  data-geo="lng" value="">
