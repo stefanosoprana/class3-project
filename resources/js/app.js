@@ -216,10 +216,11 @@ $(document).ready(function () {
 
                 let uri = window.location.search.substring(1);
                 let params = new URLSearchParams(uri);
-
                 this.address = params.get("address");
                 this.latitude = params.get("latitude");
                 this.longitude = params.get("longitude");
+                insertParamsLatLon(this.latitude,  this.longitude);
+                
                 this.radius = params.get("radius");
                 this.beds = params.get("beds") || 1;
                 this.rooms = params.get("rooms") || 1;
@@ -260,7 +261,10 @@ $(document).ready(function () {
             },
         });
     }
-
+    function insertParamsLatLon(lat, lon) {
+        $('#latitude').val(lat);
+        $('#longitude').val(lon);
+    }
     //payment
     if( $('#dropin-container').length){
         let dropin = require('braintree-web-drop-in');
