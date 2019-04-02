@@ -99805,8 +99805,6 @@ $(document).ready(function () {
   var forms = $('.needs-validation');
   console.log(forms);
   $(forms).submit(function (event) {
-    console.log('subimit');
-
     if (!this.checkValidity()) {
       event.preventDefault();
       event.stopPropagation();
@@ -99971,6 +99969,7 @@ $(document).ready(function () {
         infiniteHandler: function infiniteHandler($state) {
           var _this2 = this;
 
+          $('#search__form').removeClass('was-validated');
           var url = 'http://' + this.host + this.urlApi + this.page;
           var vuethis = this;
           axios__WEBPACK_IMPORTED_MODULE_2___default()({
@@ -100011,22 +100010,29 @@ $(document).ready(function () {
           });
         },
         getFormValues: function getFormValues(submitEvent) {
-          this.latitude = submitEvent.target.elements.latitude.value;
-          this.longitude = submitEvent.target.elements.longitude.value;
-          this.radius = submitEvent.target.elements.radius.value;
-          this.beds = submitEvent.target.elements.beds.value;
-          this.rooms = submitEvent.target.elements.rooms.value;
-          var services = submitEvent.target.elements.service;
-          var arrServices = [];
-          services.forEach(function (service, i) {
-            if (service.checked) {
-              arrServices.push(service.value);
-            }
-          });
-          this.services = arrServices;
-          this.page = 1;
-          this.apartments = [];
-          this.infiniteId += 1;
+          if (!submitEvent.srcElement.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          } else {
+            this.latitude = submitEvent.target.elements.latitude.value;
+            this.longitude = submitEvent.target.elements.longitude.value;
+            this.radius = submitEvent.target.elements.radius.value;
+            this.beds = submitEvent.target.elements.beds.value;
+            this.rooms = submitEvent.target.elements.rooms.value;
+            var services = submitEvent.target.elements.service;
+            var arrServices = [];
+            services.forEach(function (service, i) {
+              if (service.checked) {
+                arrServices.push(service.value);
+              }
+            });
+            this.services = arrServices;
+            this.page = 1;
+            this.apartments = [];
+            this.infiniteId += 1;
+          }
+
+          $(submitEvent.srcElement).addClass('was-validated');
           /* axios({
                method:'post',
                url: this.url,
