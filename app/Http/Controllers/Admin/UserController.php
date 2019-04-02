@@ -59,7 +59,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+      $user = User::find($id);
+
+      if (empty($user)) {
+        abort(404);
+      };
+
+      return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -71,7 +77,13 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $user = User::find($id);
+
+      $data = $request->all();
+
+      $user->update($data);
+
+      return redirect()->route('Admin.users.index');        
     }
 
     /**

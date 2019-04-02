@@ -16,6 +16,7 @@
               <th scope="col">Cognome</th>
               <th scope="col">E-mail</th>
               <th scope="col"></th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
@@ -28,6 +29,7 @@
                   <td>{{ $user->name }}</td>
                   <td>{{ $user->lastname }}</td>
                   <td>{{ $user->email }}</td>
+                  <td><a href="{{ route('Admin.users.edit', $user->id) }}" class="btn btn-primary">Modifica</a></td>
                   <td>
                     <form action="{{route('Admin.users.destroy', $user->id)}}" method="post">
                       @csrf
