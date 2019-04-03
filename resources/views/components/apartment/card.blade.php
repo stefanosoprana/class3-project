@@ -29,13 +29,18 @@
     {{--Bottoni utente autenticato--}}
     @if($apartment->user->id === Auth::user()->id)
         <div class="card__edit-buttons">
-            <a href="{{ route('apartment.show', $apartment->id) }}" class="btn btn-info">Visualizza</a>
-            <a href="{{ route('sponsorships.index', $apartment->id) }}" class="btn btn-primary">Sponsorizza</a>
-            <a href="{{ route('apartment.edit', $apartment->id) }}" class="btn btn-primary">Modifica</a>
-            <form action="{{route('apartment.destroy', $apartment->id)}}" method="post">
+            <div class="">
+                <a href="{{ route('sponsorships.index', $apartment->id) }}" class="btn btn-sponsor"><i class="fas fa-certificate" title="Sponsorizza"></i></a>
+                <a href="{{ route('apartment.show', $apartment->id) }}" class="btn btn-default"><i class="fas fa-eye"title="Visualizza"></i></a>
+                <a href="{{ route('apartment.edit', $apartment->id) }}" class="btn btn-default"><i class="fas fa-pen" title="Modifica"></i></a>
+                <a href="{{ route('apartment.statistic', $apartment->id) }}" class="btn btn-default"><i class="fas fa-chart-bar" title="Statistiche"></i></a>
+                <a href="{{ route('messages.index', $apartment->user->id) }}" class="btn btn-default"><i class="fas fa-envelope" title="Messaggi"></i></a>
+            </div>
+            <form action="{{route('apartment.destroy', $apartment->id)}}" method="post" class="btn-trash">
                 @csrf
                 @method('DELETE')
-                <button class="btn btn-danger">Elimina</button>
+                    <input class="btn-trash__input btn" type="submit" value="Elimina">
+                        <i class="fas fa-trash" title="Elimina"></i>
             </form>
         </div>
     @endif

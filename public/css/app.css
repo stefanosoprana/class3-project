@@ -10655,6 +10655,89 @@ a.text-dark:focus {
   }
 }
 
+.btn-default {
+  min-width: 30px;
+  border: 2px solid #76A2FB;
+  color: #76A2FB;
+  font-size: 110%;
+  padding: 3px;
+  line-height: 1.2em;
+}
+
+.btn-default i {
+  line-height: 1.2em;
+}
+
+.btn-default:hover,
+.btn-default:active,
+.btn-default:focus {
+  border-color: #064ad2;
+  color: #064ad2;
+}
+
+.btn-trash {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  color: #FB8E76;
+  font-size: 110%;
+}
+
+.btn-trash:hover,
+.btn-trash:active,
+.btn-trash:focus {
+  color: #d22b06;
+}
+
+.btn-trash__input {
+  max-width: 29px;
+  max-height: 29px;
+  min-height: 29px;
+  min-width: 29px;
+  border: 2px solid #FB8E76;
+  color: transparent;
+  padding: 3px;
+  line-height: 1.2em;
+  z-index: 0;
+}
+
+.btn-trash:hover .btn-trash__input,
+.btn-trash:active .btn-trash__input,
+.btn-trash:focus .btn-trash__input {
+  border: 2px solid #d22b06;
+  color: transparent;
+}
+
+.btn-trash i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  line-height: 1.2em;
+}
+
+.btn-sponsor {
+  min-width: 30px;
+  border: 2px solid #A576fb;
+  color: #A576fb;
+  font-size: 110%;
+  padding: 3px;
+  line-height: 1.2em;
+}
+
+.btn-sponsor i {
+  line-height: 1.2em;
+}
+
+.btn-sponsor:hover,
+.btn-sponsor:active,
+.btn-sponsor:focus {
+  border-color: #4e06d2;
+  color: #4e06d2;
+}
+
 .apartment__header {
   position: relative;
   width: 100%;
@@ -10803,7 +10886,9 @@ a.text-dark:focus {
 }
 
 .card__edit-buttons {
-  margin: 20px 0;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
 }
 
 .home__main .home__main__title h1 {

@@ -1,0 +1,75 @@
+.btn-default{
+  min-width: 30px;
+  border: 2px solid $blue;
+  color: $blue;
+  font-size: 110%;
+  padding: 3px;
+  line-height: 1.2em;
+  i{
+    line-height: 1.2em;
+  }
+  &:hover,
+  &:active,
+  &:focus{
+    border-color: $darkBlue;
+    color: $darkBlue;
+  }
+}
+
+.btn-trash{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  color: $orange;
+  font-size: 110%;
+
+  &:hover,
+  &:active,
+  &:focus{
+    color: $darkOrange;
+  }
+  &__input {
+    max-width: 29px;
+    max-height: 29px;
+    min-height: 29px;
+    min-width: 29px;
+    border: 2px solid $orange;
+    color: transparent;
+    padding: 3px;
+    line-height: 1.2em;
+    z-index: 0;
+    .btn-trash:hover &,
+    .btn-trash:active &,
+    .btn-trash:focus &{
+      border: 2px solid $darkOrange;
+      color: transparent;
+    }
+  }
+    i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: -1;
+      transform: translate(-50%, -50%);
+      line-height: 1.2em;
+
+    }
+}
+
+.btn-sponsor{
+  min-width: 30px;
+  border: 2px solid $purple;
+  color: $purple;
+  font-size: 110%;
+  padding: 3px;
+  line-height: 1.2em;
+  i{
+    line-height: 1.2em;
+  }
+  &:hover,
+  &:active,
+  &:focus{
+    border-color: $darkPurple;
+    color: $darkPurple;
+  }
+}

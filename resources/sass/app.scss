@@ -9,6 +9,7 @@
 @import '~bootstrap/scss/bootstrap';
 
 //Components and sections
+@import 'partials/common';
 @import 'apartments';
 @import 'auth';
 @import 'dashboards';
