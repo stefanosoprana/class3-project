@@ -32,9 +32,9 @@ import { Bar, Line } from 'vue-chartjs';
 
 Vue.component('card', require('./components/CardComponent.vue').default);
 Vue.component('service-component', require('./components/ServiceComponent.vue').default);
+//Vue.component('InfiniteLoading', require('vue-infinite-loading'));
 
 import InfiniteLoading from 'vue-infinite-loading';
-
 Vue.use(InfiniteLoading, {
     slots: {
         noMore: 'Non sono presenti altri appartamenti', // you can pass a string value
@@ -46,7 +46,7 @@ import ChartComponent from './components/ChartMessagesComponent.js';
 
 $(document).ready(function () {
     var forms = $('.needs-validation');
-    console.log(forms);
+    //console.log(forms);
     $(forms).submit(function (event) {
         if(!this.checkValidity()){
             event.preventDefault();
@@ -212,14 +212,15 @@ $(document).ready(function () {
                         }
                     }).then((response) => {
                         if(response.data.result.length){
+                            console.log("infinite");
+                            console.log(response.data.result.length);
                             this.page += 1;
                             $.each(response.data.result, function(key, value) {
                                 vuethis.apartments.push(value);
                             });
-                        console.log(this.page);
-                        console.log(response.data.result.length);
                             $state.loaded();
                         } else{
+                            console.log("no result");
                             $state.complete();
                         }
 
@@ -238,6 +239,8 @@ $(document).ready(function () {
 
                 },
                 getFormValues: function(submitEvent) {
+                    console.log("loading");
+                    console.log(this.page);
                         if(!submitEvent.srcElement.checkValidity()){
                             event.preventDefault();
                             event.stopPropagation();
@@ -262,29 +265,9 @@ $(document).ready(function () {
                             this.page = 1;
                             this.apartments = [];
                             this.infiniteId += 1;
-
                         }
 
                     $(submitEvent.srcElement).addClass('was-validated');
-
-                   /* axios({
-                        method:'post',
-                        url: this.url,
-                        headers: {'Authorization': 'Bearer 123_Pippo_Pluto'},
-                        data: {
-                            latitude: this.latitude,
-                            longitude: this.longitude,
-                            radius: this.radius,
-                            services: this.services,
-                            beds: this.beds,
-                            rooms: this.rooms,
-                        }
-                    }).then((response) => {
-                        //console.log(response.data.result);
-                        this.apartments = response.data.result;
-                    }).catch(error => {
-                        console.log(error.response);
-                    });*/
                 }
             },
             mounted() {

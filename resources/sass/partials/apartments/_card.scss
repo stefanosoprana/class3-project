@@ -5,6 +5,7 @@
     border: 1px solid $lightGrey;
     border-radius: 5px;
     background: $white;
+    min-height: 350px;
     &.sponsorized {
       background: $lightPurple;
     }

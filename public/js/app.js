@@ -1804,6 +1804,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -86860,67 +86862,69 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "col-12 col-xl-4 col-md-6 mb-4" }, [
-    _c("div", { staticClass: "card", class: "card-" + _vm.card.sponsorized }, [
-      _c("div", { staticClass: "card__header" }, [
-        _c("div", { staticClass: "card__img" }, [
-          _c(
-            "a",
-            {
-              style: { backgroundImage: "url(" + _vm.card.image + ")" },
-              attrs: { href: _vm.card.url, target: "_blank" }
-            },
-            [
-              _c("img", {
-                attrs: {
-                  src: _vm.card.image,
-                  alt: _vm.card.name,
-                  "aria-hidden": "false",
-                  hidden: ""
-                }
-              })
-            ]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card__body" }, [
-        _c("div", { staticClass: "card__super-info" }, [
-          _vm._v(
-            "\n                " +
-              _vm._s(_vm.card.beds) +
-              " letti\n                "
-          ),
-          _c(
-            "ul",
-            { staticClass: "services" },
-            _vm._l(_vm.card.services, function(service) {
-              return _c("service-component", {
-                key: service.name,
-                attrs: { service: service }
-              })
-            }),
-            1
-          )
+    _c("div", { staticClass: "card h-100" }, [
+      _c("div", { class: "card__content " + _vm.card.sponsorized }, [
+        _c("div", { staticClass: "card__header" }, [
+          _c("div", { staticClass: "card__img" }, [
+            _c(
+              "a",
+              {
+                style: { backgroundImage: "url(" + _vm.card.image + ")" },
+                attrs: { href: _vm.card.url, target: "_blank" }
+              },
+              [
+                _c("img", {
+                  attrs: {
+                    src: _vm.card.image,
+                    alt: _vm.card.name,
+                    "aria-hidden": "false",
+                    hidden: ""
+                  }
+                })
+              ]
+            )
+          ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "card__title" }, [
-          _c(
-            "a",
-            {
-              staticClass: "card__title",
-              attrs: { href: _vm.card.url, target: "_blank" }
-            },
-            [_c("h2", [_vm._v(_vm._s(_vm.card.name))])]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card__info" }, [
-          _c("p", { staticClass: "card__price" }, [
-            _vm._v(_vm._s(_vm.card.price) + " € a persona")
+        _c("div", { staticClass: "card__body" }, [
+          _c("div", { staticClass: "card__super-info" }, [
+            _vm._v(
+              "\n                    " +
+                _vm._s(_vm.card.beds) +
+                " letti\n                    "
+            ),
+            _c(
+              "ul",
+              { staticClass: "services" },
+              _vm._l(_vm.card.services, function(service) {
+                return _c("service-component", {
+                  key: service.name,
+                  attrs: { service: service }
+                })
+              }),
+              1
+            )
           ]),
           _vm._v(" "),
-          _c("p", { staticClass: "card__user" }, [
-            _vm._v(_vm._s(_vm.card.user))
+          _c("div", { staticClass: "card__title" }, [
+            _c(
+              "a",
+              {
+                staticClass: "card__title",
+                attrs: { href: _vm.card.url, target: "_blank" }
+              },
+              [_c("h2", [_vm._v(_vm._s(_vm.card.name))])]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card__info" }, [
+            _c("p", { staticClass: "card__price" }, [
+              _vm._v(_vm._s(_vm.card.price) + " € a persona")
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "card__user" }, [
+              _vm._v(_vm._s(_vm.card.user))
+            ])
           ])
         ])
       ])
@@ -99149,7 +99153,8 @@ Vue.use(vue_axios__WEBPACK_IMPORTED_MODULE_1___default.a, axios__WEBPACK_IMPORTE
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('card', __webpack_require__(/*! ./components/CardComponent.vue */ "./resources/js/components/CardComponent.vue").default);
-Vue.component('service-component', __webpack_require__(/*! ./components/ServiceComponent.vue */ "./resources/js/components/ServiceComponent.vue").default);
+Vue.component('service-component', __webpack_require__(/*! ./components/ServiceComponent.vue */ "./resources/js/components/ServiceComponent.vue").default); //Vue.component('InfiniteLoading', require('vue-infinite-loading'));
+
 
 Vue.use(vue_infinite_loading__WEBPACK_IMPORTED_MODULE_4___default.a, {
   slots: {
@@ -99161,8 +99166,8 @@ Vue.use(vue_infinite_loading__WEBPACK_IMPORTED_MODULE_4___default.a, {
 });
 
 $(document).ready(function () {
-  var forms = $('.needs-validation');
-  console.log(forms);
+  var forms = $('.needs-validation'); //console.log(forms);
+
   $(forms).submit(function (event) {
     if (!this.checkValidity()) {
       event.preventDefault();
@@ -99347,14 +99352,15 @@ $(document).ready(function () {
             }
           }).then(function (response) {
             if (response.data.result.length) {
+              console.log("infinite");
+              console.log(response.data.result.length);
               _this2.page += 1;
               $.each(response.data.result, function (key, value) {
                 vuethis.apartments.push(value);
               });
-              console.log(_this2.page);
-              console.log(response.data.result.length);
               $state.loaded();
             } else {
+              console.log("no result");
               $state.complete();
             }
 
@@ -99369,6 +99375,9 @@ $(document).ready(function () {
           });
         },
         getFormValues: function getFormValues(submitEvent) {
+          console.log("loading");
+          console.log(this.page);
+
           if (!submitEvent.srcElement.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();
@@ -99392,24 +99401,6 @@ $(document).ready(function () {
           }
 
           $(submitEvent.srcElement).addClass('was-validated');
-          /* axios({
-               method:'post',
-               url: this.url,
-               headers: {'Authorization': 'Bearer 123_Pippo_Pluto'},
-               data: {
-                   latitude: this.latitude,
-                   longitude: this.longitude,
-                   radius: this.radius,
-                   services: this.services,
-                   beds: this.beds,
-                   rooms: this.rooms,
-               }
-           }).then((response) => {
-               //console.log(response.data.result);
-               this.apartments = response.data.result;
-           }).catch(error => {
-               console.log(error.response);
-           });*/
         }
       },
       mounted: function mounted() {

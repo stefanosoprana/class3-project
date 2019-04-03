@@ -2,6 +2,7 @@
 @section('content')
   <div class="messages">
     <div class="messages__main">
+      {{--Title--}}
       <div class="messages__main__title">
         <div class="container">
           <div class="row">
@@ -11,6 +12,7 @@
           </div>
         </div>
       </div>
+      {{--/Title--}}
       <div class="messages__main__table">
         <div class="container">
           <table class="table table-striped table-hover">

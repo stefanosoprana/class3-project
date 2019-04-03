@@ -1,15 +1,5 @@
 @extends('layouts.app')
 @section('content')
-  {{-- Componente Search--}}
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                @include('components.search')
-            </div>
-        </div>
-    </div>
-  {{-- End Componente Search--}}
-
   {{-- Sponsorized Apartments --}}
     @isset($sponsorships)
         <div class="sponsorships mb-5">
@@ -18,7 +8,7 @@
                 {{-- Titolo Evidenza --}}
                 <div class="row">
                     <div class="col-12">
-                        <h2>In evidenza</h2>
+                        <h2 class="title">In evidenza</h2>
                     </div>
                 </div>
                 {{-- End Titolo Evidenza --}}

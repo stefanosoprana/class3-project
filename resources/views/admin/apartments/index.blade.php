@@ -2,6 +2,7 @@
 @section('content')
   <div class="apartments">
     <div class="apartments__main">
+      {{--Title--}}
       <div class="apartments__main__title">
         <div class="container">
           <div class="row">
@@ -11,6 +12,7 @@
           </div>
         </div>
       </div>
+      {{--/Title--}}
     </div>
     <div class="apartments__main__table">
       <div class="container">
