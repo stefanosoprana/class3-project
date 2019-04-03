@@ -269,12 +269,11 @@ class ApartmentController extends Controller
         //trasformo in collection
         $new_collection = collect($data);
         $chunk = $new_collection->forPage($page, 6);
-        $chunk->all();
         //ritorno json
         return response()->json([
             'success'=>true,
             'error'=>'',
-            'result'=> $chunk,
+            'result'=> $chunk->all(),
             'results_number'=> count($chunk),
         ]);
     }

@@ -99351,16 +99351,13 @@ $(document).ready(function () {
               rooms: this.rooms
             }
           }).then(function (response) {
-            if (response.data.result.length) {
-              console.log("infinite");
-              console.log(response.data.result.length);
+            if (Object.keys(response.data.result).length) {
               _this2.page += 1;
               $.each(response.data.result, function (key, value) {
                 vuethis.apartments.push(value);
               });
               $state.loaded();
             } else {
-              console.log("no result");
               $state.complete();
             }
 
