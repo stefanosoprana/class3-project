@@ -86,20 +86,27 @@
                 {{--Main--}}
                 <main class="py-4">
                     {{--Status--}}
-                    @if(session('status'))
+                    {{-- @if(session('status'))
+                      <div class="status">
                         <div class="row">
-                            <div class="col-12">
-                                <div class="alert mt-5">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-12 alert-warning">
-                                                {{session('status')}}
-                                            </div>
-                                        </div>
-                                    </div>
+                          <div class="col-12">
+                            <div class="alert mt-5">
+                              <div class="container">
+                                <div class="row">
+                                  <div class="col-12 alert-warning">
+                                    {{session('status')}}
+                                  </div>
                                 </div>
+                              </div>
                             </div>
+                          </div>
                         </div>
+                      </div>
+                    @endif --}}
+                    @if(session('status'))
+                      <div class="status">
+                        <p>{{session('status')}}</p>
+                      </div>
                     @endif
                     {{--/Status--}}
 

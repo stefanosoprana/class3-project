@@ -83987,7 +83987,12 @@ $(document).ready(function () {
         });
       }
     });
-  }
+  } // STATUS
+
+
+  setInterval(function () {
+    $('.status').hide();
+  }, 2000);
 });
 
 /***/ }),

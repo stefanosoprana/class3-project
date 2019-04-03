@@ -1,18 +1,79 @@
+// MIXINS
+@mixin blue_title {
+  font-weight: bolder;
+  color: $blue;
+}
+
 .apartment__main {
   margin-top: 50px;
-  h2 {
-    margin-bottom: 20px;
-  }
-  .apartment__main__description {
-    h2 {
-      margin-top: 30px;
+  &__description {
+    h3 {
+      @include blue_title;
+      font-size: 20px;
     }
-  };
-  .row {
-    margin-top: 40px;
-    .apartment__main__map {
-      width: 100%;
-      height: 400px;
+    p {
+      font-size: 15px;
+    }
+  }
+  &__address {
+    h3 {
+      @include blue_title;
+      font-size: 20px;
+    }
+    p {
+      font-size: 15px;
+    }
+  }
+  &__price {
+    h2 {
+      font-weight: bolder;
+      font-size: 25px;
+      color: $purple;
+    }
+  }
+  &__specific {
+    margin-top: 25px;
+    h3 {
+      @include blue_title;
+      font-size: 15px;
+    }
+    ul {
+      padding: 0;
+      li {
+        list-style: none;
+        font-size: 15px;
+      }
+    }
+    ul {
+      .services_item {
+        i {
+          color: $purple;
+        }
+      }
+    }
+  }
+  &__message__title {
+    margin: 20px 0;
+    h3 {
+      font-size: 20px;
+      color: $purple;
+      font-weight: bolder;
+    }
+  }
+
+  &__map {
+    width: 100%;
+    height: 400px;
+  }
+  &__message__body {
+    padding: 15px;
+    background-color: $lightPurple;
+    input, textarea {
+      border-color: $purple;
+    }
+    .btn {
+      color: white;
+      border-color: $blue;
     }
   }
 }
