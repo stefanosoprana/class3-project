@@ -1,3 +1,21 @@
+@mixin page__title {
+  background-color: $purple;
+  width: 100%;
+  height: 80px;
+
+  .container {
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+
+    h1 {
+      font-weight: bolder;
+      color: white;
+    }
+  }
+}
+
+/*Bottoni*/
 .btn-default{
   min-width: 30px;
   border: 2px solid $blue;
@@ -87,7 +105,7 @@
   }
 }
 
-/*tabelle*/
+/*Tabelle*/
 .table {
   margin-top: 40px;
   thead {
@@ -100,3 +118,4 @@
     }
   }
 }
+

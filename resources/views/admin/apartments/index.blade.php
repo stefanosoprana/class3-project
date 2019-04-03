@@ -1,50 +1,56 @@
 @extends('layouts.app')
 @section('content')
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h1>Appartamenti di tutti gli utenti</h1>
-        <a href="{{ route('apartment.create') }}" class="btn btn-primary" style="margin: 10px 0 20px 0;">Aggiungi appartamento</a>
+  <div class="apartments">
+    <div class="apartments__main">
+      <div class="apartments__main__title">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <h1>Appartamenti di tutti gli utenti</h1>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-
-    <table class="table">
-      <tbody>
-        @forelse ($apartments as $apartment)
-          <tr  class="{{(!$apartment->published) ? 'unpublished' : null}}">
-            <td>
-              <h2>{{ $apartment->title }}</h2>
-              <p>{{ $apartment->street}} {{ $apartment->house_number}}, {{ $apartment->locality}}, {{ $apartment->postal_code}}, {{ $apartment->state }}</p>
-              <p>Prezzo: {{ $apartment->price }}€</p>
-            </td>
-            <td>
-              <a href="{{ route('apartment.show', $apartment->id) }}" class="btn btn-default"><i class="fas fa-eye" title="Visualizza"></i></a>
-            </td>
-            @if($apartment->published)
+    <div class="apartments__main__table">
+      <div class="container">
+        <table class="table">
+          <tbody>
+          @forelse ($apartments as $apartment)
+            <tr  class="{{(!$apartment->published) ? 'unpublished' : null}}">
               <td>
-                <a href="{{ route('apartment.edit', $apartment->id) }}" class="btn btn-default"><i class="fas fa-pen" title="Modifica"></i></a>
+                <h2>{{ $apartment->title }}</h2>
+                <p>{{ $apartment->street}} {{ $apartment->house_number}}, {{ $apartment->locality}}, {{ $apartment->postal_code}}, {{ $apartment->state }}</p>
+                <p>Prezzo: {{ $apartment->price }}€</p>
               </td>
-            @endif
-            @if(!$apartment->published)
-            <td>
-              <a href="{{ route('Admin.apartment.edit', $apartment->id) }}" class="btn btn-default unpublished"><i class="fas fa-pen" title="Modifica"></i></a>
-            </td>
-            @endif
-            <td>
-              <form action="{{route('Admin.apartment.destroy', $apartment->id)}}" method="post" class="btn-trash">
-                @csrf
-                @method('DELETE')
-                <input class="btn-trash__input btn" type="submit" value="Elimina">
-                <i class="fas fa-trash" title="Elimina"></i>
-              </form>
-            </td>
-          </tr>
-        @empty
-          <h2>Non hai appartamenti</h2>
-        @endforelse
-      </tbody>
-    </table>
-    {{ $apartments->links() }}
-
-  </div>
+              <td>
+                <a href="{{ route('apartment.show', $apartment->id) }}" class="btn btn-default"><i class="fas fa-eye" title="Visualizza"></i></a>
+              </td>
+              @if($apartment->published)
+                <td>
+                  <a href="{{ route('apartment.edit', $apartment->id) }}" class="btn btn-default"><i class="fas fa-pen" title="Modifica"></i></a>
+                </td>
+              @endif
+              @if(!$apartment->published)
+                <td>
+                  <a href="{{ route('Admin.apartment.edit', $apartment->id) }}" class="btn btn-default unpublished"><i class="fas fa-pen" title="Modifica"></i></a>
+                </td>
+              @endif
+              <td>
+                <form action="{{route('Admin.apartment.destroy', $apartment->id)}}" method="post" class="btn-trash">
+                  @csrf
+                  @method('DELETE')
+                  <input class="btn-trash__input btn" type="submit" value="Elimina">
+                  <i class="fas fa-trash" title="Elimina"></i>
+                </form>
+              </td>
+            </tr>
+          @empty
+            <h2>Non hai appartamenti</h2>
+          @endforelse
+          </tbody>
+        </table>
+        {{ $apartments->links() }}
+      </div>
+    </div>
 @endsection
