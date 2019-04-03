@@ -10973,61 +10973,6 @@ a.text-dark:focus {
   color: white;
 }
 
-.messages__main__table .container .table {
-  margin-top: 40px;
-}
-
-.messages__main__table .container .table thead {
-  background-color: #76A2FB;
-  color: white;
-}
-
-.messages__main__table .container .table tbody tr:hover td,
-.messages__main__table .container .table tbody tr:hover th {
-  background-color: #e9defe;
-}
-
-.messages__main__table .container .table tbody tr td a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 32px;
-  background-color: white;
-  border: 2px solid #76A2FB;
-}
-
-.messages__main__table .container .table tbody tr td a i {
-  color: #76A2FB;
-  font-size: 20px;
-}
-
-.messages__main__table .container .table tbody tr td form {
-  position: relative;
-}
-
-.messages__main__table .container .table tbody tr td form input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-}
-
-.messages__main__table .container .table tbody tr td form .icon_container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 32px;
-  height: 36px;
-  background-color: white;
-  border: 2px solid #FB8E76;
-  border-radius: 0.25rem;
-}
-
-.messages__main__table .container .table tbody tr td form .icon_container i {
-  color: #FB8E76;
-  font-size: 20px;
-}
-
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

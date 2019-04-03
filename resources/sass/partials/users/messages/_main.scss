@@ -1,71 +1,7 @@
 .messages {
   &__main {
     &__title {
-      background-color: $purple;
-      width: 100%;
-      height: 80px;
-      .container {
-        display: flex;
-        align-items: flex-end;
-        height: 100%;
-        h1 {
-          font-weight: bolder;
-          color: white;
-        }
-      }
-    }
-    &__table {
-      .container {
-        .table {
-          margin-top: 40px;
-          thead {
-            background-color: $blue;
-            color: white;
-          }
-          tbody {
-            tr:hover td, tr:hover th {
-              background-color: $lightPurple;
-            }
-            tr td {
-              a {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 32px;
-                background-color: white;
-                border: 2px solid $blue;
-                i {
-                  color: $blue;
-                  font-size: 20px;
-                }
-              }
-              form {
-                position: relative;
-                input {
-                  position: absolute;
-                  top: 0;
-                  left: 0;
-                  opacity: 0;
-                }
-                .icon_container {
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  width: 32px;
-                  height: 36px;
-                  background-color: white;
-                  border: 2px solid $orange;
-                  border-radius: 0.25rem;
-                  i {
-                    color: $orange;
-                    font-size: 20px;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+      @include page__title;
     }
   }
 }
