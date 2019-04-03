@@ -8,7 +8,7 @@
             </div>
             <div class="card__body">
                 <div class="card__super-info">
-                    {{card.beds}} letti -
+                    {{card.beds}} letti
                     <ul class="services">
                         <service-component v-for="service in card.services" v-bind:service="service" :key="service.name"></service-component>
                     </ul>
@@ -17,11 +17,13 @@
                     <a class="card__title" v-bind:href="card.url" target="_blank"><h2>{{card.name}}</h2></a>
                 </div>
                 <div class="card__info">
-                    {{card.price}} € a notte
+                    <p class="card__price">{{card.price}} € a persona</p>
+                    <p class="card__user">{{card.user}}</p>
                 </div>
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -37,24 +39,3 @@
     }
 </script>
 
-<style lang="scss" scoped>
-    .card{
-        &__header{
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            height: 200px;
-            a{
-                display: inline-block;
-                width: 100%;
-                height: 100%;
-                background-size: cover;
-                background-position: center;
-            }
-        }
-        &__img{
-            width: 100%;
-            height: 100%;
-        }
-    }
-</style>

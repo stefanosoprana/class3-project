@@ -194,6 +194,7 @@ class ApartmentController extends Controller
             $longitude = $apartment->longitude;
             $image = asset('storage/' .$apartment->image);
             $this_services = $apartment->services;
+            $user = $apartment->user->name;
             $url = route('apartment.show', $id);
 
             $data_apartment = [
@@ -213,6 +214,7 @@ class ApartmentController extends Controller
                 'longitude'=>$longitude,
                 'image'=>$image,
                 'services' => $this_services,
+                'user' => $user,
                 'sponsorized' => 'sponsorized',
                 'url' => $url
             ];
@@ -237,6 +239,7 @@ class ApartmentController extends Controller
             $longitude = $apartment->longitude;
             $image = asset('storage/' .$apartment->image);
             $this_services = $apartment->services;
+            $user = $apartment->user->name;
             $url = route('apartment.show', $id);
 
             $data_apartment = [
@@ -256,8 +259,9 @@ class ApartmentController extends Controller
                 'longitude'=>$longitude,
                 'image'=>$image,
                 'services' => $this_services,
+                'user' => $user,
                 'sponsorized' => '',
-                'url' => $url
+                'url' => $url,
             ];
             $data[] = $data_apartment;
 

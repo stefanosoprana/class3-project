@@ -98,7 +98,7 @@
                             @if($errors->has('street') || $errors->has('number') || $errors->has('locality') || $errors->has('postal_code') || $errors->has('state') || $errors->has('latitude') || $errors->has('longitude'))
                                 <div class="alert-warning mb-3">Indirizzo errato inseriscilo nuovamente</div>
                             @endif
-                            <input type="text" id="address_apartment" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidonia, RM, Italia" autocomplete="off" required>
+                            <input type="text" id="address_apartment" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidonia, RM, Italia" autocomplete="off" required  value="{{ (isset($data['apartment'])) ?  $data['apartment']->street .', '.  $data['apartment']->house_number .', '. $data['apartment']->locality  .', '. $data['apartment']->state : ''}}" >
                             <div class="valid-feedback">
                                 Campo valido
                             </div>

@@ -10703,6 +10703,30 @@ a.text-dark:focus {
    overflow: auto;*/
 }
 
+.card.sponsorized {
+  background: #e9defe;
+}
+
+.card__header {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 200px;
+}
+
+.card__header a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.card__img {
+  width: 100%;
+  height: 100%;
+}
+
 .home__main .home__main__title h1 {
   margin: 10px 0 20px 0;
 }

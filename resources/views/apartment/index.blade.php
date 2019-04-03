@@ -24,21 +24,15 @@
                 {{-- End Titolo Evidenza --}}
 
                 {{-- Cards --}}
-                <div class="row-eq-height row">
+                <div class="row">
                     @foreach($sponsorships as $apartment_sponsorized)
-                        <div class="col-4 mb-4">
-                            <div class="card h-100">
-                                <a href="{{route('apartment.show', $apartment_sponsorized->id)}}"><img class="card-img-top" src="{{asset('storage/' . $apartment_sponsorized->image)}}" alt="{{$apartment_sponsorized->title}}"></a>
-                                <div class="card-body">
-                                    <a href="{{route('apartment.show', $apartment_sponsorized->id)}}"> <h3 class="card-title">{{$apartment_sponsorized->title}}</h3></a>
-                                    <p class="card-text"> {{$apartment_sponsorized->price}} &euro; per notte</p>
-                                    <p>{{$apartment_sponsorized->user->name}}</p>
-                                </div>
-                            </div>
+                        <div class="col-lg-4 col-sm-6 mb-4">
+                        @component('components.apartment.card', ['apartment' => $apartment_sponsorized])
+                        @endcomponent
                         </div>
                     @endforeach
                 </div>
-                {{-- Ed Cards --}}
+                {{-- End Cards --}}
 
             </div>
         </div>
