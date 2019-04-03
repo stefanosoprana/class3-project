@@ -14,20 +14,34 @@
     border-color: $darkBlue;
     color: $darkBlue;
   }
+  &.unpublished{
+    border: 2px solid $grey;
+    color: $grey;
+    &:hover,
+    &:active,
+    &:focus{
+      background: $grey;
+      color: lightgray;
+    }
+  }
 }
 
 .btn-trash{
   cursor: pointer;
   display: inline-block;
   position: relative;
+  z-index: 0;
   color: $orange;
   font-size: 110%;
-
+  background: transparent;
+  border-radius: 5px;
   &:hover,
   &:active,
   &:focus{
-    color: $darkOrange;
+    color: $lightOrange;
+    background: $orange;
   }
+
   &__input {
     max-width: 29px;
     max-height: 29px;
@@ -41,7 +55,6 @@
     .btn-trash:hover &,
     .btn-trash:active &,
     .btn-trash:focus &{
-      border: 2px solid $darkOrange;
       color: transparent;
     }
   }
@@ -71,5 +84,19 @@
   &:focus{
     border-color: $darkPurple;
     color: $darkPurple;
+  }
+}
+
+/*tabelle*/
+.table {
+  margin-top: 40px;
+  thead {
+    background-color: $blue;
+    color: white;
+  }
+  tbody {
+    tr:hover {
+      background-color: $lightPurple;
+    }
   }
 }

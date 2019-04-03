@@ -10675,18 +10675,34 @@ a.text-dark:focus {
   color: #064ad2;
 }
 
+.btn-default.unpublished {
+  border: 2px solid #4E4E4E;
+  color: #4E4E4E;
+}
+
+.btn-default.unpublished:hover,
+.btn-default.unpublished:active,
+.btn-default.unpublished:focus {
+  background: #4E4E4E;
+  color: lightgray;
+}
+
 .btn-trash {
   cursor: pointer;
   display: inline-block;
   position: relative;
+  z-index: 0;
   color: #FB8E76;
   font-size: 110%;
+  background: transparent;
+  border-radius: 5px;
 }
 
 .btn-trash:hover,
 .btn-trash:active,
 .btn-trash:focus {
-  color: #d22b06;
+  color: #fee0d9;
+  background: #FB8E76;
 }
 
 .btn-trash__input {
@@ -10704,7 +10720,6 @@ a.text-dark:focus {
 .btn-trash:hover .btn-trash__input,
 .btn-trash:active .btn-trash__input,
 .btn-trash:focus .btn-trash__input {
-  border: 2px solid #d22b06;
   color: transparent;
 }
 
@@ -10736,6 +10751,21 @@ a.text-dark:focus {
 .btn-sponsor:focus {
   border-color: #4e06d2;
   color: #4e06d2;
+}
+
+/*tabelle*/
+
+.table {
+  margin-top: 40px;
+}
+
+.table thead {
+  background-color: #76A2FB;
+  color: white;
+}
+
+.table tbody tr:hover {
+  background-color: #e9defe;
 }
 
 .apartment__header {

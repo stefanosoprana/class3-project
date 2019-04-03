@@ -81,7 +81,7 @@
                         {{--Prezzo--}}
                         <div class="form-group">
                             <label for="price">Prezzo</label>
-                            <input type="number" min="1" step="0.5"  name="price" placeholder="{{$errors->has('price') ? $errors->first('price') : 'Inserisci il prezzo dell\'appartamento'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->price : old('price')}}" required>
+                            <input type="number" min="1" step="0.10"  name="price" placeholder="{{$errors->has('price') ? $errors->first('price') : 'Inserisci il prezzo dell\'appartamento'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->price : old('price')}}" required>
                             <div class="valid-feedback">
                                 Campo valido
                             </div>

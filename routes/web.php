@@ -69,6 +69,7 @@ Route::middleware('permission:modify')->namespace('Admin')->prefix('Admin')->nam
     Route::get('/apartments', 'ApartmentController@index')->name('apartments.index');
     Route::get('/apartment/{id}', 'ApartmentController@show')->name('apartment.show');
     Route::get('/apartment', 'ApartmentController@create')->name('apartment.create');
+    Route::get('/apartment/{id}/edit', 'ApartmentController@edit')->name('apartment.edit');
     Route::post('/apartment', 'ApartmentController@store')->name('apartment.store');
     Route::patch('/apartment/{id}/update', 'ApartmentController@update')->name('apartment.update');
     Route::get('/apartment/{id}/statistics', 'ApartmentController@statistics')->name('apartment.statistic');
