@@ -183,7 +183,9 @@
                             <fieldset id="services">
                                 <legend>Servizi</legend>
                                 @foreach($services as $service)
-                                    <input type="checkbox" name="services[]" value="{{$service->name}}" class="form-check-input" v-model="services">
+                                @php
+                                @endphp
+                                    <input type="checkbox" name="services[]" value="{{$service->name}}" class="form-check-input"  {{ (isset($data['apartment']) && $data['apartment']->services->firstWhere('id', $service->id) !== null) ? 'checked' : null }}>
                                     <label class="form-check-label" for="{{$service->name}}">{!! $service->icon !!} {{$service->name}}</label>
                                 @endforeach
                             </fieldset>
