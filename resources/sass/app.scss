@@ -23,3 +23,24 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+body {
+  position: relative;
+}
+.status {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  background-color: $lightPurple;
+  p {
+    font-size: 40px;
+    color: $purple;
+    font-weight: bolder;
+  }
+}
