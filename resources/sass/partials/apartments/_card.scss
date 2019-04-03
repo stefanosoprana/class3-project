@@ -1,13 +1,25 @@
 .card{
-  &.sponsorized{
-    background: $lightPurple;
+  border: 0;
+  background: transparent;
+  &__content {
+    border: 1px solid $lightGrey;
+    border-radius: 5px;
+    background: $white;
+    &.sponsorized {
+      background: $lightPurple;
+    }
+
+    &.unpublished {
+      background: $lightGrey;
+    }
   }
   &__header{
-    display: flex;
-    justify-content: center;
     width: 100%;
     height: 200px;
+    position: relative;
+    z-index: 0;
     a{
+
       display: inline-block;
       width: 100%;
       height: 100%;
@@ -18,5 +30,58 @@
   &__img{
     width: 100%;
     height: 100%;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    &:before{
+      border-radius: 5px 5px 0 0;
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      content: 'Immagine non disponibile';
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: $lightGrey;
+      text-transform: uppercase;
+    }
+  }
+  &__body{
+    padding: 5px;
+  }
+  &__super-info{
+    display: flex;
+    justify-content: space-between;
+    color: $blue;
+    .services{
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      &__item{
+        display: inline-block;
+        margin: 3px;
+        span{
+          display: none;
+        }
+      }
+    }
+  }
+  &__title{
+    text-transform: uppercase;
+    a{
+      color: $black;
+    }
+    h2{
+      font-size: 100%;
+      font-weight: bold;
+    }
+  }
+  &__price{
+    color: $blue;
+  }
+  &__edit-buttons{
+    margin: 20px 0;
   }
 }
