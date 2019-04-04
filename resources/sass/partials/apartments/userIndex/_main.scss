@@ -1,0 +1,21 @@
+.apartments {
+  &__main {
+    &__title {
+      @include page__title;
+    }
+    &__button {
+      position: relative;
+      a {
+        position: absolute;
+        top: -15px;
+        left: 0;
+        text-transform: uppercase;
+        font-weight: bolder;
+        background: white;
+        i {
+          padding: 0 5px;
+        }
+      }
+    }
+  }
+}

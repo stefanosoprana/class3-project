@@ -1,0 +1,17 @@
+  .message__title {
+    @include page__title;
+  }
+  .message {
+    margin-top: 30px;
+    .message__heading {
+      font-size: 20px;
+        span {
+          font-weight: bolder;
+          text-transform: uppercase;
+        }
+    }
+    .message__h3 {
+      font-size: 0.9rem;
+      margin-bottom: 0;
+    }
+  }

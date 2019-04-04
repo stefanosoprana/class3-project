@@ -10,9 +10,9 @@
 
 .search.form{
   width: 100%;
-  height: 250px;
+/*  height: 250px;
   position: absolute;
-  z-index: 0;
+  z-index: 0;*/
   top: $headerHeight;
   padding-top: 40px;
   &:after{
@@ -26,15 +26,25 @@
     left: 0;
     z-index: -1;
   }
-  &::before{
-    content:"";
-    background: blue;
-    opacity: 0.3;
-    width: 100%;
+  .search__height{
     height: 150px;
-    float: left;
     position: absolute;
-    bottom: 40%;
+    z-index: 1;
+    top: $headerHeight;
+    left: 0;
+    padding: 2% 5% 0;
+    width: 100%;
+    &::before{
+      content:"";
+      position: absolute;
+      background: blue;
+      opacity: 0.3;
+      width: 100%;
+      height: 130px;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
   }
   .title{
     display: none;
@@ -48,9 +58,11 @@
     border-radius: 5px;
     border-color: $blue;
   }
-  .form-group{
-    height: 40px;
-    margin: 0 10px 0 0;
+  #search__form{
+    .form-group{
+      height: 40px;
+      margin: 0 10px 0 0;
+    }
   }
   .search-number{
     width: 100px;

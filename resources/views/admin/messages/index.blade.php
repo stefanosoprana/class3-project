@@ -2,6 +2,7 @@
 @section('content')
   <div class="messages">
     <div class="messages__main">
+      {{--Title--}}
       <div class="messages__main__title">
         <div class="container">
           <div class="row">
@@ -50,5 +51,3 @@
   </div>
 
 @endsection
-
-

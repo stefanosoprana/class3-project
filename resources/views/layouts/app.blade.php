@@ -34,8 +34,8 @@
             {{--container without id vue--}}
             <div class="search form">
                 @endif
-                <div class="row">
-                    <div class="col-12">
+                <div class="search__height">
+                    <div class="mt-3">
                         @if( Route::currentRouteName() === 'apartments.search')
                                     {{--Search Form--}}
                                     <form  class="control needs-validation" @submit.prevent="getFormValues" id="search__form" novalidate>

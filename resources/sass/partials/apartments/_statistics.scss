@@ -1,0 +1,39 @@
+.statistics {
+  &__title {
+    @include page__title;
+  }
+  &__graphic {
+    &__show-button {
+      position: relative;
+      a {
+        position: absolute;
+        top: -15px;
+        right: 0;
+        text-transform: uppercase;
+        font-weight: bolder;
+        background: white;
+        i {
+          padding: 0 5px;
+        }
+      }
+    }
+    &__selector {
+      margin: 30px 0;
+      .col-12 {
+        display: flex;
+        justify-content: flex-start;
+        align-items: baseline;
+        p {
+          margin-right: 10px;
+        }
+        select {
+          padding: 2px;
+          background: $lightBlue;
+          border: none;
+          appearance: none;
+          width: 70px;
+        }
+      }
+    }
+  }
+}

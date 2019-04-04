@@ -12,7 +12,6 @@
     </div>
     <div class="apartment__main">
       <div class="container">
-
         {{--modifica--}}
         @if(isset(Auth::user()->id) && ($apartment->user_id === Auth::user()->id || Auth::user()->hasRole('admin')))
           <div class="row">
