@@ -207,12 +207,6 @@ class ApartmentController extends Controller
             abort(404);
         };
 
-        if($request['delete_image']){
-            $delete = Storage::disk('public')->delete($request['delete_image']);
-            $data['image'] = null;
-        }
-
-
         $validated_data = Validator::make($data,[
             'title'=> 'required',
             'description'=> 'required|string',
@@ -241,10 +235,12 @@ class ApartmentController extends Controller
         }
 
         if(!empty($request['image'])){
+            $delete = Storage::disk('public')->delete($apartment->image);
+
             $image = Storage::disk('public')->put('apartment_image', $request['image']);
             $data['image'] = $image;
-        } else {
-           $data['image'] = ($apartment->image) ? $apartment->image : null;
+        } else if ($apartment->image){
+            unset( $data['image']);
         }
 
 

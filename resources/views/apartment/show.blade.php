@@ -73,7 +73,7 @@
                     <h3>Servizi</h3>
                     <ul class="services">
                       @foreach($apartment->services as $service)
-                        <li class="services_item"><i>{!! $service->icon !!}</i> {{$service->name}}</li>
+                        <li class="services_item"><i class="{{$service->icon}}"></i> {{$service->name}}</li>
                       @endforeach
                     </ul>
                   </div>
