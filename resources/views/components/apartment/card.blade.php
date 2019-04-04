@@ -11,7 +11,7 @@
                 {{$apartment->beds}} letti
                 <ul class="services">
                     @foreach($apartment->services as $service)
-                        <li class="services__item" title="{{$service->name}}">{!! $service->icon !!} <span>{{$service->name}}</span></li>
+                        <li class="services__item" title="{{$service->name}}"><i class=" {{$service->icon}}"> </i><span>{{$service->name}}</span></li>
                     @endforeach
                 </ul>
             </div>
@@ -35,7 +35,7 @@
             <div class="card__edit-buttons">
                 <div class="">
                     <a href="{{ route('sponsorships.index', $apartment->id) }}" class="btn btn-sponsor"><i class="fas fa-certificate" title="Sponsorizza"></i></a>
-                    <a href="{{ route('apartment.show', $apartment->id) }}" class="btn btn-default {{(!$apartment->published) ? 'unpublished' : null}}"><i class="fas fa-eye"title="Visualizza"></i></a>
+                    <a href="{{ route('apartment.show', $apartment->id) }}" class="btn btn-default {{(!$apartment->published) ? 'unpublished' : null}}"><i class="fas fa-eye" title="Visualizza"></i></a>
                     <a href="{{ route('apartment.edit', $apartment->id) }}" class="btn btn-default"><i class="fas fa-pen" title="Modifica"></i></a>
                     <a href="{{ route('apartment.statistic', $apartment->id) }}" class="btn btn-default"><i class="fas fa-chart-bar" title="Statistiche"></i></a>
                     <a href="{{ route('messages.index', $apartment->user->id) }}" class="btn btn-default"><i class="fas fa-envelope" title="Messaggi"></i></a>

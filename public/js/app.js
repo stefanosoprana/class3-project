@@ -99240,14 +99240,14 @@ $(document).ready(function () {
               name: 'visits',
               chartdata: null,
               options: null,
-              colors: '#FC2525',
+              colors: '#A576fb',
               loaded: false
             },
             messages: {
               name: 'messages',
               chartdata: null,
               options: null,
-              colors: '#007bff',
+              colors: '#76A2FB',
               loaded: false
             }
           },

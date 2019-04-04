@@ -11,8 +11,12 @@
     h1 {
       font-weight: bolder;
       color: white;
+      @include media-breakpoint-down(lg) {
+       font-size: 200%;
+      }
     }
   }
+
 }
 
 /*Bottoni*/
@@ -181,7 +185,7 @@
 
 /*Tabelle*/
 .table {
-  margin-top: 40px;
+
   thead {
     background-color: $blue;
     color: white;

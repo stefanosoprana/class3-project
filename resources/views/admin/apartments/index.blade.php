@@ -14,9 +14,17 @@
       </div>
       {{--/Title--}}
     </div>
-    <div class="apartments__main__table">
+    <div class="apartments__main__table mt-5">
       <div class="container">
         <table class="table">
+          <thead>
+            <tr>
+              <th>Dati</th>
+              <th>Visualizza</th>
+              <th>Modifica</th>
+              <th>Elimina</th>
+            </tr>
+          </thead>
           <tbody>
           @forelse ($apartments as $apartment)
             <tr  class="{{(!$apartment->published) ? 'unpublished' : null}}">

@@ -13,7 +13,7 @@
         </div>
       </div>
       {{--/Title--}}
-      <div class="messages__main__table">
+      <div class="messages__main__table mt-5">
         <div class="container">
           <table class="table table-striped table-hover">
             <thead>

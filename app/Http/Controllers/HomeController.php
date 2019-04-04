@@ -7,6 +7,7 @@ use App\Apartment;
 use App\Sponsorship;
 use App\Message;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class HomeController extends Controller
 {
@@ -43,8 +44,22 @@ class HomeController extends Controller
           }
         }
 
-        $sponsorships = Sponsorship::whereIn('apartment_id', $apartments_user)->get();
-
+        $now = Carbon::now();
+        foreach ($apartments as $apartment_sponsorized){
+            // se esiste la sponsorship
+            if($apartment_sponsorized->sponsorship){
+                //seleziono la sponsorhip con apartment id corrispondente
+                $sponsorship = Sponsorship::where('apartment_id', $apartment_sponsorized->id)->first();
+                //salvo data di fine in formato carbon
+                $sponsorship_expire = Carbon::create($sponsorship['sponsor_expired']);
+                //controllo differenza tra oggi e la data
+                $diff = $sponsorship_expire->diffInDays($now, false);
+                //se è minore o uguale a 0 è ancora attiva e la salvo nell'array
+                if($diff <= 0){
+                    $sponsorships[] = $apartment_sponsorized;
+                }
+            }
+        }
         return view('user.home', compact('apartments', 'messages', 'sponsorships'));
     }
 

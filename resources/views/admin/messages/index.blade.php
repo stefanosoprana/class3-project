@@ -13,7 +13,7 @@
       </div>
     </div>
   </div>
-  <div class="messages__main__content">
+  <div class="messages__main__content mt-5">
     <div class="container">
       <table class="table">
         <thead>
@@ -21,7 +21,7 @@
           <th>Appartamento</th>
           <th>Da</th>
           <th>A</th>
-          <th>Messaggio</th>
+          <th class="table__td-message">Messaggio</th>
           <th>Data</th>
           <th>Leggi</th>
         </tr>
@@ -32,7 +32,7 @@
             <td>{{ $message->apartment->title }}</td>
             <td>{{ $message->name }}</td>
             <td>{{ $message->user->name }}</td>
-            <td>{{ str_limit($message->text, 30, '(...)') }}</td>
+            <td class="table__td-message">{{ str_limit($message->text, 30, '(...)') }}</td>
             <td>{{ DateTime::createFromFormat('Y-m-d H:i:s', $message->created_at )->format('d/m/Y H:i') }}</td>
             <td>
               <a href="{{ route('Admin.messages.show', $message->id) }}" class="btn btn-default"><i class="fas fa-eye"title="Leggi"></i></a>            </td>

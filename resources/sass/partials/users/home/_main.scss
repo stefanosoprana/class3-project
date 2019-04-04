@@ -1,8 +1,6 @@
 .home__main {
   .home__main__title {
-    h1 {
-      margin: 10px 0 20px 0;
-    }
+    @include page__title;
   }
   .home__main__last-apartments {
     h2 {
