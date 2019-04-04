@@ -14,27 +14,27 @@ class ServicesTableSeeder extends Seeder
        $services = [
            [
                'name' => 'WiFi',
-               'icon' => '<i class="fas fa-wifi"></i>',
+               'icon' => 'fas fa-wifi',
            ],
            [
                'name' => 'Piscina',
-               'icon' => '<i class="fas fa-swimming-pool"></i>',
+               'icon' => 'fas fa-swimming-pool',
            ],
            [
                'name' => 'Aria condizionata',
-               'icon' => '<i class="fas fa-snowflake"></i>',
+               'icon' => 'fas fa-snowflake',
            ],
            [
                'name' => 'Angolo Cottura',
-               'icon' => '<i class="fas fa-utensils"></i>',
+               'icon' => 'fas fa-utensils',
            ],
            [
                'name' => 'Vasca Idromassaggio',
-               'icon' => '<i class="fas fa-hot-tub"></i>',
+               'icon' => 'fas fa-hot-tub',
            ],
            [
                'name' => 'Accessibile',
-               'icon' => '<i class="fas fa-wheelchair"></i>',
+               'icon' => 'fas fa-wheelchair',
            ]
        ];
        foreach ($services as $service) {

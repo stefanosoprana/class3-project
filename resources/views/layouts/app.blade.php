@@ -66,14 +66,14 @@
                                             <label for="rooms">Numero minimo di stanze</label>
                                             <input type="number" id="rooms" name="rooms" placeholder="Inserisci il numero di stanze" v-model="rooms" min="0" class="form-control">
                                         </div>
-                                        <div class="form-check form-check-inline">
-                                            <fieldset id="services">
+                                        <div class="form-check">
                                                 <legend>Servizi</legend>
                                                 @foreach($services as $service)
-                                                    <input type="checkbox" name="service" value="{{$service->name}}" class="form-check-input" v-model="services">
-                                                    <label class="form-check-label" for="{{$service->name}}">{!! $service->icon !!} {{$service->name}}</label>
+                                                    <div class="checkbox-container">
+                                                        <input type="checkbox" name="services[]" value="{{$service->name}}"  {{ (isset($data['apartment']) && $data['apartment']->services->firstWhere('id', $service->id) !== null) ? 'checked' : null }}>
+                                                        <i class="{{ $service->icon }}" title="{{$service->name}}"></i>
+                                                    </div>
                                                 @endforeach
-                                            </fieldset>
                                         </div>
                                         <div class="form-group">
                                             <button id="button-search">Cerca</button>

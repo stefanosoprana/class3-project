@@ -10770,13 +10770,14 @@ a.text-dark:focus {
 
 .checkbox-container {
   cursor: pointer;
-  display: inline-block;
+  display: block;
   position: relative;
   z-index: 0;
   font-size: 110%;
 }
 
-.checkbox-container input[type=radio] {
+.checkbox-container input[type=radio],
+.checkbox-container input[type=checkbox] {
   cursor: pointer;
   width: 40px;
   height: 40px;
@@ -10784,41 +10785,54 @@ a.text-dark:focus {
   z-index: 0;
 }
 
-.checkbox-container input[type=radio]:checked + i {
+.checkbox-container input[type=radio]:checked + i,
+.checkbox-container input[type=checkbox]:checked + i {
   color: #064ad2;
   border-color: #064ad2;
 }
 
-.checkbox-container input[type=radio]:checked + i.unpublished {
+.checkbox-container input[type=radio]:checked + i.unpublished,
+.checkbox-container input[type=checkbox]:checked + i.unpublished {
   color: #e7e7e7;
   border-color: #1b1b1b;
   background-color: #1b1b1b;
 }
 
 .checkbox-container input[type=radio]:hover + i,
-.checkbox-container input[type=radio]:active + i,
-.checkbox-container input[type=radio]:focus + i {
+.checkbox-container input[type=checkbox]:hover + i {
   color: #064ad2;
   border-color: #064ad2;
 }
 
 .checkbox-container input[type=radio]:hover + i.unpublished,
-.checkbox-container input[type=radio]:active + i.unpublished,
-.checkbox-container input[type=radio]:focus + i.unpublished {
+.checkbox-container input[type=checkbox]:hover + i.unpublished {
   color: #e7e7e7;
   border-color: #1b1b1b;
   background-color: #1b1b1b;
 }
 
 .checkbox-container i {
-  cursor: pointer;
+  display: inline-block;
   position: absolute;
   z-index: -1;
   top: 0;
   left: 0;
   width: 40px;
   height: 40px;
-  line-height: 30px;
+  padding: 10px 5px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  border: 2px solid;
+  border-radius: 5px;
+  border-color: #76A2FB;
+  color: #76A2FB;
+  line-height: 16px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 /*Tabelle*/

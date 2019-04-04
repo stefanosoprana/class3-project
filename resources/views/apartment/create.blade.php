@@ -186,16 +186,29 @@
                         {{--/Caratteristiche--}}
 
                         {{--Servizi--}}
-                        <div class="form-check form-check-inline">
-                            <fieldset id="services">
-                                <legend>Servizi</legend>
-                                @foreach($services as $service)
-                                @php
-                                @endphp
-                                    <input type="checkbox" name="services[]" value="{{$service->name}}" class="form-check-input"  {{ (isset($data['apartment']) && $data['apartment']->services->firstWhere('id', $service->id) !== null) ? 'checked' : null }}>
-                                    <label class="form-check-label" for="{{$service->name}}">{!! $service->icon !!} {{$service->name}}</label>
-                                @endforeach
-                            </fieldset>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-check form-check-inline">
+                                    <fieldset id="services">
+                                        <legend>Servizi</legend>
+                                        <div class="row">
+                                            @foreach($services as $service)
+                                                @php
+                                                        @endphp
+                                                <div class="col-6">
+                                                    <div class="checkbox-container">
+                                                        <input type="checkbox" name="services[]" value="{{$service->name}}"  {{ (isset($data['apartment']) && $data['apartment']->services->firstWhere('id', $service->id) !== null) ? 'checked' : null }}>
+                                                        <i class="{{ $service->icon }}"></i>
+                                                        <label class="form-check-label" for="{{$service->name}}">{{$service->name}}</label>
+                                                    </div>
+
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                            </div>
                         </div>
                         {{--/Servizi--}}
 

@@ -118,11 +118,13 @@
 
 .checkbox-container{
   cursor: pointer;
-  display: inline-block;
+  display: block;
   position: relative;
   z-index: 0;
   font-size: 110%;
-  input[type='radio']{
+
+  input[type='radio'],
+  input[type='checkbox']{
     cursor: pointer;
     width:40px;
     height:40px;
@@ -137,29 +139,38 @@
       border-color: $darkGrey;
       background-color: $darkGrey;
     }
-    &:hover + i,
-    &:active + i,
-    &:focus + i{
+    &:hover + i{
       color: $darkBlue;
       border-color: $darkBlue;
     }
-    &:hover + i.unpublished,
-    &:active + i.unpublished,
-    &:focus + i.unpublished{
+    &:hover + i.unpublished{
       color: $lightGrey;
       border-color: $darkGrey;
       background-color: $darkGrey;
     }
   }
   i {
-    cursor: pointer;
+    display: inline-block;
     position: absolute;
     z-index: -1;
     top: 0;
     left: 0;
     width:40px;
     height:40px;
-    line-height: 30px;
+    padding: 10px 5px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    border: 2px solid;
+    border-radius: 5px;
+    border-color: $blue;
+    color: $blue;
+    line-height: 16px;
+    text-align: center;
+    vertical-align: middle;
   }
 }
 
