@@ -10873,17 +10873,17 @@ a.text-dark:focus {
   height: 400px;
 }
 
-.apartment__main__message__body {
+.apartment__main__message {
   padding: 15px;
   background-color: #e9defe;
 }
 
-.apartment__main__message__body input,
-.apartment__main__message__body textarea {
+.apartment__main__message input,
+.apartment__main__message textarea {
   border-color: #A576fb;
 }
 
-.apartment__main__message__body .btn {
+.apartment__main__message .btn {
   color: white;
   border-color: #76A2FB;
 }

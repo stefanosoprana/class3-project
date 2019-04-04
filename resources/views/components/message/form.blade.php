@@ -1,5 +1,11 @@
+<div class="apartment__main__message__title">
+    <div class="row">
+        <div class="col-12">
+            <h3>Scrivi al proprietario</h3>
+        </div>
+    </div>
+</div>
 <div class="apartment__main__message">
-    <h3>Scrivi al proprietario</h3>
     <form class="form-group needs-validation" action="{{ route('apartment.message.store') }}" method="post" novalidate>
         @csrf
         <div class="form-group">
