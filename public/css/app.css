@@ -11020,6 +11020,41 @@ a.text-dark:focus {
   color: white;
 }
 
+.message__title {
+  background-color: #A576fb;
+  width: 100%;
+  height: 80px;
+}
+
+.message__title .container {
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+}
+
+.message__title .container h1 {
+  font-weight: bolder;
+  color: white;
+}
+
+.message {
+  margin-top: 30px;
+}
+
+.message .message__heading {
+  font-size: 20px;
+}
+
+.message .message__heading span {
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+.message .message__h3 {
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
 .home__main .home__main__title h1 {
   margin: 10px 0 20px 0;
 }
