@@ -10657,6 +10657,7 @@ a.text-dark:focus {
 
 body {
   position: relative;
+  background-color: #FFF;
 }
 
 main > div:first-child {
@@ -10888,8 +10889,13 @@ main > div:first-child {
   background-color: #dee9fe;
   color: white;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   float: left;
+}
+
+.navbar-laravel img {
+  width: 150px;
+  margin-top: 30px;
 }
 
 .search.form {

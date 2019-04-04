@@ -21,6 +21,7 @@
 
 body {
   position: relative;
+  background-color: $white;
 }
 main > div:first-child{
   margin-top: calc(#{$headerImage} - #{$headerHeight});

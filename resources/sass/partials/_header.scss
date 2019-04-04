@@ -4,8 +4,12 @@
   background-color: $lightBlue;
   color: white;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   float: left;
+  img{
+    width: 150px;
+    margin-top: 30px;
+  }
 }
 
 .search.form{
