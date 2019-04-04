@@ -27,7 +27,7 @@
 
         {{--scheda--}}
 
-        <div class="row">
+        <div class="row mt-5">
           <div class="col-8">
             <div class="container">
               <div class="row">
