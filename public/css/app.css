@@ -11401,6 +11401,29 @@ main > div:first-child {
   margin-bottom: 0;
 }
 
+.sponsorships__main__title {
+  background-color: #A576fb;
+  width: 100%;
+  height: 80px;
+}
+
+.sponsorships__main__title .container {
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+}
+
+.sponsorships__main__title .container h1 {
+  font-weight: bolder;
+  color: white;
+}
+
+@media (max-width: 1199.98px) {
+  .sponsorships__main__title .container h1 {
+    font-size: 200%;
+  }
+}
+
 .users__main__title {
   background-color: #A576fb;
   width: 100%;
