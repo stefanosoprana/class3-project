@@ -52,8 +52,8 @@
                                                         <label for="address">Indirizzo</label>
                                                         <input type="text" id="address" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidonia, RM, Italia" autocomplete="off"  v-model="address" required>
                                                     </div>
-                                                    <input id="latitude" name="latitude" type="hidden" data-geo="lat" value="" v-model="latitude">
-                                                    <input id="longitude" name="longitude" type="hidden"  data-geo="lng" value=""  v-model="longitude">
+                                                    <input id="latitude" name="latitude" type="hidden" data-geo="lat" value="">
+                                                    <input id="longitude" name="longitude" type="hidden"  data-geo="lng" value="">
                                                 </div>
                                                 <div class="form-group search-number">
                                                     <label for="radius">Raggio</label>
@@ -75,7 +75,7 @@
                                                     </div>
                                                 @endforeach
                                                 <div class="search-submit">
-                                                    <input type="submit" value="Cerca" class="btn btn-primary">
+                                                    <input id="button-search" type="submit" value="Cerca" class="btn btn-primary">
                                                 </div>
                                             </div>
                                         </div>
