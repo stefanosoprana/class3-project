@@ -65,6 +65,17 @@ $(document).ready(function () {
     $('#address_apartment').geocomplete({
         details: "#address_apartment-complete",
         detailsAttribute: "data-geo"
+    }).bind("geocode:result", function(event, result){
+        let $street = $('#street').val();
+        let $house_number = $('#house_number').val();
+        let $locality = $('#locality').val();
+        let $postal_code = $('#postal_code').val();
+        let $country = $('#state').val();
+        $('#street-fake').html($street);
+        $('#house_number-fake').html($house_number);
+        $('#locality-fake').html($locality);
+        $('#postal_code-fake').html($postal_code);
+        $('#country-fake').html($country);
     });
 
     //vue chart

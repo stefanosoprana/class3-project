@@ -10855,6 +10855,10 @@ a.text-dark:focus {
   color: #76A2FB;
 }
 
+.title-purple {
+  color: #A576fb;
+}
+
 .apartment__header {
   position: relative;
   width: 100%;
@@ -10968,8 +10972,29 @@ a.text-dark:focus {
   border-color: #76A2FB;
 }
 
-.apartment__create .apartment__create__address-disabled input {
-  pointer-events: none;
+.apartments__main__create input[type=text],
+.apartments__main__create input[type=number],
+.apartments__main__create textarea,
+.apartments__main__create .custom-file-label {
+  border: solid 1px #76A2FB;
+}
+
+.apartments__main__create .custom-file-label::after {
+  background-color: #76A2FB;
+  color: white;
+  border: 1px solid #76A2FB;
+}
+
+.apartments__main__create__address-disabled {
+  display: none;
+}
+
+.apartments__main__create__address-fake .row > div[class*=col] > div {
+  background: #e7e7e7;
+  width: 100%;
+  height: 30px;
+  border-radius: 5px;
+  padding: 0.375rem 0.75rem;
 }
 
 .search__results {
