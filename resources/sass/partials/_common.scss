@@ -131,8 +131,8 @@
     opacity: 0;
     z-index: 0;
     &:checked + i{
-      color: $darkBlue;
-      border-color: $darkBlue;
+      color: $purple;
+      border-color: $purple;
     }
     &:checked + i.unpublished{
       color: $lightGrey;

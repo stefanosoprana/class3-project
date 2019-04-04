@@ -10787,8 +10787,8 @@ a.text-dark:focus {
 
 .checkbox-container input[type=radio]:checked + i,
 .checkbox-container input[type=checkbox]:checked + i {
-  color: #064ad2;
-  border-color: #064ad2;
+  color: #A576fb;
+  border-color: #A576fb;
 }
 
 .checkbox-container input[type=radio]:checked + i.unpublished,
