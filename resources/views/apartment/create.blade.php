@@ -14,7 +14,11 @@
                         {{--Pubblicato--}}
                         <div class="alert-warning mb-3">{{$errors->has('published') ? $errors->first('published') : ''}}</div>
                         <div class="form-check form-check-inline">
-                            <input type="radio" name="published" id="published" {{ (isset($data['apartment']) && $data['apartment']->published) ? 'checked' : null }} value="1" class="form-check-input" required>
+                            <div class="checkbox-container">
+                                <div class="checkbox-container__background"></div>
+                                <input type="radio" name="published" id="published" {{ (isset($data['apartment']) && $data['apartment']->published) ? 'checked' : null }} value="1" class="form-check-input" required>
+                                <i class="fas fa-eye btn btn-default"></i>
+                            </div>
                             <label class="form-check-label" for="published">Pubblica</label>
                             <div class="valid-feedback">
                                Campo valido
@@ -24,7 +28,10 @@
                             </div>
                         </div>
                         <div class="form-check form-check-inline">
+                            <div class="checkbox-container">
                             <input type="radio" name="published" id="published" {{ (isset($data['apartment']) && !$data['apartment']->published) ? 'checked' : null }} value="0" class="form-check-input">
+                                <i class="fas fa-eye  btn btn-default unpublished"></i>
+                            </div>
                             <label class="form-check-label" for="published">Sospendi Pubblicazione</label>
                             <div class="valid-feedback">
                                 Campo valido
@@ -194,8 +201,8 @@
 
                         {{--Hidden--}}
                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                        <div class="form-group">
-                            <input type="submit" value="Salva Nuovo appartamento" class="form-control">
+                        <div class="form-group mt-5">
+                            <button class="btn btn-primary">Salva</button>
                         </div>
                         {{--Hidden--}}
                     </form>

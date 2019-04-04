@@ -16,6 +16,17 @@
 }
 
 /*Bottoni*/
+.btn-primary{
+  background-color: $purple;
+  border-color: $purple;
+  color: $white;
+  &:hover,
+  &:active,
+  &:focus{
+    background-color: $darkPurple;
+    border-color: $darkPurple;
+  }
+}
 .btn-default{
   min-width: 30px;
   border: 2px solid $blue;
@@ -102,6 +113,53 @@
   &:focus{
     border-color: $darkPurple;
     color: $darkPurple;
+  }
+}
+
+.checkbox-container{
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  z-index: 0;
+  font-size: 110%;
+  input[type='radio']{
+    cursor: pointer;
+    width:40px;
+    height:40px;
+    opacity: 0;
+    z-index: 0;
+    &:checked + i{
+      color: $darkBlue;
+      border-color: $darkBlue;
+    }
+    &:checked + i.unpublished{
+      color: $lightGrey;
+      border-color: $darkGrey;
+      background-color: $darkGrey;
+    }
+    &:hover + i,
+    &:active + i,
+    &:focus + i{
+      color: $darkBlue;
+      border-color: $darkBlue;
+    }
+    &:hover + i.unpublished,
+    &:active + i.unpublished,
+    &:focus + i.unpublished{
+      color: $lightGrey;
+      border-color: $darkGrey;
+      background-color: $darkGrey;
+    }
+  }
+  i {
+    cursor: pointer;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width:40px;
+    height:40px;
+    line-height: 30px;
   }
 }
 
