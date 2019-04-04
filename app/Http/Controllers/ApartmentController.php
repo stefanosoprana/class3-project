@@ -91,7 +91,7 @@ class ApartmentController extends Controller
     public function create()
     {
         $data = [
-            'title' => 'Aggiungi un nuovo appartamento',
+            'title' => 'Inserisci un appartamento',
             'method' => 'POST',
             'route' => route('apartment.store'),
         ];
