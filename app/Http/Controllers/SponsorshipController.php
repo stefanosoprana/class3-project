@@ -103,5 +103,3 @@ class SponsorshipController extends Controller
         return response()->json($status);
     }
 }
-
-

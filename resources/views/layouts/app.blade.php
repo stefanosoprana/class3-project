@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'BoolBnb') }}</title>
 
     <!-- Scripts -->
     @yield('scripts')
@@ -17,7 +17,7 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
 
@@ -32,7 +32,7 @@
     <div class="search" id="search__result">
         @else
             {{--container without id vue--}}
-            <div class="search">
+            <div class="search form">
                 @endif
                 <div class="row">
                     <div class="col-12">
@@ -45,24 +45,27 @@
                                         @csrf
                                         @method('GET')
                                         @endif
-                                        <div id="address-complete">
-                                            <div class="form-group">
+
+
+
+                                        <div id="address-complete" >
+                                            <div class="form-group col-3 search">
                                                 <label for="address">Indirizzo</label>
                                                 <input type="text" id="address" name="address" class="form-control" placeholder="es. via Plutarco, 31 , Guidonia, RM, Italia" autocomplete="off"  v-model="address" required>
                                             </div>
                                             <input id="latitude" name="latitude" type="hidden" data-geo="lat" value="">
                                             <input id="longitude" name="longitude" type="hidden"  data-geo="lng" value="">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group search">
                                             <label for="radius">Raggio di ricerca</label>
                                             <input type="number" id="radius" name="radius" placeholder="Inserisci il raggio in metri" v-model="radius" min="1" class="form-control">
 
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group search">
                                             <label for="beds">Numero minimo di letti</label>
                                             <input type="number" id="beds" name="beds" placeholder="Inserisci il numero di letti" v-model="beds" min="0" class="form-control">
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group search">
                                             <label for="rooms">Numero minimo di stanze</label>
                                             <input type="number" id="rooms" name="rooms" placeholder="Inserisci il numero di stanze" v-model="rooms" min="0" class="form-control">
                                         </div>
@@ -75,9 +78,7 @@
                                                     </div>
                                                 @endforeach
                                         </div>
-                                        <div class="form-group">
-                                            <button id="button-search">Cerca</button>
-                                        </div>
+
                                     </form>
                             {{--/Search Form--}}
                     </div>
@@ -123,6 +124,8 @@
     {{-- /container for vue or generic--}}
 
     @include('partials.footer')
+
+
 
 </body>
 </html>
