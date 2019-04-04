@@ -1,0 +1,33 @@
+.footer {
+  padding: 40px 0;
+  background: $lightBlue;
+  ul {
+    padding: 0;
+    li {
+      list-style: none;
+      padding: 0;
+      a {
+        text-decoration: none;
+        color: black;
+        i {
+          font-size: 17px;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+  &__small {
+    img {
+      top: 0;
+      left: 0;
+      height: 20px;
+      margin-bottom: 8px;
+    }
+    small {
+      font-size: 10px;
+    }
+  }
+  .footer__right {
+    margin-top: 25px;
+  }
+}

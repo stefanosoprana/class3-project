@@ -11020,6 +11020,23 @@ a.text-dark:focus {
   color: white;
 }
 
+.apartments__main__button {
+  position: relative;
+}
+
+.apartments__main__button a {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  text-transform: uppercase;
+  font-weight: bolder;
+  background: white;
+}
+
+.apartments__main__button a i {
+  padding: 0 5px;
+}
+
 .statistics__title {
   background-color: #A576fb;
   width: 100%;
@@ -11144,6 +11161,45 @@ a.text-dark:focus {
 .messages__main__title .container h1 {
   font-weight: bolder;
   color: white;
+}
+
+.footer {
+  padding: 40px 0;
+  background: #dee9fe;
+}
+
+.footer ul {
+  padding: 0;
+}
+
+.footer ul li {
+  list-style: none;
+  padding: 0;
+}
+
+.footer ul li a {
+  text-decoration: none;
+  color: black;
+}
+
+.footer ul li a i {
+  font-size: 17px;
+  margin-right: 5px;
+}
+
+.footer__small img {
+  top: 0;
+  left: 0;
+  height: 20px;
+  margin-bottom: 8px;
+}
+
+.footer__small small {
+  font-size: 10px;
+}
+
+.footer .footer__right {
+  margin-top: 25px;
 }
 
 .navbar-laravel {

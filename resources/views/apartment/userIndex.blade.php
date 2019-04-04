@@ -13,6 +13,15 @@
                 </div>
             </div>
             {{--/Title--}}
+            {{-- Button aggiungi appartamento --}}
+            <div class="apartments__main__button">
+              <div class="row">
+                  <div class="col-4 offset-8">
+                      <a href="{{ route('apartment.create') }}" class="btn btn-default"><i class="fas fa-plus"></i>AGGIUNGI UN APPARTAMENTO</a>
+                  </div>
+              </div>
+            </div>
+            {{-- /Button aggiungi appartamento --}}
             <div class="apartments__main__content mt-5">
                 <div class="container">
                     {{-- Cards --}}
