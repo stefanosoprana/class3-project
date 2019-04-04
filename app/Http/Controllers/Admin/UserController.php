@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(10);
         return view('admin.users.index', compact('users'));
     }
 
@@ -103,7 +103,8 @@ class UserController extends Controller
       };
 
       $user->delete();
-      $message = 'Utente con Id ' . $id . ' eliminato';
+      $message = 'Utente con 
+      Id ' . $id . ' eliminato';
       return redirect()->back()->with('status', $message);
     }
 }

@@ -46,10 +46,13 @@
                 </td>
               </tr>
             @empty
-              <h2>non ci sono post</h2>
+              <tr>
+                <td colspan="6"><h2>Non ci sono messaggi</h2></td>
+              </tr>
             @endforelse
             </tbody>
           </table>
+          {{ $data['messages']->links() }}
         </div>
       </div>
     </div>

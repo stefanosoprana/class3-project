@@ -1,13 +1,22 @@
 @extends('layouts.app')
 @section('content')
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h1>Messaggi Ricevuti</h1>
+  <div class="messages">
+    <div class="messages__main">
+      <div class="messages__main__title">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <h1>Messaggi Ricevuti</h1>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <table class="table">
-      <thead>
+  </div>
+  <div class="messages__main__content">
+    <div class="container">
+      <table class="table">
+        <thead>
         <tr>
           <th>Appartamento</th>
           <th>Da</th>
@@ -16,8 +25,8 @@
           <th>Data</th>
           <th>Leggi</th>
         </tr>
-      </thead>
-      <tbody>
+        </thead>
+        <tbody>
         @forelse ($messages as $message)
           <tr>
             <td>{{ $message->apartment->title }}</td>
@@ -29,11 +38,17 @@
               <a href="{{ route('Admin.messages.show', $message->id) }}" class="btn btn-default"><i class="fas fa-eye"title="Leggi"></i></a>            </td>
           </tr>
         @empty
-          <h2>non ci sono post</h2>
+          <tr>
+            <td colspan="6"><h2>Non ci sono messaggi</h2></td>
+          </tr>
         @endforelse
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+      {{ $messages->links() }}
+
+    </div>
   </div>
+
 @endsection
 
 

@@ -1,0 +1,7 @@
+.users{
+  &__main{
+   &__title{
+     @include page__title;
+   }
+  }
+}

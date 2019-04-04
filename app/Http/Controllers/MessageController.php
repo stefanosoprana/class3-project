@@ -21,7 +21,7 @@ class MessageController extends Controller
             abort(404);
         }
 
-        $messages = Message::where('user_id', $user->id)->get();
+        $messages = Message::where('user_id', $user->id)->paginate(10);
 
         $data =  [
             'user' => $user,

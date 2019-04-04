@@ -1,15 +1,23 @@
 @extends('layouts.app')
 @section('content')
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h1>Tutti gli Utenti</h1>
+  <div class="users">
+    <div class="users__main">
+      <div class="users__main__title">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <h1>Tutti gli Utenti</h1>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-12">
-        <table class="table">
-          <thead>
+    <div class="users__main__content mt-5">
+     <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <table class="table">
+            <thead>
             <tr>
               <th scope="col">ID</th>
               <th scope="col">Nome</th>
@@ -18,11 +26,9 @@
               <th scope="col">Modifica</th>
               <th scope="col">Elimina</th>
             </tr>
-          </thead>
-          <tbody>
-            @php
-            @endphp
-            @foreach ($users as $user)
+            </thead>
+            <tbody>
+            @forelse ($users as $user)
               @if ($user->id !== Auth::user()->id && Auth::user()->can('modify'))
                 <tr>
                   <td>{{ $user->id }}</td>
@@ -42,10 +48,19 @@
                   </td>
                 </tr>
               @endif
-            @endforeach
-          </tbody>
-        </table>
+              @empty
+                <tr>
+                  <td colspan="6"><h2>Non ci sono utenti</h2></td>
+                </tr>
+              @endforelse
+            </tbody>
+          </table>
+          {{ $users->links() }}
+
+        </div>
       </div>
     </div>
+    </div>
   </div>
+
 @endsection
