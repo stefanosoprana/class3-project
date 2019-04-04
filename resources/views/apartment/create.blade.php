@@ -95,13 +95,13 @@
                                     <div class="col-12">
                                         @if(isset($data['apartment']) && !empty($data['apartment']->image))
                                             <div class="row">
-                                            <div class="col-4">
+                                            <div class="col-lg-4 col-sm-12">
                                                 <p>Immagine Caricata</p>
                                                 <div class="apartments__thumbnail">
                                                     <img src="{{asset('storage/' . $data['apartment']->image)}}" alt="{{$data['apartment']->title}}" class="img-fluid">
                                                 </div>
                                             </div>
-                                            <div class="col-8 apartments__browse">
+                                            <div class="col-lg-8 col-sm-12 apartments__browse">
                                                     <label>Sostituisci con una nuova immagine</label>
                                                     @endif
                                                     {{--/Immagine--}}
@@ -120,7 +120,7 @@
 
                                 {{--Prezzo--}}
                                 <div class="row">
-                                    <div class="form-group col-2 mt-3">
+                                    <div class="form-group col-lg-2 col-sm-12 mt-3">
                                         <label for="price">Prezzo</label>
                                         <input type="number" min="1" step="0.10"  name="price" placeholder="{{$errors->has('price') ? $errors->first('price') : 'es. 25,50'}}" class="form-control" value="{{ (isset($data['apartment'])) ? $data['apartment']->price : old('price')}}" required>
                                         <div class="valid-feedback">
@@ -256,15 +256,13 @@
 
                                 {{--Servizi--}}
                                 <div class="row mt-5">
-                                    <div class="col-6">
+                                    <div class="col-sm-12 col-lg-6">
                                         <div class="form-check form-check-inline">
                                             <fieldset id="services">
                                                 <legend><h3 class="title-purple">Servizi</h3>
                                                 </legend>
                                                 <div class="row">
                                                     @foreach($services as $service)
-                                                        @php
-                                                                @endphp
                                                         <div class="col-6">
                                                             <div class="checkbox-container">
                                                                 <input type="checkbox" name="services[]" value="{{$service->name}}"  {{ (isset($data['apartment']) && $data['apartment']->services->firstWhere('id', $service->id) !== null) ? 'checked' : null }}>

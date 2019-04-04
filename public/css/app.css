@@ -10835,6 +10835,13 @@ a.text-dark:focus {
   vertical-align: middle;
 }
 
+@media (max-width: 1199.98px) {
+  .checkbox-container label {
+    display: block;
+    margin-bottom: 30px;
+  }
+}
+
 /*Tabelle*/
 
 .table {
