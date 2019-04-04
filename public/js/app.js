@@ -86953,9 +86953,8 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("li", { staticClass: "services_item" }, [
-    _c("span", { domProps: { innerHTML: _vm._s(_vm.service.icon) } }),
-    _vm._v(" " + _vm._s(_vm.service.name) + "\n")
+  return _c("li", { staticClass: "services__item" }, [
+    _c("i", { class: _vm.service.icon, attrs: { title: _vm.service.name } })
   ])
 }
 var staticRenderFns = []
@@ -99185,17 +99184,6 @@ $(document).ready(function () {
   $('#address_apartment').geocomplete({
     details: "#address_apartment-complete",
     detailsAttribute: "data-geo"
-  }).bind("geocode:result", function (event, result) {
-    var $street = $('#street').val();
-    var $house_number = $('#house_number').val();
-    var $locality = $('#locality').val();
-    var $postal_code = $('#postal_code').val();
-    var $country = $('#state').val();
-    $('#street-fake').html($street);
-    $('#house_number-fake').html($house_number);
-    $('#locality-fake').html($locality);
-    $('#postal_code-fake').html($postal_code);
-    $('#country-fake').html($country);
   }); //vue chart
 
   if ($('#charts').length) {
@@ -99240,14 +99228,14 @@ $(document).ready(function () {
               name: 'visits',
               chartdata: null,
               options: null,
-              colors: '#A576fb',
+              colors: '#FC2525',
               loaded: false
             },
             messages: {
               name: 'messages',
               chartdata: null,
               options: null,
-              colors: '#76A2FB',
+              colors: '#007bff',
               loaded: false
             }
           },
@@ -99362,8 +99350,6 @@ $(document).ready(function () {
               rooms: this.rooms
             }
           }).then(function (response) {
-            console.log(response.data);
-
             if (Object.keys(response.data.result).length) {
               _this2.page += 1;
               $.each(response.data.result, function (key, value) {

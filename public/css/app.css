@@ -10954,6 +10954,10 @@ main > div:first-child {
   border-radius: 5px;
 }
 
+.search.form .checkbox-container input {
+  margin: 0;
+}
+
 .search.form .address {
   width: 300px;
 }

@@ -1,6 +1,6 @@
 <template>
-    <li class="services_item">
-        <span v-html="service.icon"></span> {{service.name}}
+    <li class="services__item">
+        <i v-bind:class="service.icon" v-bind:title="service.name"></i>
     </li>
 </template>
 
