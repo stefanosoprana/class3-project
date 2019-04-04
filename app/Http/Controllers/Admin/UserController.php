@@ -103,7 +103,7 @@ class UserController extends Controller
       };
 
       $user->delete();
-
-      return redirect()->back();
+      $message = 'Utente con Id ' . $id . ' eliminato';
+      return redirect()->back()->with('status', $message);
     }
 }

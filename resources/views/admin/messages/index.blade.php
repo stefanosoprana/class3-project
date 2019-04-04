@@ -14,7 +14,7 @@
           <th>A</th>
           <th>Messaggio</th>
           <th>Data</th>
-          <th>Visualizza</th>
+          <th>Leggi</th>
         </tr>
       </thead>
       <tbody>
@@ -26,8 +26,7 @@
             <td>{{ str_limit($message->text, 30, '(...)') }}</td>
             <td>{{ DateTime::createFromFormat('Y-m-d H:i:s', $message->created_at )->format('d/m/Y H:i') }}</td>
             <td>
-              <a href="{{ route('Admin.messages.show', $message->id ) }}" class="btn btn-primary">Leggi</a>
-            </td>
+              <a href="{{ route('Admin.messages.show', $message->id) }}" class="btn btn-default"><i class="fas fa-eye"title="Leggi"></i></a>            </td>
           </tr>
         @empty
           <h2>non ci sono post</h2>
@@ -36,3 +35,5 @@
     </table>
   </div>
 @endsection
+
+

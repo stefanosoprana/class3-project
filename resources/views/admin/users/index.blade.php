@@ -15,8 +15,8 @@
               <th scope="col">Nome</th>
               <th scope="col">Cognome</th>
               <th scope="col">E-mail</th>
-              <th scope="col"></th>
-              <th scope="col"></th>
+              <th scope="col">Modifica</th>
+              <th scope="col">Elimina</th>
             </tr>
           </thead>
           <tbody>
@@ -29,12 +29,15 @@
                   <td>{{ $user->name }}</td>
                   <td>{{ $user->lastname }}</td>
                   <td>{{ $user->email }}</td>
-                  <td><a href="{{ route('Admin.users.edit', $user->id) }}" class="btn btn-primary">Modifica</a></td>
                   <td>
-                    <form action="{{route('Admin.users.destroy', $user->id)}}" method="post">
+                    <a href="{{ route('Admin.users.edit', $user->id) }}" class="btn btn-default"><i class="fas fa-pen" title="Modifica"></i></a>
+                  </td>
+                  <td>
+                    <form action="{{route('Admin.users.destroy', $user->id)}}" method="post" class="btn-trash">
                       @csrf
                       @method('DELETE')
-                      <button class="btn btn-danger">Elimina</button>
+                      <input class="btn-trash__input btn" type="submit" value="Elimina">
+                      <i class="fas fa-trash" title="Elimina"></i>
                     </form>
                   </td>
                 </tr>
