@@ -349,6 +349,6 @@ $(document).ready(function () {
 
     // STATUS
     setInterval(function(){
-        $('.status').hide();
+        $('.status').remove();
     }, 2000);
 });

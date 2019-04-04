@@ -99480,7 +99480,7 @@ $(document).ready(function () {
 
 
   setInterval(function () {
-    $('.status').hide();
+    $('.status').remove();
   }, 2000);
 });
 
