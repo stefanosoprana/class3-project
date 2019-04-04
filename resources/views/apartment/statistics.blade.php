@@ -1,32 +1,38 @@
 @extends('layouts.app')
 @section('content')
-    <div id="charts">
+  <div class="statistics">
+    <div class="statistics__title">
+      <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1>STATISTICHE</h1>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="statistics__graphic">
+      <div id="charts">
         <div class="container">
+          <div class="statistics__graphic__show-button">
             <div class="row">
-                <div class="col-8">
-                    <h1>Statistiche appartamento: <br>{{$apartment->title}}</h1>
-                </div>
-                <div class="col-4 text-right">
-                    <a href="{{ route('apartment.show', $apartment->id) }}" class="btn btn-primary">Visualizza Appartamento</a>
+                <div class="col-4 offset-8 text-right">
+                    <a href="{{ route('apartment.show', $apartment->id) }}" class="btn btn-default"><i class="fas fa-eye"></i>Visualizza Appartamento</a>
                 </div>
             </div>
+            </div>
+            <div class="statistics__graphic__selector">
             <div class="row">
                 <div class="col-12">
-                    <div class="form-control">
+                  <p><b>Seleziona anno</b></p>
                         <select name="year" id="year" v-model="selected"  @change="onChange()">
                             @foreach($years as $year)
                                 <option value="{{$year}}" {{($year === $years[count($years) -1]) ? 'selected' : ''}}>{{$year}}</option>
                             @endforeach
                         </select>
-
                     </div>
-                </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <h2>Statistiche  @{{ selected }}</h2>
-                </div>
             </div>
+            <div class="statistics__graphic__main">
             <div class="row">
                 <div class="col-6"  v-for="chart in charts" :id="chart.name">
                     <div class="chart" >
@@ -39,6 +45,9 @@
                     </div>
                 </div>--}}
             </div>
+            </div>
+        </div>
         </div>
     </div>
+  </div>
 @endsection
