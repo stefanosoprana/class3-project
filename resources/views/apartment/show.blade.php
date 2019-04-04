@@ -15,20 +15,19 @@
 
         {{--modifica--}}
         @if(isset(Auth::user()->id) && ($apartment->user_id === Auth::user()->id || Auth::user()->hasRole('admin')))
-        <div class="row">
-          <div class="col-12">
-            <div class="alert-info p-3 text-center">
+          <div class="row">
+            <div class="col-12">
+              <div class="alert-info p-3 text-center">
                 <a href="{{ route('apartment.edit', $apartment->id) }}" class="btn btn-primary">Modifica</a>
-              <a href="{{ route('apartment.statistic', $apartment->id) }}" class="btn btn-primary">Visualizza statistiche</a>
+                <a href="{{ route('apartment.statistic', $apartment->id) }}" class="btn btn-primary">Visualizza statistiche</a>
+              </div>
             </div>
           </div>
-        </div>
         @endif
         {{--/modifica--}}
 
         {{--scheda--}}
 
-        {{--intestazione--}}
         <div class="row">
           <div class="col-8">
             <div class="apartment__main__description">
@@ -87,6 +86,7 @@
             {{--/messaggio--}}
           </div>
         </div>
+        {{--/scheda--}}
       </div>
     </div>
   </div>
