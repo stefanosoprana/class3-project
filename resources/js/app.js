@@ -222,6 +222,7 @@ $(document).ready(function () {
                             rooms: this.rooms,
                         }
                     }).then((response) => {
+                        console.log(response.data);
                         if( Object.keys(response.data.result).length){
                             this.page += 1;
                             $.each(response.data.result, function(key, value) {

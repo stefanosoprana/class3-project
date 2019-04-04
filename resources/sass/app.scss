@@ -10,6 +10,7 @@
 
 //Components and sections
 @import 'partials/common';
+@import 'partials/header';
 @import 'partials/typography';
 @import 'apartments';
 @import 'auth';
@@ -19,104 +20,5 @@
 @import 'sponsorships';
 @import 'users';
 
-.navbar-laravel {
-  width: 100%;
-  height: 150px;
-  background-color: $lightBlue;
-  color: white;
-  position: absolute;
-  z-index: 1;
-  float: left;
-}
-
-body {
-  position: relative;
-}
-.status {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-  background-color: $lightPurple;
-  p {
-    font-size: 40px;
-    color: $purple;
-    font-weight: bolder;
-  }
-}
-.form::before{
-  content:"";
-  background: blue;
-  opacity: 0.3;
-  width: 100%;
-  height: 150px;
-  float: left;
-  position: absolute;
-  bottom: 40%;
-}
-
-.form{
-  width: 100%;
-  height: 250px;
-  background: red;
-  position: absolute;
-  z-index: 2;
-  top: 12%;
-  padding-top: 40px;
-  background: url('https://images.pexels.com/photos/208745/pexels-photo-208745.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260') center;
-}
-
-title{
-  display: none;
-}
-
-img{
-  width: 130px;
-  margin-right: 20px;
-}
 
 
-.form-group > label{
-  display: none;
-}
-
-.search > input{
-  float: left;
-  margin-left: 15px;
-
-}
-
-#button-search{
-  margin-left: 20px;
-  background:$purple;
-  border-color: $purple;
-  width: 60px;
-  border-radius: 5px;
-  color:white;
-}
-
- #address,#radius,#beds,#rooms{
-   height: 40px;
-   border-radius: 5px;
-   border-color: $blue;
- }
-
- #services > input{
-   display: none;
- }
-
- #services > label{
-  font-size: 20px;
-  color: $blue;
-  border: 2px solid $blue;
-  background: white;
-  border-radius: 5px;
-  margin-left: 20px;
-  width: 40px;
-  text-align: center;
- }
