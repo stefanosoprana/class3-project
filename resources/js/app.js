@@ -65,17 +65,6 @@ $(document).ready(function () {
     $('#address_apartment').geocomplete({
         details: "#address_apartment-complete",
         detailsAttribute: "data-geo"
-    }).bind("geocode:result", function(event, result){
-        let $street = $('#street').val();
-        let $house_number = $('#house_number').val();
-        let $locality = $('#locality').val();
-        let $postal_code = $('#postal_code').val();
-        let $country = $('#state').val();
-        $('#street-fake').html($street);
-        $('#house_number-fake').html($house_number);
-        $('#locality-fake').html($locality);
-        $('#postal_code-fake').html($postal_code);
-        $('#country-fake').html($country);
     });
 
     //vue chart
@@ -100,14 +89,14 @@ $(document).ready(function () {
                             name: 'visits',
                             chartdata: null,
                             options: null,
-                            colors:'#A576fb',
+                            colors:'#FC2525',
                             loaded: false,
                         },
                         messages: {
                             name: 'messages',
                             chartdata: null,
                             options: null,
-                            colors:'#76A2FB',
+                            colors:'#007bff',
                             loaded: false,
                         },
                     },
@@ -222,7 +211,6 @@ $(document).ready(function () {
                             rooms: this.rooms,
                         }
                     }).then((response) => {
-                        console.log(response.data);
                         if( Object.keys(response.data.result).length){
                             this.page += 1;
                             $.each(response.data.result, function(key, value) {
@@ -250,31 +238,31 @@ $(document).ready(function () {
                 getFormValues: function(submitEvent) {
                     console.log("loading");
                     console.log(this.page);
-                        if(!submitEvent.srcElement.checkValidity()){
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        else{
-                            this.latitude = submitEvent.target.elements.latitude.value;
-                            this.longitude = submitEvent.target.elements.longitude.value;
-                            this.radius = submitEvent.target.elements.radius.value;
-                            this.beds = submitEvent.target.elements.beds.value;
-                            this.rooms = submitEvent.target.elements.rooms.value;
-                            let services = submitEvent.target.elements.service;
+                    if(!submitEvent.srcElement.checkValidity()){
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    else{
+                        this.latitude = submitEvent.target.elements.latitude.value;
+                        this.longitude = submitEvent.target.elements.longitude.value;
+                        this.radius = submitEvent.target.elements.radius.value;
+                        this.beds = submitEvent.target.elements.beds.value;
+                        this.rooms = submitEvent.target.elements.rooms.value;
+                        let services = submitEvent.target.elements.service;
 
-                            let arrServices = [];
-                            services.forEach(function (service, i) {
-                                if(service.checked){
-                                    arrServices.push(service.value);
-                                }
-                            });
+                        let arrServices = [];
+                        services.forEach(function (service, i) {
+                            if(service.checked){
+                                arrServices.push(service.value);
+                            }
+                        });
 
-                            this.services = arrServices;
+                        this.services = arrServices;
 
-                            this.page = 1;
-                            this.apartments = [];
-                            this.infiniteId += 1;
-                        }
+                        this.page = 1;
+                        this.apartments = [];
+                        this.infiniteId += 1;
+                    }
 
                     $(submitEvent.srcElement).addClass('was-validated');
                 }
@@ -361,6 +349,6 @@ $(document).ready(function () {
 
     // STATUS
     setInterval(function(){
-      $('.status').hide();
+        $('.status').hide();
     }, 2000);
 });
