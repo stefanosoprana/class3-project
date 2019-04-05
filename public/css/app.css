@@ -11293,6 +11293,31 @@ main > div:first-child {
   padding: 0 5px;
 }
 
+.login .login__main .login__main__title {
+  background-color: #A576fb;
+  width: 100%;
+  height: 80px;
+}
+
+.login .login__main .login__main__title .container {
+  display: flex;
+  align-items: flex-end;
+  height: 100%;
+}
+
+.login .login__main .login__main__title .container h1 {
+  font-weight: bolder;
+  color: white;
+  font-size: 180%;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1199.98px) {
+  .login .login__main .login__main__title .container h1 {
+    font-size: 160%;
+  }
+}
+
 .statistics__title {
   background-color: #A576fb;
   width: 100%;
