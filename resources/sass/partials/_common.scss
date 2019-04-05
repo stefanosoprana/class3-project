@@ -210,7 +210,7 @@ main > div:first-child{
 /*status*/
 .status {
   display: flex;
-  position: absolute;
+  position: fixed;
   top: -$topStatus;
   left: 0;
   width: 100%;

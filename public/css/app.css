@@ -10866,7 +10866,7 @@ main > div:first-child {
 
 .status {
   display: flex;
-  position: absolute;
+  position: fixed;
   top: -330px;
   left: 0;
   width: 100%;
