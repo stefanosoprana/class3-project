@@ -58,9 +58,16 @@ class HomeController extends Controller
                 if($diff <= 0){
                     $sponsorships[] = $apartment_sponsorized;
                 }
+            } else {
+                $sponsorships = [];
             }
         }
-        return view('user.home', compact('apartments', 'messages', 'sponsorships'));
+        $data = [
+            'apartments' => $apartments,
+            'messages' => $messages,
+            'sponsorships' => $sponsorships
+        ];
+        return view('user.home', $data);
     }
 
 }
