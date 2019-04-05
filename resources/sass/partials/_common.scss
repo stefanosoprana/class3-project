@@ -11,8 +11,10 @@
     h1 {
       font-weight: bolder;
       color: white;
+      font-size: 180%;
+      text-transform: uppercase;
       @include media-breakpoint-down(lg) {
-       font-size: 200%;
+       font-size: 160%;
       }
     }
   }
