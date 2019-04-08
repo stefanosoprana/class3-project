@@ -202,11 +202,18 @@ $(document).ready(function () {
                     apartments: [],
                     page: 1,
                     infiniteId: +new Date(),
+                    formNoValidated: true,
+                    formValidated: false
                 }
             },
             methods: {
+                formValidate(status){
+                    this.formNoValidate = !status;
+                    this.formValidated = status;
+                    console.log(this.formValidated);
+                },
                 infiniteHandler($state) {
-                    $('#search__form').removeClass('was-validated');
+                    this.formValidate(false);
                     let url = 'http://'+this.host+this.urlApi+this.page;
                     let vuethis = this;
                     axios({
@@ -274,8 +281,7 @@ $(document).ready(function () {
                         this.apartments = [];
                         this.infiniteId += 1;
                     }
-
-                    $(submitEvent.srcElement).addClass('was-validated');
+                    this.formValidate(true);
                 }
             },
             mounted() {

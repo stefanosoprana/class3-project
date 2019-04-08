@@ -38,7 +38,7 @@
                     <div class="mt-3">
                         @if( Route::currentRouteName() === 'apartments.search')
                                     {{--Search Form--}}
-                                    <form  class="control needs-validation" @submit.prevent="getFormValues" id="search__form" novalidate>
+                                    <form :class="{ 'needs-validation': formNoValidated, 'was-validated': formValidated }" @submit.prevent="getFormValues" id="search__form" novalidate>
                                         @else
                                             {{--Search Form with get action--}}
                                             <form class="control needs-validation" action="{{ route('apartments.search') }}" method="get" id="search__form" novalidate>

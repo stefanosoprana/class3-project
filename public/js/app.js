@@ -99336,14 +99336,21 @@ $(document).ready(function () {
           services: '',
           apartments: [],
           page: 1,
-          infiniteId: +new Date()
+          infiniteId: +new Date(),
+          formNoValidated: true,
+          formValidated: false
         };
       },
       methods: {
+        formValidate: function formValidate(status) {
+          this.formNoValidate = !status;
+          this.formValidated = status;
+          console.log(this.formValidated);
+        },
         infiniteHandler: function infiniteHandler($state) {
           var _this2 = this;
 
-          $('#search__form').removeClass('was-validated');
+          this.formValidate(false);
           var url = 'http://' + this.host + this.urlApi + this.page;
           var vuethis = this;
           axios__WEBPACK_IMPORTED_MODULE_2___default()({
@@ -99407,7 +99414,7 @@ $(document).ready(function () {
             this.infiniteId += 1;
           }
 
-          $(submitEvent.srcElement).addClass('was-validated');
+          this.formValidate(true);
         }
       },
       mounted: function mounted() {
@@ -99639,7 +99646,7 @@ var reactiveProp = vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["mixins"].reactivePr
 /* harmony default export */ __webpack_exports__["default"] = ({
   extends: vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["Bar"],
   mixins: [vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["mixins"].reactiveProp],
-  //necessario per undate dati
+  //necessario per update dati
   props: {
     chartdata: {
       type: Object,
