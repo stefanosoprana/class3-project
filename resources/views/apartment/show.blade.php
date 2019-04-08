@@ -78,12 +78,14 @@
                   </div>
                 </div>
                 {{--/caratteristiche--}}
-                {{--messaggio--}}
-                <div class="col-12">
-                  @component('components.message.form',['apartment' => $apartment])
-                  @endcomponent
-                </div>
-                {{--/messaggio--}}
+                @if(!Auth::user() || Auth::user()->id != $apartment->user_id)
+                    {{--messaggio--}}
+                    <div class="col-12">
+                      @component('components.message.form',['apartment' => $apartment])
+                      @endcomponent
+                    </div>
+                    {{--/messaggio--}}
+                @endif
               </div>
             </div>
           </div>

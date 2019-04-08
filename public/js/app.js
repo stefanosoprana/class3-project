@@ -99152,21 +99152,17 @@ Vue.use(vue_axios__WEBPACK_IMPORTED_MODULE_1___default.a, axios__WEBPACK_IMPORTE
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('card', __webpack_require__(/*! ./components/CardComponent.vue */ "./resources/js/components/CardComponent.vue").default);
-Vue.component('service-component', __webpack_require__(/*! ./components/ServiceComponent.vue */ "./resources/js/components/ServiceComponent.vue").default); //Vue.component('InfiniteLoading', require('vue-infinite-loading'));
-
+Vue.component('service-component', __webpack_require__(/*! ./components/ServiceComponent.vue */ "./resources/js/components/ServiceComponent.vue").default);
 
 Vue.use(vue_infinite_loading__WEBPACK_IMPORTED_MODULE_4___default.a, {
   slots: {
     noMore: 'Non sono presenti altri appartamenti',
-    // you can pass a string value
-    noResults: 'Non sono presenti appartamenti con queste caratteristiche' // you can pass a string value
-
+    noResults: 'Non sono presenti appartamenti con queste caratteristiche'
   }
 });
 
 $(document).ready(function () {
-  var forms = $('.needs-validation'); //console.log(forms);
-
+  var forms = $('.needs-validation');
   $(forms).submit(function (event) {
     if (!this.checkValidity()) {
       event.preventDefault();
@@ -99185,6 +99181,7 @@ $(document).ready(function () {
     details: "#address_apartment-complete",
     detailsAttribute: "data-geo"
   }).bind("geocode:result", function (event, result) {
+    //prendo i dati dai campi input compilati da geocomplete e li inserisco nei div
     var $street = $('#street').val();
     var $house_number = $('#house_number').val();
     var $locality = $('#locality').val();
@@ -99344,8 +99341,7 @@ $(document).ready(function () {
       methods: {
         formValidate: function formValidate(status) {
           this.formNoValidate = !status;
-          this.formValidated = status;
-          console.log(this.formValidated);
+          this.formValidated = status; //console.log(this.formValidated);
         },
         infiniteHandler: function infiniteHandler($state) {
           var _this2 = this;
@@ -99389,9 +99385,6 @@ $(document).ready(function () {
           });
         },
         getFormValues: function getFormValues(submitEvent) {
-          console.log("loading");
-          console.log(this.page);
-
           if (!submitEvent.srcElement.checkValidity()) {
             event.preventDefault();
             event.stopPropagation();
@@ -99461,7 +99454,6 @@ $(document).ready(function () {
         event.preventDefault();
         $alert.removeClass('alert alert-danger').html('');
         instance.requestPaymentMethod().then(function (payload) {
-          // Submit payload.nonce to your server
           var nonce = payload.nonce;
           axios__WEBPACK_IMPORTED_MODULE_2___default()({
             method: 'post',
@@ -99472,7 +99464,6 @@ $(document).ready(function () {
               apartmentId: apartmentId
             }
           }).then(function (response) {
-            //console.log(response.data);
             if (response.data.success === true) {
               instance.teardown(function (err) {
                 if (err) {
@@ -99488,8 +99479,6 @@ $(document).ready(function () {
             console.log(error.response);
           });
         }).catch(function (requestPaymentMethodErr) {
-          // No payment method is available.
-          // An appropriate error will be shown in the UI.
           console.error(requestPaymentMethodErr);
         });
       });

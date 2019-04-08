@@ -32,13 +32,12 @@ import { Bar, Line } from 'vue-chartjs';
 
 Vue.component('card', require('./components/CardComponent.vue').default);
 Vue.component('service-component', require('./components/ServiceComponent.vue').default);
-//Vue.component('InfiniteLoading', require('vue-infinite-loading'));
 
 import InfiniteLoading from 'vue-infinite-loading';
 Vue.use(InfiniteLoading, {
     slots: {
-        noMore: 'Non sono presenti altri appartamenti', // you can pass a string value
-        noResults: 'Non sono presenti appartamenti con queste caratteristiche', // you can pass a string value
+        noMore: 'Non sono presenti altri appartamenti',
+        noResults: 'Non sono presenti appartamenti con queste caratteristiche',
     },
 });
 
@@ -46,7 +45,6 @@ import ChartComponent from './components/ChartMessagesComponent.js';
 
 $(document).ready(function () {
     var forms = $('.needs-validation');
-    //console.log(forms);
     $(forms).submit(function (event) {
         if(!this.checkValidity()){
             event.preventDefault();
@@ -66,6 +64,7 @@ $(document).ready(function () {
         details: "#address_apartment-complete",
         detailsAttribute: "data-geo"
     }).bind("geocode:result", function(event, result){
+        //prendo i dati dai campi input compilati da geocomplete e li inserisco nei div
         let $street = $('#street').val();
         let $house_number = $('#house_number').val();
         let $locality = $('#locality').val();
@@ -210,7 +209,7 @@ $(document).ready(function () {
                 formValidate(status){
                     this.formNoValidate = !status;
                     this.formValidated = status;
-                    console.log(this.formValidated);
+                    //console.log(this.formValidated);
                 },
                 infiniteHandler($state) {
                     this.formValidate(false);
@@ -239,7 +238,6 @@ $(document).ready(function () {
                             $state.complete();
                         }
 
-
                         $('#address').geocomplete({
                             details: "#address-complete",
                             detailsAttribute: "data-geo"
@@ -254,8 +252,7 @@ $(document).ready(function () {
 
                 },
                 getFormValues: function(submitEvent) {
-                    console.log("loading");
-                    console.log(this.page);
+
                     if(!submitEvent.srcElement.checkValidity()){
                         event.preventDefault();
                         event.stopPropagation();
@@ -304,6 +301,7 @@ $(document).ready(function () {
             },
         });
     }
+
     function insertParamsLatLon(lat, lon) {
         $('#latitude').val(lat);
         $('#longitude').val(lon);
@@ -330,7 +328,6 @@ $(document).ready(function () {
                 $alert.removeClass('alert alert-danger').html('');
 
                 instance.requestPaymentMethod().then(function (payload) {
-                    // Submit payload.nonce to your server
                     let nonce = payload.nonce;
 
                     axios({
@@ -342,7 +339,6 @@ $(document).ready(function () {
                             apartmentId: apartmentId
                         }
                     }).then((response) => {
-                        //console.log(response.data);
                         if(response.data.success === true){
                             instance.teardown(function(err) {
                                 if (err) { console.error('An error occurred during teardown:', err); }
@@ -356,8 +352,6 @@ $(document).ready(function () {
                         console.log(error.response);
                     });
                 }).catch(function (requestPaymentMethodErr) {
-                    // No payment method is available.
-                    // An appropriate error will be shown in the UI.
                     console.error(requestPaymentMethodErr);
                 });
             });

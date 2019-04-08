@@ -30,21 +30,19 @@ class HomeController extends Controller
     {
 
         $user = Auth::user()->id;
-
         $apartments = Apartment::where('user_id', $user)->latest()->limit(3)->get();
-
         $messages = Message::where('user_id', $user)->latest()->limit(4)->get();
-
         $apartments_user = [];
 
         foreach ($apartments as $apartment) {
-
           if ( Apartment::where('user_id', $user) ) {
             $apartments_user[] = $apartment->id;
           }
         }
 
         $now = Carbon::now();
+        $sponsorships = [];
+
         foreach ($apartments as $apartment_sponsorized){
             // se esiste la sponsorship
             if($apartment_sponsorized->sponsorship){
@@ -58,15 +56,15 @@ class HomeController extends Controller
                 if($diff <= 0){
                     $sponsorships[] = $apartment_sponsorized;
                 }
-            } else {
-                $sponsorships = [];
             }
         }
+
         $data = [
             'apartments' => $apartments,
             'messages' => $messages,
             'sponsorships' => $sponsorships
         ];
+
         return view('user.home', $data);
     }
 
