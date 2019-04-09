@@ -2,7 +2,7 @@
     <div class="card__content {{(!$apartment->published) ? 'unpublished' : null}} {{($apartment->sponsorship && \Illuminate\Support\Carbon::create(\App\Sponsorship::find($apartment->sponsorship)->first()->sponsor_expired)->diffInDays(\Illuminate\Support\Carbon::now(), false) <= 0) ? 'sponsorized' : null}}">
         <div class="card__header">
             <div class="card__img">
-                <a href="{{route('apartment.show', $apartment->id)}}"  style="background-image: url('{{asset('storage/' . $apartment->image)}}')">
+                <a href="{{route('apartment.show', $apartment->id)}}" {{(Route::currentRouteName() === 'apartments.search') ? 'target="_blank"' : null}}   style="background-image: url('{{asset('storage/' . $apartment->image)}}')">
                     <img href="{{asset('storage/' . $apartment->image)}}" alt="{{$apartment->title}}" aria-hidden="false" hidden></a>
             </div>
         </div>
@@ -16,7 +16,7 @@
                 </ul>
             </div>
             <div class="card__title">
-                <a href="{{route('apartment.show', $apartment->id)}}" target="_blank"><h2>{{$apartment->title}}</h2></a>
+                <a href="{{route('apartment.show', $apartment->id)}}" {{(Route::currentRouteName() === 'apartments.search') ? 'target="_blank"' : null}} ><h2>{{$apartment->title}}</h2></a>
             </div>
             <div class="card__info">
                 <p class="card__price"><strong>{{$apartment->price}} € </strong>a persona</p>
