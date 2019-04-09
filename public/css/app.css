@@ -10933,7 +10933,7 @@ main > div:first-child {
     height: 100vh;
     padding: 40px;
     background: #76A2FB;
-    font-size: 160%;
+    font-size: 140%;
     text-align: center;
   }
 
@@ -10953,12 +10953,21 @@ main > div:first-child {
     text-transform: uppercase;
   }
 
-  .navbar-laravel .navbar-collapse .nav-item.authentication:first-of-type {
+  .navbar-laravel .navbar-collapse .nav-item.authentication:first-child {
     border-top: 1px solid #FFF;
   }
 
-  .navbar-laravel .navbar-collapse .nav-item.authentication:nth-child(2) {
+  .navbar-laravel .navbar-collapse .nav-item.authenticated:first-child {
+    margin-top: 40px;
+    border-top: 1px solid #FFF;
+  }
+
+  .navbar-laravel .navbar-collapse .nav-item.border-bottom {
     border-bottom: 1px solid #FFF;
+  }
+
+  .navbar-laravel .navbar-collapse .nav-item.border-top {
+    border-top: 1px solid #FFF;
   }
 }
 
@@ -11643,6 +11652,12 @@ main > div:first-child {
 @media (max-width: 1199.98px) {
   .messages__main__title .container h1 {
     font-size: 160%;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .table__td-users {
+    display: none;
   }
 }
 

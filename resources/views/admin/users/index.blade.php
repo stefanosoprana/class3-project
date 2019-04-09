@@ -22,7 +22,7 @@
               <th scope="col">ID</th>
               <th scope="col">Nome</th>
               <th scope="col">Cognome</th>
-              <th scope="col">E-mail</th>
+              <th scope="col" class="table__td-users">E-mail</th>
               <th scope="col">Modifica</th>
               <th scope="col">Elimina</th>
             </tr>
@@ -34,7 +34,7 @@
                   <td>{{ $user->id }}</td>
                   <td>{{ $user->name }}</td>
                   <td>{{ $user->lastname }}</td>
-                  <td>{{ $user->email }}</td>
+                  <td  class="table__td-users">{{ $user->email }}</td>
                   <td>
                     <a href="{{ route('Admin.users.edit', $user->id) }}" class="btn btn-default"><i class="fas fa-pen" title="Modifica"></i></a>
                   </td>

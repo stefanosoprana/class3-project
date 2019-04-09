@@ -33,7 +33,7 @@
       height: 100vh;
       padding: 40px;
       background: $blue;
-      font-size: 160%;
+      font-size: 140%;
       text-align: center;
       .navbar-close{
         position: absolute;
@@ -50,11 +50,18 @@
         text-transform: uppercase;
       }
       .nav-item{
-        &.authentication:first-of-type{
+        &.authentication:first-child{
           border-top: 1px solid $white;
         }
-        &.authentication:nth-child(2){
+        &.authenticated:first-child{
+          margin-top: 40px;
+          border-top: 1px solid $white;
+        }
+        &.border-bottom{
           border-bottom: 1px solid $white;
+        }
+        &.border-top{
+          border-top: 1px solid $white;
         }
       }
     }

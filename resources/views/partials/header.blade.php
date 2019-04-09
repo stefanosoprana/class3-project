@@ -21,20 +21,20 @@
             <ul class="navbar-nav ml-auto">
               @auth
                 @if (Auth::user()->can('modify'))
-                  <li class="nav-item">
+                  <li class="nav-item authenticated">
                     <a class="nav-link" href="{{ route('Admin.users.index') }}">Tutti gli Utenti</a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item authenticated">
                     <a class="nav-link" href="{{ route('Admin.apartments.index') }}">Tutti gli Appartamenti</a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item authenticated">
                     <a class="nav-link" href="{{ route('Admin.messages.index')}}">Tutti i Messaggi</a>
                   </li>
                 @endif
-                <li class="nav-item">
+                <li class="nav-item authenticated">
                   <a class="nav-link" href="{{ route('apartments.user.index', Auth::user()->name) }}">Appartamenti</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item authenticated">
                   <a class="nav-link" href="{{ route('messages.index', Auth::user()->id)}}">Messaggi</a>
                 </li>
               @endauth
@@ -45,7 +45,7 @@
                           <a class="nav-link" href="{{ route('register') }}">{{ __('Diventa un host') }}</a>
                       </li>
                   @endif
-                    <li class="nav-item authentication">
+                    <li class="nav-item authentication border-bottom">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Accedi') }}</a>
                     </li>
                 @else
@@ -67,7 +67,7 @@
                         </div>
                     </li>
                 @endguest
-                  <li class="nav-item d-md-none"><a href="" class="nav-link">OPPORTUNITÀ DI LAVORO</a></li>
+                  <li class="nav-item d-md-none border-top pt-3"><a href="" class="nav-link">OPPORTUNITÀ DI LAVORO</a></li>
                   <li class="nav-item d-md-none"><a href="" class="nav-link">STAMPA</a></li>
                   <li class="nav-item d-md-none"><a href="" class="nav-link">CONDIZIONI</a></li>
                   <li class="nav-item d-md-none"><a href="" class="nav-link">AIUTO</a></li>
