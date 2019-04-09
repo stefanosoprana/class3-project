@@ -10975,6 +10975,7 @@ main > div:first-child {
   top: 80px;
   width: 100%;
   height: 70%;
+  min-height: 500px;
   padding-top: 40px;
 }
 
