@@ -1,5 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);@charset "UTF-8";
 
+/*Body*/
+
+/*Typography*/
+
+/*Colori*/
+
+/*Altezze*/
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -10785,6 +10793,8 @@ main > div:first-child {
   color: #4e06d2;
 }
 
+/*Checkbox*/
+
 .checkbox-container {
   cursor: pointer;
   display: block;
@@ -11237,6 +11247,7 @@ main > div:first-child {
 }
 
 .card__content {
+  position: relative;
   border: 1px solid #e7e7e7;
   border-radius: 5px;
   background: #FFF;
@@ -11629,6 +11640,23 @@ main > div:first-child {
 
 .home__main .home__main__sponsorized-apartments h2 {
   margin: 40px 0 30px 0;
+}
+
+.home__main .alert-sponsorship {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: rgba(251, 142, 118, 0.4);
+  text-transform: uppercase;
+  color: white;
+  font-size: 150%;
+  text-shadow: 1px 1px black;
 }
 
 .messages__main__title {

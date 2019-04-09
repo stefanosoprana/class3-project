@@ -1,8 +1,13 @@
 <div class="h-100 card">
     <div class="card__content {{(!$apartment->published) ? 'unpublished' : null}} {{($apartment->sponsorship && \Illuminate\Support\Carbon::create(\App\Sponsorship::find($apartment->sponsorship)->first()->sponsor_expired)->diffInDays(\Illuminate\Support\Carbon::now(), false) <= 0) ? 'sponsorized' : null}}">
+        @if(!empty($med_visits))
+        <div class="alert-sponsorship">
+            Solo {{$med_visits}} {{($med_visits == 1) ? 'visita' : 'visite'}} al mese
+        </div>
+        @endif
         <div class="card__header">
             <div class="card__img">
-                <a href="{{route('apartment.show', $apartment->id)}}" {{(Route::currentRouteName() === 'apartments.search') ? 'target="_blank"' : null}}   style="background-image: url('{{asset('storage/' . $apartment->image)}}')">
+                <a href="{{route('apartment.show', $apartment->id)}}" {{(Route::currentRouteName() === 'apartments.search') ? 'target="_blank"' : null}}  style="background-image: url('{{asset('storage/' . $apartment->image)}}')">
                     <img href="{{asset('storage/' . $apartment->image)}}" alt="{{$apartment->title}}" aria-hidden="false" hidden></a>
             </div>
         </div>

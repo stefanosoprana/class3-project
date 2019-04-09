@@ -1,13 +1,13 @@
-// Body
+/*Body*/
 $body-bg: #f8fafc;
 
-// Typography
+/*Typography*/
 $font-family-sans-serif: "Open Sans", sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
 
-// Colors
+/*Colori*/
 $blue: #76A2FB;
 $darkBlue: darken($blue, 30);
 $lightBlue: lighten($blue, 21);
@@ -34,6 +34,8 @@ $green:   #68D8BD !default;
 $teal:    #20c997 !default;
 $cyan:    #17a2b8 !default;
 
+
+/*Altezze*/
 $headerHeight: 80px;
 $headerImage: 250px;
 $topStatus: $headerImage + $headerHeight;

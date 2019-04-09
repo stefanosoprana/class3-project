@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Apartment;
 use App\Sponsorship;
 use App\Message;
+use App\Visit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 
@@ -41,8 +42,8 @@ class HomeController extends Controller
         }
 
         $now = Carbon::now();
-        $sponsorships = [];
 
+        $sponsorships = [];
         foreach ($apartments as $apartment_sponsorized){
             // se esiste la sponsorship
             if($apartment_sponsorized->sponsorship){
@@ -59,10 +60,44 @@ class HomeController extends Controller
             }
         }
 
+        if(count($sponsorships) === 0){
+            $suggestion_sponsorships = [];
+            $i = 0;
+            while($i < count($apartments) && $i < 3){
+
+                $visits = Visit::where('apartment_id', $apartments[$i]->id)->orderBy('created_at', 'desc')->get();
+                $data = [
+                    'year' => Carbon::now()->year,
+                    'visits'=> [0,0,0,0,0,0,0,0,0,0,0,0],
+                ];
+
+                foreach ($visits as $visit){
+                    $visit_created = Carbon::make($visit['created_at']);
+                    $visit_month = $visit_created->month;
+                    $visit_year = $visit_created->year;
+
+                    if($data['year'] === $visit_year){
+                        $data['visits'][$visit_month-1] += 1;
+                    }
+                }
+
+                $med_visits = ceil(array_sum ($data['visits']) / 12);
+
+                if(count($apartments[$i]->visits()->get()->toArray()) < 100){
+                    $suggestion_sponsorships[$i]['apartment'] = $apartments[$i];
+                    $suggestion_sponsorships[$i]['med_visits'] = $med_visits;
+                }
+
+                $i++;
+            }
+        }
+
+
         $data = [
             'apartments' => $apartments,
             'messages' => $messages,
-            'sponsorships' => $sponsorships
+            'sponsorships' => $sponsorships,
+            'suggestion_sponsorships' =>  $suggestion_sponsorships
         ];
 
         return view('user.home', $data);

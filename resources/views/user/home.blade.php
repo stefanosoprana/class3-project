@@ -58,6 +58,57 @@
                 </div>
             </div>
             {{-- /ULTIMI MESSAGGI --}}
+            @if($sponsorships)
+                {{-- APPARTAMENTI SPONSORIZZATI --}}
+                <div class="home__main__sponsorized-apartments">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-8 d-flex align-items-center">
+                                <h2 class="title-blue">Appartamenti sponsorizzati</h2>
+                            </div>
+                            <div class="col-4 text-right d-flex justify-content-end align-items-center">
+                                <a href="{{route('apartments.user.index', Auth::user()->id)}}" class="btn btn-default"><i class="fas fa-home" title="home"></i> Tutti gli appartamenti</a>
+                            </div>
+                        </div>
+                        {{-- Cards --}}
+                        <div class="row">
+                            @forelse($sponsorships as $apartment_sponsorized)
+                                <div class="col-lg-4 col-sm-6 mb-4">
+                                    @component('components.apartment.card', ['apartment' => $apartment_sponsorized])
+                                    @endcomponent
+                                </div>
+                                @endforeach
+                        </div>
+                        {{-- End Cards --}}
+                    </div>
+                </div>
+                {{-- /APPARTAMENTI SPONSORIZZATI --}}
+                {{-- APPARTAMENTI MENO VISITATI --}}
+            @else
+                <div class="home__main__sponsorized-apartments">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-8 d-flex align-items-center">
+                                <h2 class="title-blue">Appartamenti meno visitati</h2>
+                            </div>
+                            <div class="col-4 text-right d-flex justify-content-end align-items-center">
+                                <a href="{{route('apartments.user.index', Auth::user()->id)}}" class="btn btn-default"><i class="fas fa-home" title="home"></i> Tutti gli appartamenti</a>
+                            </div>
+                        </div>
+                        {{-- Cards --}}
+                        <div class="row">
+                            @forelse($suggestion_sponsorships as $apartment)
+                                <div class="col-lg-4 col-sm-6 mb-4">
+                                    @component('components.apartment.card', ['apartment' => $apartment['apartment'], 'med_visits' => $apartment['med_visits']])
+                                    @endcomponent
+                                </div>
+                                @endforeach
+                        </div>
+                        {{-- End Cards --}}
+                    </div>
+                </div>
+                {{-- /APPARTAMENTI MENO VISITATI --}}
+            @endif
             {{-- ULTIMI APPARTAMENTI --}}
             <div class="home__main__last-apartments mt-5">
                 <div class="container">
@@ -79,31 +130,6 @@
                             @endforeach
                         </div>
                         {{-- End Cards --}}
-                </div>
-
-
-                {{-- APPARTAMENTI SPONSORIZZATI --}}
-                <div class="home__main__sponsorized-apartments">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-8 d-flex align-items-center">
-                                <h2 class="title-blue">Appartamenti sponsorizzati</h2>
-                            </div>
-                            <div class="col-4 text-right d-flex justify-content-end align-items-center">
-                                <a href="{{route('apartments.user.index', Auth::user()->id)}}" class="btn btn-default"><i class="fas fa-home" title="home"></i> Tutti gli appartamenti</a>
-                            </div>
-                        </div>
-                        {{-- Cards --}}
-                        <div class="row">
-                            @forelse($sponsorships as $apartment_sponsorized)
-                                <div class="col-lg-4 col-sm-6 mb-4">
-                                    @component('components.apartment.card', ['apartment' => $apartment_sponsorized])
-                                    @endcomponent
-                                </div>
-                            @endforeach
-                        </div>
-                        {{-- End Cards --}}
-                    </div>
                 </div>
             </div>
         </div>

@@ -28,6 +28,10 @@ class Apartment extends Model
       return $this->hasOne('App\Sponsorship');
     }
 
+    public function visits(){
+        return $this->hasMany('App\Visit');
+    }
+
     /*
      * Uso scope Apartment::radius($longitude, $latitude, $radius)->where(...)->get();
      * $radius è in metri quindi 40000 per 40km
