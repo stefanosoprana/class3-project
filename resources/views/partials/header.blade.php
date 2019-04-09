@@ -4,10 +4,14 @@
             <img src="{{asset('img/boolbnb-logo.svg')}}" alt="" class="img-fluid">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-icon"></span>
+           <i class="fa fas fa-bars"></i>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <button class="navbar-close d-block d-md-none
+" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                <i class="fas fa-times"></i>
+            </button>
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
@@ -41,15 +45,13 @@
                 <!-- Authentication Links -->
                 @guest
                   @if (Route::has('register'))
-                      <li class="nav-item">
+                      <li class="nav-item authentication">
                           <a class="nav-link" href="{{ route('register') }}">{{ __('Diventa un host') }}</a>
                       </li>
                   @endif
-
-                    <li class="nav-item">
+                    <li class="nav-item authentication">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Accedi') }}</a>
                     </li>
-
                 @else
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -69,6 +71,12 @@
                         </div>
                     </li>
                 @endguest
+                  <li class="nav-item d-md-none"><a href="" class="nav-link">OPPORTUNITÀ DI LAVORO</a></li>
+                  <li class="nav-item d-md-none"><a href="" class="nav-link">STAMPA</a></li>
+                  <li class="nav-item d-md-none"><a href="" class="nav-link">CONDIZIONI</a></li>
+                  <li class="nav-item d-md-none"><a href="" class="nav-link">AIUTO</a></li>
+                  <li class="nav-item d-md-none"><a href="" class="nav-link">DIVERSITÀ E APPARTENENZA</a></li>
+                  <li class="nav-item d-md-none"><a href="" class="nav-link">INFORMAZIONI DI CONTATTO</a></li>
             </ul>
         </div>
     </div>

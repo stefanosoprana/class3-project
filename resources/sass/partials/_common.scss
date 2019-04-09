@@ -24,9 +24,14 @@
 body {
   position: relative;
   background-color: $white;
+  min-width: 575px;
 }
+
 main > div:first-child{
-  margin-top: calc(#{$headerImage} - #{$headerHeight});
+  margin-top: calc(#{$headerImage} - #{$headerHeight} + 40px);
+  @include media-breakpoint-down(md) {
+    margin-top: calc(#{$headerImage} - #{$headerHeight} + 60px);
+  }
 }
 
 /*Bottoni*/
