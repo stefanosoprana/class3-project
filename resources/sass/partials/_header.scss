@@ -62,8 +62,9 @@
 }
 
 .search.form{
-  width: 100%;
   top: $headerHeight;
+  width: 100%;
+  height: $contentHeight;
   padding-top: 40px;
   &:after{
     content:"";

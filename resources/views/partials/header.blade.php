@@ -14,11 +14,7 @@
             </button>
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <a class="nav-link">
-                  <img src="{{ asset('public/boolbnb-logo.svg') }}" alt="">
-                 </a>
-              </li>
+
             </ul>
 
             <!-- Right Side Of Navbar -->

@@ -1,6 +1,7 @@
 .footer {
   padding: 40px 0;
   background: $lightBlue;
+  height: $footerHeight;
   ul {
     padding: 0;
     li {
@@ -8,7 +9,12 @@
       padding: 0;
       a {
         text-decoration: none;
-        color: black;
+        color: $black;
+        &:hover,
+        &:active,
+        &:focus{
+          text-decoration: underline;
+        }
         i {
           font-size: 17px;
           margin-right: 5px;
