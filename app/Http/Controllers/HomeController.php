@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Apartment;
 use App\Sponsorship;
 use App\Message;
+use App\Visit;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 
@@ -40,10 +41,11 @@ class HomeController extends Controller
           }
         }
 
+        $apartments_all = Apartment::where('user_id', $user)->get();
         $now = Carbon::now();
-        $sponsorships = [];
 
-        foreach ($apartments as $apartment_sponsorized){
+        $sponsorships = [];
+        foreach ($apartments_all as $apartment_sponsorized){
             // se esiste la sponsorship
             if($apartment_sponsorized->sponsorship){
                 //seleziono la sponsorhip con apartment id corrispondente
@@ -59,10 +61,45 @@ class HomeController extends Controller
             }
         }
 
+        if(count($sponsorships) === 0){
+            $suggestion_sponsorships = [];
+            $i = 0;
+
+            while($i < count($apartments_all) && $i < 2){
+
+                $visits = Visit::where('apartment_id', $apartments_all[$i]->id)->orderBy('created_at', 'desc')->get();
+
+                $data = [
+                    'year' => Carbon::now()->year,
+                    'visits'=> [0,0,0,0,0,0,0,0,0,0,0,0],
+                ];
+
+                foreach ($visits as $visit){
+                    $visit_created = Carbon::make($visit['created_at']);
+                    $visit_month = $visit_created->month;
+                    $visit_year = $visit_created->year;
+
+                    if($data['year'] === $visit_year){
+                        $data['visits'][$visit_month-1] += 1;
+                    }
+                }
+
+                $med_visits = ceil(array_sum ($data['visits']) / 12);
+
+                if($med_visits < 100){
+                    $suggestion_sponsorships[$i]['apartment'] = $apartments_all[$i];
+                    $suggestion_sponsorships[$i]['med_visits'] = $med_visits;
+                }
+
+                $i++;
+            }
+        }
+
         $data = [
             'apartments' => $apartments,
             'messages' => $messages,
-            'sponsorships' => $sponsorships
+            'sponsorships' => $sponsorships,
+            'suggestion_sponsorships' =>  (isset($suggestion_sponsorships)) ? $suggestion_sponsorships : null
         ];
 
         return view('user.home', $data);

@@ -1,3 +1,8 @@
 @import 'partials/users/_main.scss';
 @import 'partials/users/home/_main.scss';
 @import 'partials/users/messages/_main.scss';
+.table__td-users{
+  @include media-breakpoint-down(lg) {
+    display:none;
+  }
+}

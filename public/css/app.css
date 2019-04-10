@@ -1,5 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);@charset "UTF-8";
 
+/*Body*/
+
+/*Typography*/
+
+/*Colori*/
+
+/*Altezze*/
+
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -10785,6 +10793,8 @@ main > div:first-child {
   color: #4e06d2;
 }
 
+/*Checkbox*/
+
 .checkbox-container {
   cursor: pointer;
   display: block;
@@ -10933,7 +10943,7 @@ main > div:first-child {
     height: 100vh;
     padding: 40px;
     background: #76A2FB;
-    font-size: 160%;
+    font-size: 140%;
     text-align: center;
   }
 
@@ -10945,7 +10955,8 @@ main > div:first-child {
     border: 0;
     font-size: 200%;
     color: #FFF;
-    text-shadow: -2px 1px #A576fb, 1px 2px #A576fb, 2px 1px #A576fb, 1px -2px #A576fb;
+    -webkit-text-stroke: 2px #A576fb;
+    text-shadow: 3px 3px 0 #A576fb, -1px -1px 0 #A576fb, 1px -1px 0 #A576fb, -1px 1px 0 #A576fb, 1px 1px 0 #A576fb;
   }
 
   .navbar-laravel .navbar-collapse a.nav-link {
@@ -10953,12 +10964,21 @@ main > div:first-child {
     text-transform: uppercase;
   }
 
-  .navbar-laravel .navbar-collapse .nav-item.authentication:first-of-type {
+  .navbar-laravel .navbar-collapse .nav-item.authentication:first-child {
     border-top: 1px solid #FFF;
   }
 
-  .navbar-laravel .navbar-collapse .nav-item.authentication:nth-child(2) {
+  .navbar-laravel .navbar-collapse .nav-item.authenticated:first-child {
+    margin-top: 40px;
+    border-top: 1px solid #FFF;
+  }
+
+  .navbar-laravel .navbar-collapse .nav-item.border-bottom {
     border-bottom: 1px solid #FFF;
+  }
+
+  .navbar-laravel .navbar-collapse .nav-item.border-top {
+    border-top: 1px solid #FFF;
   }
 }
 
@@ -10966,6 +10986,7 @@ main > div:first-child {
   top: 80px;
   width: 100%;
   height: 70%;
+  min-height: 500px;
   padding-top: 40px;
 }
 
@@ -11227,10 +11248,11 @@ main > div:first-child {
 }
 
 .card__content {
+  position: relative;
   border: 1px solid #e7e7e7;
   border-radius: 5px;
   background: #FFF;
-  min-height: 350px;
+  min-height: 400px;
 }
 
 .card__content.sponsorized {
@@ -11621,6 +11643,57 @@ main > div:first-child {
   margin: 40px 0 30px 0;
 }
 
+.home__main .alert-sponsorship {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: rgba(251, 142, 118, 0.4);
+  text-transform: uppercase;
+  color: white;
+  font-size: 150%;
+  text-shadow: 1px 1px black;
+}
+
+.home__main .sponsor-adv .card__content {
+  background: #A576fb;
+  border-radius: 5px;
+  text-align: center;
+  color: #FFF;
+  padding-top: 30px;
+}
+
+.home__main .sponsor-adv .card__content h1,
+.home__main .sponsor-adv .card__content h2 {
+  font-weight: bold;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.home__main .sponsor-adv .card__content ul {
+  list-style: none;
+  margin: 50px 0 0;
+  padding: 0;
+}
+
+.home__main .sponsor-adv .card__content ul li {
+  font-size: 150%;
+}
+
+.home__main .sponsor-adv .card__content i {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  font-size: 300%;
+  -webkit-text-stroke: 2px #A576fb;
+  text-shadow: 3px 3px 0 #A576fb, -1px -1px 0 #A576fb, 1px -1px 0 #A576fb, -1px 1px 0 #A576fb, 1px 1px 0 #A576fb;
+}
+
 .messages__main__title {
   background-color: #A576fb;
   width: 100%;
@@ -11643,6 +11716,12 @@ main > div:first-child {
 @media (max-width: 1199.98px) {
   .messages__main__title .container h1 {
     font-size: 160%;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .table__td-users {
+    display: none;
   }
 }
 
