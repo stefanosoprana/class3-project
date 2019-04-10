@@ -34,9 +34,7 @@
         </div>
     </div>
     {{--Bottoni utente autenticato--}}
-    @if(!empty(Auth::user()))
-
-        @if($apartment->user->id === Auth::user()->id)
+        @if(!empty(Auth::user()) && $apartment->user->id === Auth::user()->id && empty($med_visits))
             <div class="card__edit-buttons">
                 <div class="">
                     <a href="{{ route('sponsorships.index', $apartment->id) }}" class="btn btn-sponsor"><i class="fas fa-certificate" title="Sponsorizza"></i></a>
@@ -53,6 +51,12 @@
                 </form>
             </div>
         @endif
-    @endif
+        @if(!empty(Auth::user()) && !empty($med_visits))
+        <div class="card__edit-buttons justify-content-center">
+            <div class="">
+                <a href="{{ route('sponsorships.index', $apartment->id) }}" class="btn btn-sponsor"><i class="fas fa-certificate" title="Sponsorizza"></i> Sponsorizzalo ora!</a>
+            </div>
+        </div>
+        @endif
     {{--/Bottoni utente autenticato--}}
 </div>

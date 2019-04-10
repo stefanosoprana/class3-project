@@ -63,7 +63,7 @@ class HomeController extends Controller
         if(count($sponsorships) === 0){
             $suggestion_sponsorships = [];
             $i = 0;
-            while($i < count($apartments) && $i < 3){
+            while($i < count($apartments) && $i < 2){
 
                 $visits = Visit::where('apartment_id', $apartments[$i]->id)->orderBy('created_at', 'desc')->get();
                 $data = [

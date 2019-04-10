@@ -33,4 +33,38 @@
     font-size: 150%;
     text-shadow: 1px 1px black;
   }
+  .sponsor-adv {
+    .card__content {
+      background: $purple;
+      border-radius: 5px;
+      text-align: center;
+      color: $white;
+      padding-top: 30px;
+      h1, h2 {
+        font-weight: bold;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+      }
+      ul {
+        list-style: none;
+        margin: 50px 0 0;
+        padding: 0;
+        li {
+          font-size: 150%;
+        }
+      }
+      i {
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        font-size: 300%;
+        -webkit-text-stroke: 2px $purple;
+        text-shadow: 3px 3px 0 $purple,
+        -1px -1px 0 $purple,
+        1px -1px 0 $purple,
+        -1px 1px 0 $purple,
+        1px 1px 0 $purple;
+      }
+    }
+  }
 }

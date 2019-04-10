@@ -10955,7 +10955,8 @@ main > div:first-child {
     border: 0;
     font-size: 200%;
     color: #FFF;
-    text-shadow: -2px 1px #A576fb, 1px 2px #A576fb, 2px 1px #A576fb, 1px -2px #A576fb;
+    -webkit-text-stroke: 2px #A576fb;
+    text-shadow: 3px 3px 0 #A576fb, -1px -1px 0 #A576fb, 1px -1px 0 #A576fb, -1px 1px 0 #A576fb, 1px 1px 0 #A576fb;
   }
 
   .navbar-laravel .navbar-collapse a.nav-link {
@@ -11251,7 +11252,7 @@ main > div:first-child {
   border: 1px solid #e7e7e7;
   border-radius: 5px;
   background: #FFF;
-  min-height: 350px;
+  min-height: 400px;
 }
 
 .card__content.sponsorized {
@@ -11657,6 +11658,40 @@ main > div:first-child {
   color: white;
   font-size: 150%;
   text-shadow: 1px 1px black;
+}
+
+.home__main .sponsor-adv .card__content {
+  background: #A576fb;
+  border-radius: 5px;
+  text-align: center;
+  color: #FFF;
+  padding-top: 30px;
+}
+
+.home__main .sponsor-adv .card__content h1,
+.home__main .sponsor-adv .card__content h2 {
+  font-weight: bold;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.home__main .sponsor-adv .card__content ul {
+  list-style: none;
+  margin: 50px 0 0;
+  padding: 0;
+}
+
+.home__main .sponsor-adv .card__content ul li {
+  font-size: 150%;
+}
+
+.home__main .sponsor-adv .card__content i {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  font-size: 300%;
+  -webkit-text-stroke: 2px #A576fb;
+  text-shadow: 3px 3px 0 #A576fb, -1px -1px 0 #A576fb, 1px -1px 0 #A576fb, -1px 1px 0 #A576fb, 1px 1px 0 #A576fb;
 }
 
 .messages__main__title {

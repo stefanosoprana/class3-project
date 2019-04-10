@@ -103,6 +103,20 @@
                                     @endcomponent
                                 </div>
                                 @endforeach
+                                <div class="col-lg-4 col-sm-6 mb-4">
+                                    <div class="card sponsor-adv">
+                                        <div class="card__content">
+                                            <i class="fas fa-certificate"></i>
+                                            <h1>Sponsorizza</h1>
+                                            <h2>Ottieni più visite con soli</h2>
+                                            <ul>
+                                                <li>2,99 € per 24 ore</li>
+                                                <li>5.99 € per 72 ore</li>
+                                                <li> 9.99 € per 144 ore</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                         {{-- End Cards --}}
                     </div>
