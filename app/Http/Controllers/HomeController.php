@@ -41,10 +41,11 @@ class HomeController extends Controller
           }
         }
 
+        $apartments_all = Apartment::where('user_id', $user)->get();
         $now = Carbon::now();
 
         $sponsorships = [];
-        foreach ($apartments as $apartment_sponsorized){
+        foreach ($apartments_all as $apartment_sponsorized){
             // se esiste la sponsorship
             if($apartment_sponsorized->sponsorship){
                 //seleziono la sponsorhip con apartment id corrispondente
@@ -63,9 +64,11 @@ class HomeController extends Controller
         if(count($sponsorships) === 0){
             $suggestion_sponsorships = [];
             $i = 0;
-            while($i < count($apartments) && $i < 2){
 
-                $visits = Visit::where('apartment_id', $apartments[$i]->id)->orderBy('created_at', 'desc')->get();
+            while($i < count($apartments_all) && $i < 2){
+
+                $visits = Visit::where('apartment_id', $apartments_all[$i]->id)->orderBy('created_at', 'desc')->get();
+
                 $data = [
                     'year' => Carbon::now()->year,
                     'visits'=> [0,0,0,0,0,0,0,0,0,0,0,0],
@@ -83,8 +86,8 @@ class HomeController extends Controller
 
                 $med_visits = ceil(array_sum ($data['visits']) / 12);
 
-                if(count($apartments[$i]->visits()->get()->toArray()) < 100){
-                    $suggestion_sponsorships[$i]['apartment'] = $apartments[$i];
+                if($med_visits < 100){
+                    $suggestion_sponsorships[$i]['apartment'] = $apartments_all[$i];
                     $suggestion_sponsorships[$i]['med_visits'] = $med_visits;
                 }
 
@@ -92,12 +95,11 @@ class HomeController extends Controller
             }
         }
 
-
         $data = [
             'apartments' => $apartments,
             'messages' => $messages,
             'sponsorships' => $sponsorships,
-            'suggestion_sponsorships' =>  $suggestion_sponsorships
+            'suggestion_sponsorships' =>  (isset($suggestion_sponsorships)) ? $suggestion_sponsorships : null
         ];
 
         return view('user.home', $data);

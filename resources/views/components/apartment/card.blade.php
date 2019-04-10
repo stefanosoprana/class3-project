@@ -1,6 +1,6 @@
 <div class="h-100 card">
     <div class="card__content {{(!$apartment->published) ? 'unpublished' : null}} {{($apartment->sponsorship && \Illuminate\Support\Carbon::create(\App\Sponsorship::find($apartment->sponsorship)->first()->sponsor_expired)->diffInDays(\Illuminate\Support\Carbon::now(), false) <= 0) ? 'sponsorized' : null}}">
-        @if(!empty($med_visits))
+        @if(isset($med_visits))
         <div class="alert-sponsorship">
             Solo {{$med_visits}} {{($med_visits == 1) ? 'visita' : 'visite'}} al mese
         </div>
