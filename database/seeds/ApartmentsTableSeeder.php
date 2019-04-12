@@ -16,7 +16,11 @@
         $files = Storage::allFiles('public/apartment_image/');
         $files = str_replace("public/", "", $files);
 
-          for ($i=0; $i < 30 ; $i++) {
+          $json = File::get("database/data/comuni.json");
+
+          $cities = json_decode($json);
+
+          foreach ($cities as $city) {
 
             $newApt = new Apartment;
 
@@ -29,12 +33,12 @@
             $newApt->bathrooms = $faker->numberBetween($min = 1, $max = 10);
             $newApt->square_meters = $faker->numberBetween($min = 30, $max = 400);
             $newApt->street = $faker->streetName;
-            $newApt->locality = $faker->city;
-            $newApt->house_number = $faker->buildingNumber;
-            $newApt->postal_code = $faker->randomNumber($nbDigits = NULL, $strict = false);
+            $newApt->locality = $city->city;
+            $newApt->house_number = $faker->numberBetween($min = 1, $max = 20);
+            $newApt->postal_code = intval($city->cap);
             $newApt->state = 'Italy';
-            $newApt->latitude = $faker->latitude($min = -90, $max = 90);
-            $newApt->longitude = $faker->longitude($min = -180, $max = 180);
+            $newApt->latitude = floatval($city->lat);
+            $newApt->longitude = floatval($city->lon);
             $newApt->image = $files[rand(0, count($files) - 1)];
             $newApt->published = $faker->numberBetween($min = 0, $max = 1);
 

@@ -236,7 +236,7 @@ $(document).ready(function () {
                         data: {
                             latitude: this.latitude,
                             longitude: this.longitude,
-                            radius: this.radius,
+                            radius: this.radius * 1000,
                             services: this.services,
                             beds: this.beds,
                             rooms: this.rooms,
@@ -302,8 +302,11 @@ $(document).ready(function () {
                 this.latitude = params.get("latitude");
                 this.longitude = params.get("longitude");
                 insertParamsLatLon(this.latitude,  this.longitude);
-
-                this.radius = params.get("radius");
+                if(!params.get("radius")) {
+                    this.radius = 20;
+                } else {
+                     this.radius = params.get("radius");
+                }
                 this.beds = params.get("beds") || 1;
                 this.rooms = params.get("rooms") || 1;
                 this.services = params.getAll("service");
