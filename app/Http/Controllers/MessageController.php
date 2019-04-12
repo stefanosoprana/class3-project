@@ -17,7 +17,6 @@ class MessageController extends Controller
     public function index(User $user)
     {
         if($user->id !==  Auth::user()->id && !Auth::user()->hasRole('admin')){
-
             abort(404);
         }
 
@@ -114,6 +113,7 @@ class MessageController extends Controller
     public function destroy($id)
     {
         $user = Auth::user();
+        //se esiste
         $message = Message::find($id);
         $message_name = $message->name;
         $message->delete();

@@ -36,7 +36,7 @@ class HomeController extends Controller
         $apartments_user = [];
 
         foreach ($apartments as $apartment) {
-          if ( Apartment::where('user_id', $user) ) {
+          if ($apartment->user_id == $user) {
             $apartments_user[] = $apartment->id;
           }
         }

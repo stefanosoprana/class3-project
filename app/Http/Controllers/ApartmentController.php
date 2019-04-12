@@ -26,7 +26,11 @@ class ApartmentController extends Controller
      */
     public function index()
     {
+
+        //solo sponsorizzati con whereas
         $apartments = Apartment::where('published', true)->get();
+
+
         $data =[
             'apartments' => [],
             'sponsorships' => []
@@ -149,6 +153,7 @@ class ApartmentController extends Controller
         $newApartment->fill($data);
         $newApartment->save();
 
+        //wherein dati che corrispondono pluck solo id
         if(isset($request['services'])){
             $services_all = Service::all();
             $this_services = [];
@@ -207,6 +212,8 @@ class ApartmentController extends Controller
             abort(404);
         };
 
+
+        //metodo private
         $validated_data = Validator::make($data,[
             'title'=> 'required',
             'description'=> 'required|string',
@@ -244,8 +251,6 @@ class ApartmentController extends Controller
         }
 
 
-        $data['updated_at'] = Carbon::now();
-
         $apartment->fill($data);
         $apartment->save();
 
@@ -274,14 +279,15 @@ class ApartmentController extends Controller
     public function destroy($id)
     {
         $apartment = Apartment::find($id);
-        $user = $apartment->user_id;
-        $apartment_title = $apartment->title;
 
         if (empty($apartment)) {
             abort(404);
         };
 
-        $messages = $apartment->messages()->get();
+        $user = $apartment->user_id;
+        $apartment_title = $apartment->title;
+
+        $messages = $apartment->messages;
         foreach ($messages as $message){
             $message->delete();
         }
@@ -308,6 +314,7 @@ class ApartmentController extends Controller
             abort(404);
         }
 
+        //group by con year
         $visits = Visit::all();
         $messages = Message::all();
 
@@ -340,7 +347,8 @@ class ApartmentController extends Controller
     /**
      *
      * View Search
-     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     function search(Request $request){
         $data = $request->all();
