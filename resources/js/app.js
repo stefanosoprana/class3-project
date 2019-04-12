@@ -323,7 +323,7 @@ $(document).ready(function () {
             authorization: token,
             container: '#dropin-container',
         }).then(function (instance) {
-            $button.click(function () {
+            $button.click(function (event) {
                 event.preventDefault();
                 $alert.removeClass('alert alert-danger').html('');
 
