@@ -1,26 +1,26 @@
 <?php
-  use Illuminate\Database\Seeder;
-  use App\Apartment;
-  use Faker\Generator as Faker;
+use Illuminate\Database\Seeder;
+use App\Apartment;
+use Faker\Generator as Faker;
 
-  class ApartmentsTableSeeder extends Seeder
-  {
-      /**
-       * Run the database seeds.
-       *
-       * @return void
-       */
-      public function run(Faker $faker)
-      {
+class ApartmentsTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run(Faker $faker)
+    {
 
         $files = Storage::allFiles('public/apartment_image/');
         $files = str_replace("public/", "", $files);
 
-          $json = File::get("database/data/comuni.json");
+        $json = File::get("database/data/comuni.json"); //from database MatteoHenryChinaski
 
-          $cities = json_decode($json);
+        $cities = json_decode($json);
 
-          foreach ($cities as $city) {
+        foreach ($cities as $city) {
 
             $newApt = new Apartment;
 
@@ -43,6 +43,6 @@
             $newApt->published = $faker->numberBetween($min = 0, $max = 1);
 
             $newApt->save();
-          }
-      }
-  }
+        }
+    }
+}
