@@ -27,7 +27,7 @@
             $newApt->locality = $faker->city;
             $newApt->house_number = $faker->buildingNumber;
             $newApt->postal_code = $faker->randomNumber($nbDigits = NULL, $strict = false);
-            $newApt->state = $faker->state;
+            $newApt->state = 'Italy';
             $newApt->latitude = $faker->latitude($min = -90, $max = 90);
             $newApt->longitude = $faker->longitude($min = -180, $max = 180);
             $newApt->image = 'apartment_image/default.jpeg';
