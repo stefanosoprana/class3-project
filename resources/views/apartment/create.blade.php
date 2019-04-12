@@ -28,38 +28,43 @@
                                     <div class="col-12">
                                         <div class="alert-warning mb-3">{{$errors->has('published') ? $errors->first('published') : ''}}</div>
                                         <div class="form-check form-check-inline">
-                                            <div class="checkbox-container">
-                                                <div class="checkbox-container__background"></div>
-                                                @if(isset($data['apartment']) && $data['apartment']->published === 1)
-                                                <input type="radio" name="published" id="published" checked  value="1" class="form-check-input" required>
-                                                @elseif(!isset($data['apartment']))
-                                                    <input type="radio" name="published" id="published" checked  value="1" class="form-check-input" required>
-                                                @endif
-                                                <i class="fas fa-eye btn btn-default"></i>
-                                            </div>
-                                            <label class="form-check-label" for="published">Pubblica</label>
-                                            <div class="valid-feedback">
-                                                Campo valido
-                                            </div>
-                                            <div class="invalid-feedback">
-                                                L'articolo deve essere pubblicato?
-                                            </div>
+                                          <div class="checkbox-container">
+                                            <div class="checkbox-container__background"></div>
+                                            @if(isset($data['apartment']) && $data['apartment']->published === 1)
+                                              <input type="radio" name="published" id="published" checked  value="1" class="form-check-input" required>
+                                            @elseif(!isset($data['apartment']) || $data['apartment']->published === 0)
+                                              <input type="radio" name="published" id="published"  value="1" class="form-check-input" required>
+                                            @endif
+                                            <i class="fas fa-eye btn btn-default"></i>
+                                          </div>
+                                          <label class="form-check-label" for="published">Pubblica</label>
+                                          <div class="valid-feedback">
+                                            Campo valido
+                                          </div>
+                                          <div class="invalid-feedback">
+                                            L'articolo deve essere pubblicato?
+                                          </div>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <div class="checkbox-container">
-                                                <input type="radio" name="published" id="published" {{ (isset($data['apartment']) && !$data['apartment']->published === 0) ? 'checked' : null }} value="0" class="form-check-input">
-                                                <i class="fas fa-eye  btn btn-default unpublished"></i>
-                                            </div>
-                                            <label class="form-check-label" for="published">Sospendi Pubblicazione</label>
-                                            <div class="valid-feedback">
-                                                Campo valido
-                                            </div>
-                                            <div class="invalid-feedback">
-                                                O deve essere privato?
-                                            </div>
+                                          <div class="checkbox-container">
+                                              <div class="checkbox-container__background"></div>
+                                              @if(isset($data['apartment']) && $data['apartment']->published === 0)
+                                                  <input type="radio" name="published" id="published" checked  value="0" class="form-check-input" required>
+                                              @elseif(!isset($data['apartment']) || $data['apartment']->published === 1)
+                                                  <input type="radio" name="published" id="published"   value="0" class="form-check-input" required>
+                                              @endif
+                                            <i class="fas fa-eye  btn btn-default unpublished"></i>
+                                          </div>
+                                          <label class="form-check-label" for="published">Sospendi Pubblicazione</label>
+                                          <div class="valid-feedback">
+                                            Campo valido
+                                          </div>
+                                          <div class="invalid-feedback">
+                                            O deve essere privato?
+                                          </div>
                                         </div>
+                                      </div>
                                     </div>
-                                </div>
                                 {{--/Pubblicato--}}
 
                                 {{--titolo--}}

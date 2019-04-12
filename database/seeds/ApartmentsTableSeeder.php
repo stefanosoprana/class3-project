@@ -12,7 +12,12 @@
        */
       public function run(Faker $faker)
       {
-          for ($i=0; $i < 10 ; $i++) {
+
+        $files = Storage::allFiles('public/apartment_image/');
+        $files = str_replace("public/", "", $files);
+
+          for ($i=0; $i < 30 ; $i++) {
+
             $newApt = new Apartment;
 
             $newApt->user_id = $faker->numberBetween($min = 1, $max = 10);
@@ -27,10 +32,10 @@
             $newApt->locality = $faker->city;
             $newApt->house_number = $faker->buildingNumber;
             $newApt->postal_code = $faker->randomNumber($nbDigits = NULL, $strict = false);
-            $newApt->state = $faker->state;
+            $newApt->state = 'Italy';
             $newApt->latitude = $faker->latitude($min = -90, $max = 90);
             $newApt->longitude = $faker->longitude($min = -180, $max = 180);
-            $newApt->image = 'apartment_image/default.jpeg';
+            $newApt->image = $files[rand(0, count($files) - 1)];
             $newApt->published = $faker->numberBetween($min = 0, $max = 1);
 
             $newApt->save();

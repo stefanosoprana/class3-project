@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\Apartment;
 use App\Message;
@@ -79,13 +80,39 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $user = User::find($id);
+        $user = User::find($id);
+        $email = $user->email;
+        $data = $request->all();
 
-      $data = $request->all();
+        if($data['email'] === $email ){
+            unset($data['email']);
+        }
 
-      $user->update($data);
+        if(!empty($data['password'])){
+            $data['password'] =  \Hash::make($data['password']);
+        }
+        else{
+            $data['password'] = $user->password;
+        }
 
-      return redirect()->route('Admin.users.index');
+        $validated_data = Validator::make($data,[
+            'name'=> 'required|string|max:255',
+            'lastname'=> 'required|string|max:255',
+            'email'=> 'email|unique:users|max:255',
+            'password'=> 'nullable|string|min:8',
+        ]);
+
+        if ($validated_data->fails()) {
+            return redirect()->back()
+                ->withErrors($validated_data)
+                ->withInput();
+        }
+
+        $user->update($data);
+
+        $message = 'Hai modificato l\'utente ' . $user->name;
+
+        return redirect()->route('Admin.users.index')->with('status', $message);
     }
 
     /**

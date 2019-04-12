@@ -56,7 +56,7 @@ Route::middleware('auth')->group(function () {
 
 //rotte per Admin
 Route::middleware('permission:modify')->namespace('Admin')->prefix('Admin')->name('Admin.')->group(function () {
-    Route::get('/home', 'HomeController@index')->name('index');
+   // Route::get('/home', 'HomeController@index')->name('index');
 
     // messaggi
     Route::get('/messages/admin', 'MessageController@index')->name('messages.index');
