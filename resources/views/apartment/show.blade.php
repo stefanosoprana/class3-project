@@ -6,7 +6,7 @@
       <img hidden src="{{ $apartment->image }}">
       <div class="apartment__header__title">
         <div class="container">
-          <h1 class="col-8">{{ $apartment->title }}</h1>
+          <h1 class="col-lg-8 col-xs-12">{{ $apartment->title }}</h1>
         </div>
       </div>
     </div>
@@ -28,7 +28,7 @@
         {{--scheda--}}
 
         <div class="row mt-5">
-          <div class="col-8">
+          <div class="col-lg-8 col-xs-12">
             <div class="container">
               <div class="row">
                 {{--descrizione--}}
@@ -53,7 +53,7 @@
               </div>
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-lg-4 col-xs-12">
             <div class="container">
               <div class="row">
                 {{--caratteristiche--}}
