@@ -32,8 +32,8 @@
                                             <div class="checkbox-container__background"></div>
                                             @if(isset($data['apartment']) && $data['apartment']->published === 1)
                                               <input type="radio" name="published" id="published" checked  value="1" class="form-check-input" required>
-                                            @elseif(!isset($data['apartment']))
-                                              <input type="radio" name="published" id="published" checked  value="1" class="form-check-input" required>
+                                            @elseif(!isset($data['apartment']) || $data['apartment']->published === 0)
+                                              <input type="radio" name="published" id="published"  value="1" class="form-check-input" required>
                                             @endif
                                             <i class="fas fa-eye btn btn-default"></i>
                                           </div>
@@ -47,7 +47,12 @@
                                         </div>
                                         <div class="form-check form-check-inline">
                                           <div class="checkbox-container">
-                                            <input type="radio" name="published" id="published" {{ (isset($data['apartment']) && !$data['apartment']->published === 0) ? 'checked' : null }} value="0" class="form-check-input">
+                                              <div class="checkbox-container__background"></div>
+                                              @if(isset($data['apartment']) && $data['apartment']->published === 0)
+                                                  <input type="radio" name="published" id="published" checked  value="0" class="form-check-input" required>
+                                              @elseif(!isset($data['apartment']) || $data['apartment']->published === 1)
+                                                  <input type="radio" name="published" id="published"   value="0" class="form-check-input" required>
+                                              @endif
                                             <i class="fas fa-eye  btn btn-default unpublished"></i>
                                           </div>
                                           <label class="form-check-label" for="published">Sospendi Pubblicazione</label>

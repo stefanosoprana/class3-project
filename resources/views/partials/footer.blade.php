@@ -14,9 +14,9 @@
       <div class="col-12 col-md-3 footer__right">
         <ul>
           <li>
-            <a href="#"><i class="fab fa-facebook-f"></a></i>
-            <a href="#"><i class="fab fa-instagram"></a></i>
-            <a href="#"><i class="fab fa-twitter"></a></i>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
           </li>
           <li><a href="#">Termini</a></li>
           <li><a href="#">Privacy</a></li>
