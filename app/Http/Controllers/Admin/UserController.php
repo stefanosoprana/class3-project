@@ -85,7 +85,9 @@ class UserController extends Controller
 
       $user->update($data);
 
-      return redirect()->route('Admin.users.index');
+        $message = 'Hai modificato l\'utente ' . $user->name;
+
+      return redirect()->route('Admin.users.index')->with('status', $message);;
     }
 
     /**
