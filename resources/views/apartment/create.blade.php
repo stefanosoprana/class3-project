@@ -163,21 +163,21 @@
                                             <div class="apartments__main__create__address-fake container">
                                                 <div class="row mt-5">
                                                     <div class="col-8">
-                                                        <div id="street-fake"></div>
+                                                        <div id="street-fake">{{ (isset($data['apartment'])) ? $data['apartment']->street : old('street')}} </div>
                                                     </div>
                                                     <div class="col-4 ">
-                                                        <div id="house_number-fake"></div>
+                                                        <div id="house_number-fake">{{ (isset($data['apartment'])) ? $data['apartment']->house_number : old('house_number')}}</div>
                                                     </div>
                                                 </div>
                                                 <div class="row mt-2">
                                                     <div class="col-3 ">
-                                                        <div id="locality-fake"></div>
+                                                        <div id="locality-fake">{{ (isset($data['apartment'])) ? $data['apartment']->locality : old('locality')}}</div>
                                                     </div>
                                                     <div class="col-2 ">
-                                                        <div id="postal_code-fake"></div>
+                                                        <div id="postal_code-fake">{{ (isset($data['apartment'])) ? $data['apartment']->postal_code : old('postal_code')}}</div>
                                                     </div>
                                                     <div class="col-2 ">
-                                                        <div id="country-fake"></div>
+                                                        <div id="country-fake">{{ (isset($data['apartment'])) ? $data['apartment']->state : old('state')}}</div>
                                                     </div>
                                                 </div>
                                             </div>
