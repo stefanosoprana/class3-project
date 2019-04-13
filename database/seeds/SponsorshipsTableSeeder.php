@@ -16,13 +16,7 @@ class SponsorshipsTableSeeder extends Seeder
     public function run()
     {
 
-
-        // var_dump($sponsorId["period"]);
-        // dd($period);
-          $data = [
-
-          ];
-
+          $data = [];
           $apartments = [];
 
           do {
@@ -31,7 +25,6 @@ class SponsorshipsTableSeeder extends Seeder
           if (!in_array($apartment["id"],$apartments)) {
 
             $sponsorId = SponsorshipsType::inRandomOrder()->first();
-
             $period = $now->addHours($sponsorId["period"]);
 
             $data[] = [
@@ -42,19 +35,13 @@ class SponsorshipsTableSeeder extends Seeder
 
             $apartments[] = $apartment["id"];
 
-
-
-
           }
 
-        } while (count($apartments)< 5);
+        } while (count($apartments)< 100);
 
 
         Sponsorship::insert($data);
-
-
-
-
+        
 
     }
 }
