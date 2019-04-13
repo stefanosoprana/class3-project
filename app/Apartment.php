@@ -7,6 +7,8 @@ use App\User;
 use App\Message;
 use App\Service;
 use App\Sponsorship;
+use Illuminate\Support\Carbon;
+
 
 class Apartment extends Model
 {
@@ -43,6 +45,13 @@ class Apartment extends Model
         ST_DISTANCE_SPHERE(
             POINT($longitude, $latitude),
             POINT(longitude, latitude)) < $radius")->orderBy('distance', 'desc');
+    }
+
+    public function scopeAllActiveSponsorhips($query){
+        $now = Carbon::now();
+        return $query->where('published', true)->whereHas('sponsorship', function ($query) use ($now) {
+            $query->whereDate('sponsor_expired', '>=' ,$now)->orderBy('created_at', 'ASC');
+        })->get();
     }
 
 }

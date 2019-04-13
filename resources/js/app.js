@@ -77,20 +77,6 @@ $(document).ready(function () {
         $('#country-fake').html($country);
     });
 
-    if($('#street').length){
-        //prendo i dati dai campi input compilati da geocomplete e li inserisco nei div
-        let $street = $('#street').val();
-        let $house_number = $('#house_number').val();
-        let $locality = $('#locality').val();
-        let $postal_code = $('#postal_code').val();
-        let $country = $('#state').val();
-        $('#street-fake').html($street);
-        $('#house_number-fake').html($house_number);
-        $('#locality-fake').html($locality);
-        $('#postal_code-fake').html($postal_code);
-        $('#country-fake').html($country);
-    }
-
     //vue chart
     if($('#charts').length){
         var selected = $('#year').val();
@@ -158,6 +144,7 @@ $(document).ready(function () {
                         url: url,
                         headers: {'Authorization': 'Bearer 123_Pippo_Pluto'}
                     }).then((response) => {
+                        console.log(response);
                         let data = response.data.result;
                         let label = data.labels;
                         let thisData = data[typeData];

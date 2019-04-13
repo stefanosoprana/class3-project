@@ -51,11 +51,7 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $now = Carbon::now();
-
-        $sponsorships = Apartment::where('published', true)->whereHas('sponsorship', function ($query) use ($now) {
-            $query->whereDate('sponsor_expired', '>=' ,$now)->orderBy('created_at', 'ASC');
-    })->get();
+        $sponsorships = Apartment::AllActiveSponsorhips();
 
         return view('apartment.index', compact('sponsorships'));
     }
@@ -261,27 +257,15 @@ class ApartmentController extends Controller
             abort(404);
         }
 
-        //group by con year
-        $visits = Visit::all();
-        $messages = Message::all();
+        $visits = Visit::get()->groupBy(function ($val) {
+            return Carbon::parse($val->created_at)->format('Y');
+        })->toArray();
 
-        $years = [];
+        $messages = Message::get()->groupBy(function ($val) {
+            return Carbon::parse($val->created_at)->format('Y');
+        })->toArray();
 
-        foreach ($visits as $visit){
-            $visit_created = Carbon::make($visit['created_at']);
-            $visit_year = $visit_created->year;
-            if(!in_array($visit_year, $years)){
-                $years[]= $visit_year;
-            }
-        }
-
-        foreach ($messages as $message){
-            $message_created = Carbon::make($message['created_at']);
-            $message_year = $message_created->year;
-            if(!in_array($message_year, $years)){
-                $years[]= $message_year;
-            }
-        }
+        $years = array_unique(array_merge(array_keys($visits), array_keys($messages)), SORT_REGULAR);
 
         $data = [
             'apartment' => $apartment,

@@ -37,7 +37,6 @@ class ApartmentController extends Controller
                 $visit_year = $visit_created->year;
                 if($data['year'] == $visit_year){
                     $data['visits'][$visit_month-1] += 1;
-
                 }
             }
 
@@ -84,7 +83,6 @@ class ApartmentController extends Controller
                 $message_year = $message_created->year;
                 if($data['year'] == $message_year){
                     $data['messages'][$message_month-1] += 1;
-
                 }
             }
 
@@ -174,7 +172,6 @@ class ApartmentController extends Controller
 
         //get su apartmenti sponsorizzati
         $apartments_sponsorized = $apartments_sponsorized_query->has('sponsorship')->get();
-        //dd($apartments);
         //salvo dati appartamenti sponsorizzati in array
         $data = [];
         foreach ($apartments_sponsorized as $apartment) {

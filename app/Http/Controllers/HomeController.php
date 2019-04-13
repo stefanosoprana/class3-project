@@ -33,35 +33,10 @@ class HomeController extends Controller
         $user = Auth::user()->id;
         $apartments = Apartment::where('user_id', $user)->latest()->limit(3)->get();
         $messages = Message::where('user_id', $user)->latest()->limit(4)->get();
-        $apartments_user = [];
-
-        foreach ($apartments as $apartment) {
-          if ($apartment->user_id == $user) {
-            $apartments_user[] = $apartment->id;
-          }
-        }
-
         $apartments_all = Apartment::where('user_id', $user)->get();
-        $now = Carbon::now();
+        $sponsorships = Apartment::AllActiveSponsorhips();
 
-        $sponsorships = [];
-        foreach ($apartments_all as $apartment_sponsorized){
-            // se esiste la sponsorship
-            if($apartment_sponsorized->sponsorship){
-                //seleziono la sponsorhip con apartment id corrispondente
-                $sponsorship = Sponsorship::where('apartment_id', $apartment_sponsorized->id)->first();
-                //salvo data di fine in formato carbon
-                $sponsorship_expire = Carbon::create($sponsorship['sponsor_expired']);
-                //controllo differenza tra oggi e la data
-                $diff = $sponsorship_expire->diffInDays($now, false);
-                //se è minore o uguale a 0 è ancora attiva e la salvo nell'array
-                if($diff <= 0){
-                    $sponsorships[] = $apartment_sponsorized;
-                }
-            }
-        }
-
-        if(count($sponsorships) === 0){
+        if(count($sponsorships->toArray()) === 0){
             $suggestion_sponsorships = [];
             $i = 0;
 

@@ -99192,22 +99192,7 @@ $(document).ready(function () {
     $('#locality-fake').html($locality);
     $('#postal_code-fake').html($postal_code);
     $('#country-fake').html($country);
-  });
-
-  if ($('#street').length) {
-    //prendo i dati dai campi input compilati da geocomplete e li inserisco nei div
-    var $street = $('#street').val();
-    var $house_number = $('#house_number').val();
-    var $locality = $('#locality').val();
-    var $postal_code = $('#postal_code').val();
-    var $country = $('#state').val();
-    $('#street-fake').html($street);
-    $('#house_number-fake').html($house_number);
-    $('#locality-fake').html($locality);
-    $('#postal_code-fake').html($postal_code);
-    $('#country-fake').html($country);
-  } //vue chart
-
+  }); //vue chart
 
   if ($('#charts').length) {
     var selected = $('#year').val();
@@ -99297,6 +99282,7 @@ $(document).ready(function () {
               'Authorization': 'Bearer 123_Pippo_Pluto'
             }
           }).then(function (response) {
+            console.log(response);
             var data = response.data.result;
             var label = data.labels;
             var thisData = data[typeData];
