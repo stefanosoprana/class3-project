@@ -21,6 +21,19 @@ class ApartmentsTableSeeder extends Seeder
         $cities = json_decode($json);
 
         foreach ($cities as $city) {
+            $gapi = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' . floatval($city->lat) .',' . floatval($city->lon) . '&key=' . config('app.google_api_key');
+            $json_resp = file_get_contents($gapi);
+            $adress = json_decode($json_resp, true);
+            if($adress['results'] > 0){
+                foreach ($adress['results'][0]['address_components'] as $address_component) {
+                    if(in_array("street_number", $address_component['types'] )){
+                        $number = intval($address_component['long_name']);
+                    }
+                    if(in_array("route", $address_component['types'] )){
+                        $street = $address_component['long_name'];
+                    }
+                }
+            }
 
             $newApt = new Apartment;
 
@@ -32,9 +45,9 @@ class ApartmentsTableSeeder extends Seeder
             $newApt->beds = $faker->numberBetween($min = 1, $max = 10);
             $newApt->bathrooms = $faker->numberBetween($min = 1, $max = 10);
             $newApt->square_meters = $faker->numberBetween($min = 30, $max = 400);
-            $newApt->street = $faker->streetName;
+            $newApt->street = $street;
             $newApt->locality = $city->city;
-            $newApt->house_number = $faker->numberBetween($min = 1, $max = 20);
+            $newApt->house_number = $number;
             $newApt->postal_code = intval($city->cap);
             $newApt->state = 'Italy';
             $newApt->latitude = floatval($city->lat);
