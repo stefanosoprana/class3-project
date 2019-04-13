@@ -147,12 +147,7 @@ class ApartmentController extends Controller
 
         if(isset($request['services'])){
             $services_all = Service::all();
-            $this_services = [];
-            foreach ($services_all as $service){
-                if (in_array($service->name, $request['services'])){
-                    $this_services[] = $service->id;
-                }
-            }
+            $this_services = $services_all->whereIn('name', $request['services'])->pluck('id')->all();
             $apartment->services()->sync($this_services);
         }
 
