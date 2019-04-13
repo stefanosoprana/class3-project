@@ -29,14 +29,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         $user = Auth::user()->id;
+        //ultimi 3 appartamenti
         $apartments = Apartment::where('user_id', $user)->latest()->limit(3)->get();
+        //ultimi 4 messaggi
         $messages = Message::where('user_id', $user)->latest()->limit(4)->get();
+        //tutti fli appartamenti dell'utente
         $apartments_all = Apartment::where('user_id', $user)->get();
-        $sponsorships = Apartment::AllActiveSponsorhips();
+        //tutte le sponsorizzazioni attive
+        $sponsorships = Apartment::UserActiveSponsorhips($user)->toArray();
 
-        if(count($sponsorships->toArray()) === 0){
+        if(count($sponsorships) === 0){
             $suggestion_sponsorships = [];
             $i = 0;
 

@@ -37,7 +37,9 @@
         @if(!empty(Auth::user()) && $apartment->user->id === Auth::user()->id && empty($med_visits))
             <div class="card__edit-buttons">
                 <div class="">
+                    @if($apartment->published)
                     <a href="{{ route('sponsorships.index', $apartment->id) }}" class="btn btn-sponsor"><i class="fas fa-certificate" title="Sponsorizza"></i></a>
+                    @endif
                     <a href="{{ route('apartment.show', $apartment->id) }}" class="btn btn-default {{(!$apartment->published) ? 'unpublished' : null}}"><i class="fas fa-eye" title="Visualizza"></i></a>
                     <a href="{{ route('apartment.edit', $apartment->id) }}" class="btn btn-default"><i class="fas fa-pen" title="Modifica"></i></a>
                     <a href="{{ route('apartment.statistic', $apartment->id) }}" class="btn btn-default"><i class="fas fa-chart-bar" title="Statistiche"></i></a>
@@ -51,7 +53,7 @@
                 </form>
             </div>
         @endif
-        @if(!empty(Auth::user()) && !empty($med_visits))
+        @if(!empty(Auth::user()) && !empty($med_visits) && $apartment->published)
         <div class="card__edit-buttons justify-content-center">
             <div class="">
                 <a href="{{ route('sponsorships.index', $apartment->id) }}" class="btn btn-sponsor"><i class="fas fa-certificate" title="Sponsorizza"></i> Sponsorizzalo ora!</a>

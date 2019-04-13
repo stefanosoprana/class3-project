@@ -54,4 +54,11 @@ class Apartment extends Model
         })->get();
     }
 
+    public function scopeUserActiveSponsorhips($query, $user_id){
+        $now = Carbon::now();
+        return $query->where('published', true)->where('user_id', $user_id)->whereHas('sponsorship', function ($query) use ($now) {
+            $query->whereDate('sponsor_expired', '>=' ,$now)->orderBy('created_at', 'ASC');
+        })->get();
+    }
+
 }
