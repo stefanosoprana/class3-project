@@ -17,6 +17,31 @@ use Mapper;
 class ApartmentController extends Controller
 {
 
+    private $validation;
+
+    public function __construct()
+    {
+        $this->validation = [
+            'title'=> 'required',
+            'description'=> 'required|string',
+            'price'=> 'required|numeric',
+            'street'=> 'required|string',
+            'house_number'=> 'required|numeric',
+            'locality'=> 'required|string',
+            'postal_code'=> 'required|numeric',
+            'state'=> 'required|string',
+            'latitude'=> 'required|numeric',
+            'longitude'=> 'required|numeric',
+            'image'=>'nullable|image',
+            'square_meters'=>'required|numeric',
+            'rooms'=>'required|numeric',
+            'beds'=>'required|numeric',
+            'bathrooms'=>'required|numeric',
+            'user_id'=>'exists:users,id',
+            'published'=>'required|boolean',
+            'services'=>'nullable|exists:services,name',
+        ];
+    }
     // CONTROLLER GUEST
 
     /**
@@ -29,7 +54,7 @@ class ApartmentController extends Controller
         $now = Carbon::now();
 
         $sponsorships = Apartment::where('published', true)->whereHas('sponsorship', function ($query) use ($now) {
-            $query->whereDate('sponsor_expired', '>=' ,$now);
+            $query->whereDate('sponsor_expired', '>=' ,$now)->orderBy('created_at', 'ASC');
     })->get();
 
         return view('apartment.index', compact('sponsorships'));
@@ -60,7 +85,7 @@ class ApartmentController extends Controller
     public function userIndex()
     {
         $user = Auth::user()->id;
-        $apartments = Apartment::where('user_id', $user)->get();
+        $apartments = Apartment::where('user_id', $user)->orderBy('created_at', 'DESC')->get();
         return view('apartment.userIndex', compact('apartments'));
     }
 
@@ -91,28 +116,8 @@ class ApartmentController extends Controller
 
         $data = $request->all();
 
-        $validated_data = Validator::make($data,[
-            'title'=> 'required',
-            'description'=> 'required|string',
-            'price'=> 'required|numeric',
-            'street'=> 'required|string',
-            'house_number'=> 'required|numeric',
-            'locality'=> 'required|string',
-            'postal_code'=> 'required|numeric',
-            'state'=> 'required|string',
-            'latitude'=> 'required|numeric',
-            'longitude'=> 'required|numeric',
-            'image'=>'nullable|image',
-            'square_meters'=>'required|numeric',
-            'rooms'=>'required|numeric',
-            'beds'=>'required|numeric',
-            'bathrooms'=>'required|numeric',
-            'user_id'=>'exists:users,id',
-            'published'=>'required|boolean',
-            'services'=>'nullable|exists:services,name',
-        ]);
+        $validated_data = Validator::make($data, $this->validation);
 
-        //dd($data);
         if ($validated_data->fails()) {
             return redirect()->back()
                 ->withErrors($validated_data)
@@ -130,18 +135,11 @@ class ApartmentController extends Controller
         $newApartment->fill($data);
         $newApartment->save();
 
-        //wherein dati che corrispondono pluck solo id
         if(isset($request['services'])){
             $services_all = Service::all();
-            $this_services = [];
-            foreach ($services_all as $service){
-                if (in_array($service->name, $request['services'])){
-                    $this_services[] = $service->id;
-                }
-            }
+            $this_services = $services_all->whereIn('name', $request['services'])->pluck('id')->all();
             $newApartment->services()->sync($this_services);
         }
-
 
         $message = 'Appartamento creato con successo';
 
@@ -189,28 +187,7 @@ class ApartmentController extends Controller
             abort(404);
         };
 
-
-        //metodo private
-        $validated_data = Validator::make($data,[
-            'title'=> 'required',
-            'description'=> 'required|string',
-            'price'=> 'required|numeric',
-            'street'=> 'required|string',
-            'house_number'=> 'required|numeric',
-            'locality'=> 'required|string',
-            'postal_code'=> 'required|numeric',
-            'state'=> 'required|string',
-            'latitude'=> 'required|numeric',
-            'longitude'=> 'required|numeric',
-            'image'=>'nullable|image',
-            'square_meters'=>'required|numeric',
-            'rooms'=>'required|numeric',
-            'beds'=>'required|numeric',
-            'bathrooms'=>'required|numeric',
-            'user_id'=>'exists:users,id',
-            'published'=>'required|boolean',
-            'services'=>'nullable|exists:services,name',
-        ]);
+        $validated_data = Validator::make($data, $this->validation);
 
         if ($validated_data->fails()) {
             return redirect()->back()
@@ -220,25 +197,18 @@ class ApartmentController extends Controller
 
         if(!empty($request['image'])){
             $delete = Storage::disk('public')->delete($apartment->image);
-
             $image = Storage::disk('public')->put('apartment_image', $request['image']);
             $data['image'] = $image;
         } else if ($apartment->image){
             unset( $data['image']);
         }
 
-
         $apartment->fill($data);
         $apartment->save();
 
         if(isset($request['services'])){
             $services_all = Service::all();
-            $this_services = [];
-            foreach ($services_all as $service){
-                if (in_array($service->name, $request['services'])){
-                    $this_services[] = $service->id;
-                }
-            }
+            $this_services = $services_all->whereIn('name', $request['services'])->pluck('id')->all();
             $apartment->services()->sync($this_services);
         }
 
