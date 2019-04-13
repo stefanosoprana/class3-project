@@ -77,7 +77,7 @@
                                     @component('components.apartment.card', ['apartment' => $apartment_sponsorized])
                                     @endcomponent
                                 </div>
-                                @endforeach
+                            @endforeach
                         </div>
                         {{-- End Cards --}}
                     </div>
@@ -112,7 +112,7 @@
                                             <ul>
                                                 <li>2,99 € per 24 ore</li>
                                                 <li>5.99 € per 72 ore</li>
-                                                <li> 9.99 € per 144 ore</li>
+                                                <li>9.99 € per 144 ore</li>
                                             </ul>
                                         </div>
                                     </div>
