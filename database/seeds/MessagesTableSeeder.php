@@ -20,11 +20,11 @@ class MessagesTableSeeder extends Seeder
 
         ];
 
-        for ($i=0; $i < 20; $i++) {
+        for ($i=0; $i < 3000; $i++) {
 
           $now = Carbon::now();
           $apartment = Apartment::inRandomOrder()->first();
-            $date = $faker->dateTimeBetween('-2 years', $endDate = 'now', $timezone = null);
+            $date = $faker->dateTimeBetween('-2 years', $endDate = 'now', $timezone = 'Europe/Rome');
 
             $user = $apartment["user_id"];
             $data[] = [

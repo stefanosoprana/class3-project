@@ -15,22 +15,18 @@ class VisitsTableSeeder extends Seeder
     {
       $data = [];
 
-      for ($i=0; $i < 50; $i++) {
+      for ($i=0; $i < 3000; $i++) {
 
         $apartment = Apartment::inRandomOrder()->first();
-        $date = $faker->dateTimeBetween('-2 years', $endDate = 'now', $timezone = null);
+        $date = $faker->dateTimeBetween('-2 years', $endDate = 'now', $timezone = 'Europe/Rome');
           $data[] = [
             "apartment_id" => $apartment["id"],
             "ip" => $faker->ipv4,
             "created_at" => $date,
             "updated_at" => $date,
           ];
-
-
-
       }
 
       Visit::insert($data);
-
     }
 }
