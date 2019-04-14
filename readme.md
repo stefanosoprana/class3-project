@@ -92,3 +92,14 @@ La lista dei comuni è stata generata utilizzando il database: https://github.co
 
 Le fotografie provengono dal sito:
 https://www.pexels.com/
+
+## Animated Screenshots
+<img src="screenshots/search.gif" alt="Search" width="480"/>
+
+<img src="screenshots/message.gif" alt="Send Message" width="480"/>
+
+<img src="screenshots/sponsorship.gif" alt="Sponsorship" width="480"/>
+
+<img src="screenshots/mod-apartment.gif" alt="Modifie apartment" width="480"/>
+
+<img src="screenshots/messages.gif" alt="Messages" width="480"/>
