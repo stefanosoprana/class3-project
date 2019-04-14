@@ -51,7 +51,7 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $sponsorships = Apartment::AllActiveSponsorhips();
+        $sponsorships = Apartment::AllActiveSponsorhips()->get();
 
         return view('apartment.index', compact('sponsorships'));
     }

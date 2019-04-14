@@ -1,5 +1,5 @@
 <div class="h-100 card">
-    <div class="card__content {{(!$apartment->published) ? 'unpublished' : null}} {{($apartment->sponsorship && \Illuminate\Support\Carbon::create(\App\Sponsorship::find($apartment->sponsorship)->first()->sponsor_expired)->diffInDays(\Illuminate\Support\Carbon::now(), false) <= 0) ? 'sponsorized' : null}}">
+    <div class="card__content {{(!$apartment->published) ? 'unpublished' : null}} {{($apartment->sponsorship && \App\Sponsorship::IsActiveSponsorship($apartment->id))? 'sponsorized' : null}}">
         @if(isset($med_visits))
         <div class="alert-sponsorship">
             Solo {{$med_visits}} {{($med_visits == 1) ? 'visita' : 'visite'}} al mese
@@ -37,7 +37,7 @@
         @if(!empty(Auth::user()) && $apartment->user->id === Auth::user()->id && empty($med_visits))
             <div class="card__edit-buttons">
                 <div class="">
-                    @if($apartment->published)
+                    @if($apartment->published && \App\Sponsorship::IsActiveSponsorship($apartment->id) === false)
                     <a href="{{ route('sponsorships.index', $apartment->id) }}" class="btn btn-sponsor"><i class="fas fa-certificate" title="Sponsorizza"></i></a>
                     @endif
                     <a href="{{ route('apartment.show', $apartment->id) }}" class="btn btn-default {{(!$apartment->published) ? 'unpublished' : null}}"><i class="fas fa-eye" title="Visualizza"></i></a>

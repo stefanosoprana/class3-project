@@ -72,7 +72,7 @@
                         </div>
                         {{-- Cards --}}
                         <div class="row">
-                            @forelse($sponsorships as $apartment_sponsorized)
+                            @foreach($sponsorships as $apartment_sponsorized)
                                 <div class="col-lg-4 col-sm-6 mb-4">
                                     @component('components.apartment.card', ['apartment' => $apartment_sponsorized])
                                     @endcomponent
@@ -97,7 +97,7 @@
                         </div>
                         {{-- Cards --}}
                         <div class="row">
-                            @forelse($suggestion_sponsorships as $apartment_to_sponsor)
+                            @foreach($suggestion_sponsorships as $apartment_to_sponsor)
                                 <div class="col-lg-4 col-sm-6 mb-4">
                                     @component('components.apartment.card', ['apartment' => $apartment_to_sponsor['apartment'], 'med_visits' => $apartment_to_sponsor['med_visits']])
                                     @endcomponent

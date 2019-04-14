@@ -37,9 +37,10 @@ class HomeController extends Controller
         //tutti fli appartamenti dell'utente
         $apartments_all = Apartment::where('user_id', $user)->get();
         //tutte le sponsorizzazioni attive
-        $sponsorships = Apartment::UserActiveSponsorhips($user)->toArray();
+        $sponsorships = Apartment::UserActiveSponsorhips($user)->get();
 
-        if(count($sponsorships) === 0){
+        if(count($sponsorships->toArray()) === 0){
+            $sponsorships = null;
             $suggestion_sponsorships = [];
             $i = 0;
 
