@@ -100,6 +100,6 @@ https://www.pexels.com/
 
 <img src="screenshots/sponsorship.gif" alt="Sponsorship" width="480"/>
 
-<img src="screenshots/mod-apartment.gif" alt="Modifie apartment" width="480"/>
+<img src="screenshots/mod-app.gif" alt="Modify apartment" width="480"/>
 
 <img src="screenshots/messages.gif" alt="Messages" width="480"/>
