@@ -102,16 +102,17 @@ Le fotografie provengono dal sito:
 https://www.pexels.com/
 
 ## Animated Screenshots
+#### La ricerca
 <img src="screenshots/search.gif" alt="Search" width="640"/>
 
-
+#### Inviare un messaggio
 <img src="screenshots/message.gif" alt="Send Message" width="640"/>
 
-
+#### Pagare una sponsorizzazione
 <img src="screenshots/sponsorship.gif" alt="Sponsorship" width="640"/>
 
-
+#### Modificare un appartamento
 <img src="screenshots/mod-app.gif" alt="Modify apartment" width="640"/>
 
-
+#### Visualizzare i messaggi ricevuti
 <img src="screenshots/messages.gif" alt="Messages" width="640"/>
