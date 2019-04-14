@@ -1,3 +1,11 @@
+[Il progetto](#boolbnb)<br>
+[Brief](#tempistiche-di-realizzazione)<br>
+[Metodologia](#metodologia-di-lavoro)<br>
+[Requisiti tecnici](#requisiti-tecnici-richiesti-da-brief)<br>
+[Install](#come-visionare-il-progetto)<br>
+[Disclaimer](#disclaimer)<br>
+[Screenshots](#animated-screenshots)<br>
+
 # BoolBnB
 BoolBnB è il progetto finale del corso Boolean Careers Full Stack Web Developer (III classe), ideato per poter utilizzare tutte le tecnologie e metodologie studiate durante il corso.
 
@@ -96,10 +104,14 @@ https://www.pexels.com/
 ## Animated Screenshots
 <img src="screenshots/search.gif" alt="Search" width="640"/>
 
+
 <img src="screenshots/message.gif" alt="Send Message" width="640"/>
+
 
 <img src="screenshots/sponsorship.gif" alt="Sponsorship" width="640"/>
 
+
 <img src="screenshots/mod-app.gif" alt="Modify apartment" width="640"/>
+
 
 <img src="screenshots/messages.gif" alt="Messages" width="640"/>
