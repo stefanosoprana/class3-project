@@ -36,7 +36,7 @@ Stack LAMP
 
 ## Requisiti Tecnici richiesti da brief
 1. **Client-side Validation**: tutti gli input inseriti dell’utente devono essere controllati client-side (oltre che server-side)
-2. **Salvataggio informazioni di geografiche**: i dati riguardanti l’ubicazione degli appartamenti devono essere salvati sul database con latitudine e longitudine. Utilizzare: https://ubilabs.github.io/geocomplete/
+2. **Salvataggio informazioni geografiche**: i dati riguardanti l’ubicazione degli appartamenti devono essere salvati sul database con latitudine e longitudine. Utilizzare: https://ubilabs.github.io/geocomplete/
 3. **Sistema di Pagamento**: il sistema di pagamento da utilizzare è braintree (https://www.braintreepayments.com/ ).
 4. **Sito Responsive**: il sito deve essere correttamente visibile da desktop e da smartphone
 
