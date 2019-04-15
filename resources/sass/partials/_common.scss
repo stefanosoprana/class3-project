@@ -149,8 +149,8 @@ main > div:first-child{
     opacity: 0;
     z-index: 0;
     &:checked + i{
-      color: $purple;
-      border-color: $purple;
+      color: $darkBlue;
+      border-color: $darkBlue;
     }
     &:checked + i.unpublished{
       color: $lightGrey;

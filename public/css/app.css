@@ -10814,8 +10814,8 @@ main > div:first-child {
 
 .checkbox-container input[type=radio]:checked + i,
 .checkbox-container input[type=checkbox]:checked + i {
-  color: #A576fb;
-  border-color: #A576fb;
+  color: #064ad2;
+  border-color: #064ad2;
 }
 
 .checkbox-container input[type=radio]:checked + i.unpublished,
