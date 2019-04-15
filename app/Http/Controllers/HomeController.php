@@ -35,7 +35,7 @@ class HomeController extends Controller
         //ultimi 4 messaggi
         $messages = Message::where('user_id', $user)->latest()->limit(4)->get();
         //tutti fli appartamenti dell'utente
-        $apartments_all = Apartment::where('user_id', $user)->get();
+        $apartments_all = Apartment::where('user_id', $user)->where('published', true)->get();
         //tutte le sponsorizzazioni attive
         $sponsorships = Apartment::UserActiveSponsorhips($user)->get();
 

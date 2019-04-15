@@ -53,7 +53,7 @@
                 </form>
             </div>
         @endif
-        @if(!empty(Auth::user()) && !empty($med_visits) && $apartment->published)
+        @if(!empty(Auth::user()) && !empty($med_visits) && $apartment->published && \App\Sponsorship::IsActiveSponsorship($apartment->id) === false)
         <div class="card__edit-buttons justify-content-center">
             <div class="">
                 <a href="{{ route('sponsorships.index', $apartment->id) }}" class="btn btn-sponsor"><i class="fas fa-certificate" title="Sponsorizza"></i> Sponsorizzalo ora!</a>

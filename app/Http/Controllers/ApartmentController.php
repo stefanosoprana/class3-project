@@ -81,7 +81,7 @@ class ApartmentController extends Controller
     public function userIndex()
     {
         $user = Auth::user()->id;
-        $apartments = Apartment::where('user_id', $user)->orderBy('created_at', 'DESC')->get();
+        $apartments = Apartment::where('user_id', $user)->orderBy('updated_at', 'DESC')->get();
         return view('apartment.userIndex', compact('apartments'));
     }
 
