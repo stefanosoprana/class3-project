@@ -140,8 +140,7 @@ class ApartmentController extends Controller
             }
         }
 
-        $apartments_query = Apartment::radius($lon, $lat, $radius);
-        $apartments_query->where('published', '=', 1);
+        $apartments_query = Apartment::radius($lon, $lat, $radius)->where('published', true);
 
         //se sono presenti servizi uso tabella pivot
         if(count($services) > 0){
@@ -154,27 +153,25 @@ class ApartmentController extends Controller
 
         //se è presente il numero di letti
         if($beds){
-            //dd($beds);
             $apartments_query->where('beds', '>=', $beds);
         }
         //se è presente il numero di stanze
         if($rooms){
-            // dd($rooms);
             $apartments_query->where('rooms', '>=', $rooms);
         }
         //duplico query prendo solo appartamenti sponsorizzati
-        $apartments_sponsorized_query =  clone $apartments_query;
+        $apartments_sponsored_query =  clone $apartments_query;
 
         //elimino sponsorizzati
         $apartments_query->doesnthave('sponsorship');
-        //get su apartmenti
+        //get su apartment
         $apartments = $apartments_query->get();
 
         //get su apartmenti sponsorizzati
-        $apartments_sponsorized = $apartments_sponsorized_query->has('sponsorship')->get();
+        $apartments_sponsored = $apartments_sponsored_query->has('sponsorship')->get();
         //salvo dati appartamenti sponsorizzati in array
         $data = [];
-        foreach ($apartments_sponsorized as $apartment) {
+        foreach ($apartments_sponsored as $apartment) {
             $id =  $apartment->id;
             $name = $apartment->title;
             $price = $apartment->price;

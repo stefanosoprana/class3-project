@@ -60,5 +60,7 @@ class Apartment extends Model
             $query->whereDate('sponsor_expired', '>=' ,$now)->orderBy('created_at', 'ASC');
         });
     }
-    
+
 }
+
+
